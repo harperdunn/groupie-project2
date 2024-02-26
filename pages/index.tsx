@@ -1,35 +1,43 @@
-// import React, { useState, useEffect } from 'react';
-// import { onAuthStateChanged } from "firebase/auth";
-// import { auth } from '../firebase';
- 
-// const Home = () => {
- 
-//     useEffect(()=>{
-//         onAuthStateChanged(auth, (user) => {
-//             if (user) {
-//               // User is signed in, see docs for a list of available properties
-//               // https://firebase.google.com/docs/reference/js/firebase.User
-//               const uid = user.uid;
-//               // ...
-//               console.log("uid", uid)
-//             } else {
-//               // User is signed out
-//               // ...
-//               console.log("user is logged out")
-//             }
-//           });
-         
-//     }, [])
- 
-//   return (
-//     <section>        
-//       …
-//     </section>
-//   )
-// }
- 
-// export default Home
+import type { NextPage } from "next";
+import {initFirebase} from "../firebase";
+import {getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {useRouter} from "next/router"
+import {Link} from "next/link"
+import { useEffect } from 'react';
+import{auth} from "../firebase"
 
-export default function HomePage() {
-  return <div>Welcome to the Home Page!</div>;
+
+
+const Home: NextPage = () =>{
+
+const provider= new GoogleAuthProvider();
+const[user, loading]=useAuthState(auth); //gets the user state, loading to know to wait for it to load or not
+const router=useRouter();
+if (loading){
+  return (
+<div>Loading...</div>
+ );
 }
+
+  if (user) {
+    router.push("/loggedin");
+  }
+
+const signIn= async () =>{ //calls the popup function with the client and provider given
+  const result = await signInWithPopup(auth, provider)
+  console.log(result.user);
+}
+return (
+  <div className="text-center flex flex-col gap-4 items-center">
+    <div>Please sign in to continue</div>
+    <button onClick={signIn}>
+      <div className="bg-blue-600 text-white rounded-md p-2 w-48">
+        Sign In
+      </div>
+    </button>
+  </div>
+);
+}
+
+export default Home;
