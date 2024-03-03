@@ -1,0 +1,61 @@
+/* Resetting default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: teal; /* Teal background */
+  color: white; /* White text */
+}
+
+/* Header styles */
+header {
+  background-color: navy; /* Navy blue background */
+  padding: 20px;
+}
+
+header h1 {
+  font-size: 32px;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: skyblue; /* Sky blue text */
+  text-decoration: none;
+}
+
+/* Main content styles */
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: tan; /* Tan heading */
+}
+
+/* Footer styles */
+footer {
+  background-color: navy; /* Navy blue background */
+  padding: 20px;
+  text-align: center;
+}
+
+footer p {
+  font-size: 14px;
+}
