@@ -12,22 +12,23 @@ import{auth} from "../firebase"
 const Home: NextPage = () =>{
 
 const provider= new GoogleAuthProvider();
-const[user, loading]=useAuthState(auth); //gets the user state, loading to know to wait for it to load or not
 const router=useRouter();
-if (loading){
-  return (
-<div>Loading...</div>
- );
-}
+const[user, loading]=useAuthState(auth); //gets the user state, loading to know to wait for it to load or not
 
-  if (user) {
-    router.push("/loggedin");
-  }
 
 const signIn= async () =>{ //calls the popup function with the client and provider given
   const result = await signInWithPopup(auth, provider)
   console.log(result.user);
+  if (loading){
+    return (
+  <div>Loading...</div>
+   );
+  }
+  if (user) {
+    router.push("/loggedin");
+  }
 }
+
 return (
   <div className="text-center flex flex-col gap-4 items-center">
     <div>Please sign in to continue</div>
