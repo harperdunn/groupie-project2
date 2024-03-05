@@ -1,0 +1,28 @@
+/* Sign In Display */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    color: rgb(4, 4, 87);
+}
+
+.text-wrapper {
+    margin-bottom: 20px;
+    font-size: 75px;
+}
+
+.signin-container {
+    margin-top: 50px;
+}
+
+.signin-button {
+    color: rgb(4, 4, 87);
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+}
