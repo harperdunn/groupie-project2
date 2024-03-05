@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
-import {initFirebase} from "../firebase";
+// import {initFirebase} from "../firebase";
 import {getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useRouter} from "next/router"
-import {Link} from "next/link"
+import Link from 'next/link';
 import { useEffect } from 'react';
 import{auth} from "../firebase"
 
@@ -21,7 +21,7 @@ if (loading){
 }
 
   if (user) {
-    router.push("/loggedin");
+    router.push("/[username]");
   }
 
 const signIn= async () =>{ //calls the popup function with the client and provider given
