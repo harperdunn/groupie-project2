@@ -53,7 +53,7 @@ const Loggedin = () => {
               <li><a href="search.html">Search</a></li>
               <li><a href="bucketlist.html">Bucket List</a></li>
               <li><a href="post.html">Post</a></li>
-              <li><a href="profile">Profile</a></li>
+              <li><a href="profile/edit">Profile</a></li>
 
               <li><a href="followers.html">Followers</a></li>
             </ul>
