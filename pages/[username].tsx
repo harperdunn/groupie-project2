@@ -4,12 +4,8 @@ import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { doc, getDoc, setDoc} from 'firebase/firestore';
+const { username } = router.query;
 
-
-import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db } from '../firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const Profile = () => {
   const [user] = useAuthState(auth);
@@ -24,15 +20,15 @@ const Profile = () => {
       const docRef = doc(db, 'profiles', user.uid);
       getDoc(docRef).then((docSnap) => {
         if (docSnap.exists()) {
-          setProfile(docSnap.data());
+          setProfile(docSnap.data());//sets profile variable to have the data
         }
       });
     }
-  }, [user]);
+  }, [user]);//fetches every time the user changes
 
   // Update profile information
   const updateProfile = async () => {
-    const docRef = doc(db, 'profiles', user.uid);
+    const docRef = doc(db, 'profiles', user.uid);//creates reference to a profile document
     await setDoc(docRef, profile);
     setEditMode(false);
   };
