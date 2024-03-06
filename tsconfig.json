@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/AuthForm.js", "pages/login/index.js", "firebase.js", "pages/loggedin.js", "pages/users/[username].js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/AuthForm.js", "pages/login/index.js", "firebase.js", "components/NavBar/loggedin.js", "pages/users/[username].js"],
   "exclude": ["node_modules"]
 }

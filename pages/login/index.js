@@ -25,7 +25,7 @@ const signIn= async () =>{ //calls the popup function with the client and provid
    );
   }
   if (user) {
-    router.push("/loggedin");
+    router.push("/profile/edit");
   }
 }
 
