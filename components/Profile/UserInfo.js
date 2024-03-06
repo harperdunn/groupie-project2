@@ -15,17 +15,11 @@ function UserInfo() {
     return (
       <div>
         User: {currentUser.email}
-        //{currentUser.uid}
-{ 
-        // {currentUser.providerData.map((profile, index) => (
-        //   <div key={index}>
-        //     <p>Sign-in provider: {profile.providerId}</p>
-        //     <p>Provider-specific UID: {profile.uid}</p>
-        //     <p>Name: {profile.displayName}</p>
-        //     <p>Email: {profile.email}</p>
-        //     <p>Photo URL: {profile.photoURL}</p>
-        //   </div>
-        // ))} }
+        <div>
+        {currentUser.uid}
+     </div>
+       
+    
       </div> 
     );
         }
