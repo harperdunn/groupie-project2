@@ -15,8 +15,8 @@ function UserInfo() {
     return (
       <div>
         User: {currentUser.email}
-        <div>
-        {currentUser.uid}
+    <div>
+        UID: {currentUser.uid}
      </div>
        
     

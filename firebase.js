@@ -30,7 +30,7 @@ export const auth = getAuth(app);
 export const db=getFirestore(app);
 export const storage= getStorage(app);
 
-//custom react hook
+//custom react hook. useAuth sets the variable currentUser every time the auth state changes so that it's always updated
 export function useAuth(){
   const[currentUser, setCurrentUser]=useState();//rerenders every time there's a change
   useEffect(()=>{
