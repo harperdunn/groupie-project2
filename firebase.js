@@ -5,7 +5,8 @@ import { getStorage } from "firebase/storage"; // Assuming you're using Firebase
 //import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged} from "firebase/auth";
+import {useEffect, useState} from 'react'
 
 
 // Your web app's Firebase configuration
@@ -28,3 +29,13 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db=getFirestore(app);
 export const storage= getStorage(app);
+
+//custom react hook
+export function useAuth(){
+  const[currentUser, setCurrentUser]=useState();//rerenders every time there's a change
+  useEffect(()=>{
+    const unsub = onAuthStateChanged(auth,user=>{setCurrentUser(user)});
+    return unsub;
+;  },[])
+  return currentUser;
+}
