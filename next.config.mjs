@@ -1,4 +1,12 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+export default {
+    async redirects() {
+      return [
+        {
+          source: '/',
+          destination: '/login', // Replace '/yourCustomHomePage' with the path you want as your home page
+          permanent: true,
+        },
+      ];
+    },
+  };
