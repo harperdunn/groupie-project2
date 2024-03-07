@@ -4,6 +4,7 @@ import { db } from '../../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useRouter } from "next/router";
 import UserInfo from '../../components/Profile/UserInfo';
+import Layout from '../../components/Layout'; 
 
 export default function EditProfile() {
     const router = useRouter(); // This should be inside the component to use the useRouter hook properly
@@ -50,6 +51,7 @@ export default function EditProfile() {
 
     return (
         <>
+        <Layout>
             <UserInfo />
             <form onSubmit={handleSubmit}>
                 <div>
@@ -68,6 +70,7 @@ export default function EditProfile() {
                 </div>
                 <button type="submit">Update Profile</button>
             </form>
+            </Layout>
         </>
     );
 }
