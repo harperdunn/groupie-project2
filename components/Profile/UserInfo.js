@@ -4,7 +4,7 @@ import{useAuth} from "../../firebase"
 
 function UserInfo() {
   const [user, setUser] = useState(null);
-  const currentUser=useAuth();//current user is returned to useAuth state using custom hook
+  const {currentUser, loading}=useAuth();//current user is returned to useAuth state using custom hook
 
 //   useEffect(() => {
 //     setUser(auth.currentUser);
