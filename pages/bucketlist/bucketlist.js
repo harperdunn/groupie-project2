@@ -1,4 +1,4 @@
-import './bucketlist';
+import './bucketlist.css';
 import { useState, useEffect } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
