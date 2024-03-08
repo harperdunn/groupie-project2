@@ -17,28 +17,13 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar">
-            <div>
-                <Link href="/profile/edit">Profile</Link>
-            </div>
-            <div>
-                <Link href="/bucketlist/bucketlist">Bucket List</Link>
-            </div>
-            <div>
-                <Link href="/post/create-post">Create New Post</Link>
-            </div>
-            <div>
-                <Link href="/post/view-post">View Posts</Link>
-            </div>
-            <div>
-                <Link href="/search/search">Search</Link>
-            </div>
-            <div>
-                <Link href="/discover/discover">Discover</Link>
-            </div>
-            <div>
-                <button onClick={handleSignOut} className="hover:underline ">Sign Out</button>
-            </div>
+        <nav className='navbar'>
+                <Link className='navbar-link' href="/profile/edit">Profile</Link>
+                <Link className='navbar-link' href="/bucketlist/bucketlist">Bucket List</Link>
+                <Link className='navbar-link' href="/post/create-post">Create New Post</Link>
+                <Link className='navbar-link' href="/search/search">Search</Link>
+                <Link className='navbar-link' href="/discover/discover">Discover</Link>
+                <button onClick={handleSignOut} className="signout-button">Sign Out</button>
         </nav>
     );
 };

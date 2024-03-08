@@ -1,1 +1,50 @@
 /* navbar.css */
+
+.navbar {
+    background-color: rgb(28, 7, 76);
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+  }
+  
+  .navbar-link {
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .navbar-link:hover {
+    background-color: rgb(18, 4, 50);
+  }
+
+  .signout-button {
+    color: rgb(255, 255, 255);
+    background-color: rgb(43, 12, 116);
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 5px 8px;
+  }
+
+  .signout-button:hover {
+    background-color: rgb(28, 7, 76);
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .png-iframe {
+    width: 1500px;
+    height: 80px;
+    border: none;
+  }
+  
