@@ -10,7 +10,6 @@ const CreateBucketList = () => {
   const [newArtist, setNewArtist] = useState('');
   const router = useRouter();
 
-  // Fetch user's bucket list on login
   useEffect(() => {
     if (!currentUser) {
       if (!authLoading) {
@@ -34,7 +33,6 @@ const CreateBucketList = () => {
     fetchBucketList();
   }, [currentUser, authLoading, router]);
 
-  // Update Firestore document on bucketList state change
   useEffect(() => {
     if (currentUser && bucketList.length > 0) {
       const updateBucketList = async () => {
