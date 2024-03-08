@@ -1,5 +1,4 @@
 // components/Navbar.js
-// this is the navbar component, add links here to make them appear
 import './navbar.css';
 import Link from 'next/link';
 import { auth } from "../firebase";
