@@ -25,7 +25,7 @@ const CreateBucketList = () => {
 
       if (docSnap.exists()) {
         const { bucketList } = docSnap.data();
-        setBucketList(bucketList.map(name => ({ name, watched: false }))); // Adjust according to your data structure
+        setBucketList(bucketList.map(name => ({ name, watched: false })));
       } else {
         console.log("No existing bucket list");
       }
