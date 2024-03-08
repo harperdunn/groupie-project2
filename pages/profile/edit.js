@@ -1,26 +1,43 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from "../../firebase";
-import { db } from '../../firebase';
-import { setDoc, doc, updateDoc, onSnapshot } from 'firebase/firestore';
+import { useAuth, db } from "../../firebase";
+import { setDoc, doc, getDoc} from 'firebase/firestore';
 import { useRouter } from "next/router";
 import UserInfo from '../../components/Profile/UserInfo';
 import Layout from '../../components/Layout'; 
 
 export default function EditProfile() {
-    const router = useRouter(); // This should be inside the component to use the useRouter hook properly
-    const {currentUser, loading} = useAuth(); // Current user is returned to useAuth state using custom hook
-    const [loading2, setLoading2] = useState(loading); // Initialize loading state
+    const { currentUser, loading: authLoading } = useAuth();
+    const [loading, setLoading] = useState(true); 
     const [bio, setBio] = useState('');
-    const [artists, setArtists] = useState(['', '', '', '', '']); // Initialize with 5 empty strings for the top 5 artists
+    const [artists, setArtists] = useState(['', '', '', '', '']);
+    const router = useRouter();
    
     useEffect(() => {
-        if (!currentUser && !loading2) { // Check if the user is not logged in and not loading
-          router.push('/'); // Redirect if not authenticated
-        } else if(currentUser) {
-            setLoading2(false);
-           // Set loading to false once the user is fetched
+        if (!currentUser) {
+            if (!authLoading) {
+                router.push('/');
+            }
+            return;
         }
-      }, [currentUser, loading, router]); // Include all dependencies here
+
+        // Fetch user profile
+        const fetchUserProfile = async () => {
+            const userRef = doc(db, "users", currentUser.uid);
+            const docSnap = await getDoc(userRef);
+
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                setBio(userData.bio || '');
+                setArtists(userData.artists || ['', '', '', '', '']);
+            } else {
+                // Handle the case where there is no user data
+                console.log("Document does not exists");
+            }
+            setLoading(false);
+        };
+
+        fetchUserProfile();
+    }, [currentUser, authLoading, router]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
