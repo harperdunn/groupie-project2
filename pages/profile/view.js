@@ -4,6 +4,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useRouter } from "next/router";
 import UserInfo from '../../components/Profile/UserInfo';
 import Layout from '../../components/Layout';
+import './view.css';
 
 export default function ViewProfile() {
     const { currentUser, loading: authLoading } = useAuth();

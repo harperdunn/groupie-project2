@@ -15,9 +15,6 @@ function UserInfo() {
     return (
       <div>
         User: {currentUser.displayName}
-  
-       
-    
       </div> 
     );
         }

@@ -4,6 +4,7 @@ import { setDoc, doc, getDoc} from 'firebase/firestore';
 import { useRouter } from "next/router";
 import UserInfo from '../../components/Profile/UserInfo';
 import Layout from '../../components/Layout'; 
+import './edit.css';
 
 export default function EditProfile() {
     const { currentUser, loading: authLoading } = useAuth();
