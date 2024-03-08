@@ -1,80 +1,97 @@
-import './bucketlist.css';
-import { useState, useEffect } from 'react';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db, useAuth } from '../../firebase';
+import Layout from '../../components/Layout';
 
-// Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp({
-    apiKey: 'YOUR_API_KEY',
-    authDomain: 'YOUR_AUTH_DOMAIN',
-    projectId: 'YOUR_PROJECT_ID'
-  });
-}
-
-const db = firebase.firestore();
-
-export default function Checklist() {
-  const [artists, setArtists] = useState([]);
+const CreateBucketList = () => {
+  const { currentUser, loading: authLoading } = useAuth();
+  const [bucketList, setBucketList] = useState([]);
   const [newArtist, setNewArtist] = useState('');
+  const router = useRouter();
 
+  // Fetch user's bucket list on login
   useEffect(() => {
-    const unsubscribe = db.collection('artists').onSnapshot(snapshot => {
-      const artistsData = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setArtists(artistsData);
-    });
+    if (!currentUser) {
+      if (!authLoading) {
+        router.push('/');
+      }
+      return;
+    }
 
-    return () => unsubscribe();
-  }, []);
+    const fetchBucketList = async () => {
+      const bucketListRef = doc(db, "bucketlists", currentUser.uid);
+      const docSnap = await getDoc(bucketListRef);
 
-  const addArtist = async () => {
-    if (newArtist.trim() === '') return;
+      if (docSnap.exists()) {
+        const { bucketList } = docSnap.data();
+        setBucketList(bucketList.map(name => ({ name, watched: false }))); // Adjust according to your data structure
+      } else {
+        console.log("No existing bucket list");
+      }
+    };
 
-    await db.collection('artists').add({
-      name: newArtist,
-      checked: false
-    });
-    setNewArtist('');
+    fetchBucketList();
+  }, [currentUser, authLoading, router]);
+
+  // Update Firestore document on bucketList state change
+  useEffect(() => {
+    if (currentUser && bucketList.length > 0) {
+      const updateBucketList = async () => {
+        const bucketListRef = doc(db, "bucketlists", currentUser.uid);
+        await setDoc(bucketListRef, { bucketList: bucketList.map(item => item.name) }, { merge: true });
+      };
+
+      updateBucketList().catch(console.error);
+    }
+  }, [bucketList, currentUser]);
+
+  const handleAddArtist = () => {
+    if (newArtist.trim() !== '') {
+      setBucketList(currentList => [...currentList, { name: newArtist, watched: false }]);
+      setNewArtist('');
+    }
   };
 
-  const toggleArtist = async (id, checked) => {
-    await db.collection('artists').doc(id).update({
-      checked: !checked
-    });
+  const handleToggleWatched = (index) => {
+    setBucketList(currentList => currentList.map((item, i) => 
+      i === index ? { ...item, watched: !item.watched } : item
+    ));
   };
+
+  const handleDeleteArtist = (index) => {
+    setBucketList(currentList => currentList.filter((_, i) => i !== index));
+  };
+
+  if (authLoading) return <Layout>Loading...</Layout>;
 
   return (
-    <layout>
-    <div>
-      <h1>Checklist</h1>
+    <Layout>
       <div>
+        <label htmlFor="newArtist">Add Artist to Bucket List:</label>
         <input
+          id="newArtist"
           type="text"
           value={newArtist}
-          onChange={e => setNewArtist(e.target.value)}
-          placeholder="Enter artist name"
+          onChange={(e) => setNewArtist(e.target.value)}
         />
-        <button onClick={addArtist}>Add Artist</button>
+        <button type="button" onClick={handleAddArtist}>Add to Bucket List</button>
+        <ul>
+          {bucketList.map((item, index) => (
+            <li key={index}>
+              <input
+                type="checkbox"
+                checked={item.watched}
+                onChange={() => handleToggleWatched(index)}
+              />
+              {item.name}
+              <button type="button" onClick={() => handleDeleteArtist(index)}>Delete</button>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul>
-        {artists.map(artist => (
-          <li key={artist.id}>
-            <input
-              type="checkbox"
-              checked={artist.checked}
-              onChange={() => toggleArtist(artist.id, artist.checked)}
-            />
-            <span style={{ textDecoration: artist.checked ? 'line-through' : 'none' }}>
-              {artist.name}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
-    </layout>
+    </Layout>
   );
-}
+};
 
+export default CreateBucketList;
