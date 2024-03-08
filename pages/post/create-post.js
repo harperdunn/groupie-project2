@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../firebase'; 
-import Layout from '../../components/Layout'; // If you're using a Layout component
+import { db, useAuth } from '../../firebase'; 
+import Layout from '../../components/Layout';
 
 const CreatePost = () => {
+  const { currentUser, loading } = useAuth(); // Use the useAuth hook
   const [artist, setArtist] = useState('');
   const [venue, setVenue] = useState('');
   const [date, setDate] = useState('');
@@ -17,6 +18,13 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+    if (loading) return; 
+    if (!currentUser) {
+      console.error("No user logged in");
+      return;
+    }
+
     try {
       await addDoc(collection(db, "posts"), {
         artist,
@@ -25,6 +33,7 @@ const CreatePost = () => {
         setList,
         rating,
         review,
+        userId: currentUser.uid, // Use the UID from currentUser provided by useAuth
       });
 
       router.push('/post/view-post');
@@ -43,6 +52,8 @@ const CreatePost = () => {
   const handleDeleteSong = (index) => {
     setSetList(currentList => currentList.filter((_, i) => i !== index));
   };
+
+  if (loading) return <Layout>Loading...</Layout>;
 
   return (
     <Layout>
