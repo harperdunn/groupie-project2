@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-firebase-hooks": "^5.1.1",
+    "reactstrap": "^9.2.2",
     "tailwind": "^4.0.0"
   },
   "devDependencies": {
