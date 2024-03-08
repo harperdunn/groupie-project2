@@ -4,13 +4,34 @@
     background-color: rgb(28, 7, 76);
     color: white;
     display: flex;
+    width: 90px;
+    height: 100vh;
+    flex-direction: column;
+    flex-shrink: 0;
+    align-items: center;
     justify-content: space-around;
-    padding: 10px;
+    padding: 5px;
   }
+
+/* formatting for main pages; sits next to nav bar */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 40px; /* adjust margin to accommodate navbar*/
+    margin-top: 20px;
+}
+
+/* put navbar and page content into a container so that they are aligned side by side */
+.page-wrapper {
+    display: flex;
+    flex-direction: row; /* Change to row to align content side by side */
+    align-items: flex-start;
+}
   
   .navbar-link {
     color: white;
-    font-size: 24px;
+    font-size: 20px;
     font-family: 'Times New Roman', Times, serif;
     text-decoration: none;
     font-weight: bold;
@@ -26,11 +47,11 @@
   .signout-button {
     color: rgb(255, 255, 255);
     background-color: rgb(43, 12, 116);
-    font-size: 20px;
+    font-size: 16px;
     text-decoration: none;
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
-    padding: 5px 8px;
+    padding: 5px 4px;
   }
 
   .signout-button:hover {
