@@ -9,7 +9,7 @@ const CreateBucketList = () => {
   const { currentUser, loading: authLoading } = useAuth();
   const [bucketList, setBucketList] = useState([]);
   const [newArtist, setNewArtist] = useState('');
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(null); 
   const router = useRouter();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const CreateBucketList = () => {
 
       if (docSnap.exists()) {
         const { bucketList } = docSnap.data();
-        setBucketList(bucketList.map(({ name, imageUrl, watched }) => ({ name, imageUrl, watched })));
+        setBucketList(bucketList);
       } else {
         console.log("No existing bucket list");
       }
@@ -39,7 +39,7 @@ const CreateBucketList = () => {
     if (currentUser && bucketList.length > 0) {
       const updateBucketList = async () => {
         const bucketListRef = doc(db, "bucketlists", currentUser.uid);
-        await setDoc(bucketListRef, { bucketList: bucketList.map(({ name, imageUrl, watched }) => ({ name, imageUrl, watched })) }, { merge: true });
+        await setDoc(bucketListRef, { bucketList }, { merge: true });
       };
 
       updateBucketList().catch(console.error);
@@ -53,8 +53,11 @@ const CreateBucketList = () => {
   };
 
   const handleAddArtist = async () => {
-    if (newArtist.trim() !== '' && file) {
-      const imageUrl = await uploadImage(file, newArtist);
+    if (newArtist.trim() !== '') {
+      let imageUrl = '';
+      if (file) {
+        imageUrl = await uploadImage(file, newArtist);
+      }
       setBucketList(currentList => [...currentList, { name: newArtist, imageUrl, watched: false }]);
       setNewArtist('');
       setFile(null);
@@ -100,7 +103,8 @@ const CreateBucketList = () => {
                 checked={item.watched}
                 onChange={() => handleToggleWatched(index)}
               />
-              {item.name} {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 50, height: 50 }}/>}
+              {item.name}
+              {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 50, height: 50 }} />}
               <button type="button" onClick={() => handleDeleteArtist(index)}>Delete</button>
             </li>
           ))}
