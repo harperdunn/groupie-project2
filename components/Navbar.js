@@ -18,7 +18,7 @@ const Navbar = () => {
 
     return (
         <nav className='navbar'>
-                <Link className='navbar-link' href="/profile/edit">Profile</Link>
+                <Link className='navbar-link' href="/profile/view">Profile</Link>
                 <Link className='navbar-link' href="/bucketlist/bucketlist">Bucket List</Link>
                 <Link className='navbar-link' href="/post/create-post">Create New Post</Link>
                 <Link className='navbar-link' href="/search/search">Search</Link>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useAuth, db } from "../../firebase";
+import { useAuth, db, storage } from "../../firebase";
 import { setDoc, doc, getDoc} from 'firebase/firestore';
 import { useRouter } from "next/router";
 import UserInfo from '../../components/Profile/UserInfo';
@@ -54,6 +54,7 @@ export default function EditProfile() {
 
             console.log('Profile updated');
             // Optionally: Redirect or show a success message
+            router.push('/profile/view');
         } catch (error) {
             console.error("Error updating profile:", error);
             // Provide feedback to the user about the failure
@@ -88,7 +89,7 @@ export default function EditProfile() {
                         />
                     ))}
                 </div>
-                <button type="submit">Update Profile</button>
+                <button type="submit" >Update Profile</button>
             </form>
             </Layout>
         </>
