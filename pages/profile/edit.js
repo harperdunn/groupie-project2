@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from "../../firebase";
 import { db } from '../../firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { setDoc, doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { useRouter } from "next/router";
 import UserInfo from '../../components/Profile/UserInfo';
 import Layout from '../../components/Layout'; 
@@ -25,13 +25,15 @@ export default function EditProfile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!currentUser) return; // Guard clause to ensure currentUser is not null
+        console.log(currentUser);
         try {
-            const userRef = doc(db, "users", currentUser.uid); // Reference's the user's specific document in Firestore
-            // Updates user's Firebase document
-            await updateDoc(userRef, {
+            const userRef = doc(db, "users", currentUser.uid);
+            await setDoc(userRef, {
                 bio,
                 artists,
-            });
+            }, {merge: true });
+        setBio()
+
 
             console.log('Profile updated');
             // Optionally: Redirect or show a success message
@@ -59,6 +61,7 @@ export default function EditProfile() {
                     <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
                 </div>
                 <div>
+                    Top Five Artists:  
                     {artists.map((artist, index) => (
                         <input
                             key={index}

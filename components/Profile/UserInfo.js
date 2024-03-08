@@ -14,10 +14,8 @@ function UserInfo() {
   if (currentUser) {
     return (
       <div>
-        User: {currentUser.email}
-    <div>
-        UID: {currentUser.uid}
-     </div>
+        User: {currentUser.displayName}
+  
        
     
       </div> 
