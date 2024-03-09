@@ -38,6 +38,25 @@ const search = () => {
     }
   }
 
+ // Render the checkboxes: artist, venue, genre, userid
+  function renderCheckboxFilters(filterList) {
+        return (
+          filterList.map((filterItem) => (
+            <div id={`${filterItem}-div`}>
+              <label>
+                <input
+                  id={`${filterItem}-checkbox`}
+                  type="checkbox"
+                  checked={selectedFilter === filterItem}
+                  onChange={() => setSelectedFilter(filterItem)} 
+                />
+                Search by {filterItem}
+              </label>
+            </div>
+          ))
+        );
+      }
+
   // Show the resulting list
   function showPostsSearchList(searchResultList) {
     return (
@@ -79,7 +98,8 @@ const search = () => {
           onKeyDown={handleEnterPress}
         />
 
-        
+        {renderCheckboxFilters(['artist', 'venue', 'genre', 'userid'])}        
+        <button onClick={() => handleFilterSearch(searchTerm)}>Search</button>
 
         
         {searchResult.length > 0 
