@@ -25,7 +25,7 @@ const signInWithGoogle= async () =>{ //calls the popup function with the client 
    );
   }
   if (user) {
-    router.push("/profile/edit");
+    router.push("/profile/view");
   }
 }
 
