@@ -9,7 +9,7 @@ const CreateBucketList = () => {
   const { currentUser, loading: authLoading } = useAuth();
   const [bucketList, setBucketList] = useState([]);
   const [newArtist, setNewArtist] = useState('');
-  const [file, setFile] = useState(null); 
+  const [file, setFile] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const CreateBucketList = () => {
 
       if (docSnap.exists()) {
         const { bucketList } = docSnap.data();
-        setBucketList(bucketList);
+        setBucketList(bucketList.map(({ name, imageUrl, watched }) => ({ name, imageUrl, watched })));
       } else {
         console.log("No existing bucket list");
       }
@@ -35,16 +35,10 @@ const CreateBucketList = () => {
     fetchBucketList();
   }, [currentUser, authLoading, router]);
 
-  useEffect(() => {
-    if (currentUser && bucketList.length > 0) {
-      const updateBucketList = async () => {
-        const bucketListRef = doc(db, "bucketlists", currentUser.uid);
-        await setDoc(bucketListRef, { bucketList }, { merge: true });
-      };
-
-      updateBucketList().catch(console.error);
-    }
-  }, [bucketList, currentUser]);
+  const updateFirebaseBucketList = async (updatedList) => {
+    const bucketListRef = doc(db, "bucketlists", currentUser.uid);
+    await setDoc(bucketListRef, { bucketList: updatedList }, { merge: true });
+  };
 
   const uploadImage = async (file, imageName) => {
     const imageRef = ref(storage, `bucketListImages/${currentUser.uid}/${imageName}`);
@@ -58,7 +52,9 @@ const CreateBucketList = () => {
       if (file) {
         imageUrl = await uploadImage(file, newArtist);
       }
-      setBucketList(currentList => [...currentList, { name: newArtist, imageUrl, watched: false }]);
+      const updatedList = [...bucketList, { name: newArtist, imageUrl, watched: false }];
+      setBucketList(updatedList);
+      await updateFirebaseBucketList(updatedList);
       setNewArtist('');
       setFile(null);
     }
@@ -68,14 +64,18 @@ const CreateBucketList = () => {
     setFile(event.target.files[0]);
   };
 
-  const handleToggleWatched = (index) => {
-    setBucketList(currentList => currentList.map((item, i) => 
+  const handleToggleWatched = async (index) => {
+    const updatedList = bucketList.map((item, i) => 
       i === index ? { ...item, watched: !item.watched } : item
-    ));
+    );
+    setBucketList(updatedList);
+    await updateFirebaseBucketList(updatedList);
   };
 
-  const handleDeleteArtist = (index) => {
-    setBucketList(currentList => currentList.filter((_, i) => i !== index));
+  const handleDeleteArtist = async (index) => {
+    const updatedList = bucketList.filter((_, i) => i !== index);
+    setBucketList(updatedList);
+    await updateFirebaseBucketList(updatedList);
   };
 
   if (authLoading) return <Layout>Loading...</Layout>;
@@ -103,8 +103,7 @@ const CreateBucketList = () => {
                 checked={item.watched}
                 onChange={() => handleToggleWatched(index)}
               />
-              {item.name}
-              {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 50, height: 50 }} />}
+              {item.name} {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 50, height: 50 }}/>}
               <button type="button" onClick={() => handleDeleteArtist(index)}>Delete</button>
             </li>
           ))}
