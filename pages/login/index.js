@@ -38,7 +38,7 @@ return (
       <button className='signin-button' onClick={signInWithGoogle}>
         <div>Sign In With Google</div>
       </button>
-      <button className='signin-button2' onClick={() => router.push("/login/signInWithUsername")}>
+      <button className='signin-button2' onClick={() => router.push("/login/signInWithEmail")}>
         <div>Sign In With Email</div>
       </button>
     </div>

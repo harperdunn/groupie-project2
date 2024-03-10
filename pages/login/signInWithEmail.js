@@ -1,27 +1,39 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { signInWithEmailAndPassword } from "firebase/auth"; // Updated import for signing in
-import { auth } from "../../firebase";
+import { signInWithEmailAndPassword, updateProfile } from "firebase/auth"; // Updated import for signing in
+import { auth, useAuth } from "../../firebase";
 import { Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-const SignIn = () => { // Component name updated for clarity
+const SignIn = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); // Simplified for sign in
+  const [password, setPassword] = useState("");
   const router = useRouter();
   const [error, setError] = useState(null);
+  const { currentUser } = useAuth(); // This should be outside your `onSubmit` function
 
   const onSubmit = event => {
-    event.preventDefault(); // Moved to prevent form submission if JS fails
+    event.preventDefault();
     setError(null);
     
-    signInWithEmailAndPassword(auth, email, password) // Updated to sign in
-      .then(authUser => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((authUser) => { // Corrected syntax for .then() callback function
+        if (currentUser && currentUser.displayName == null) { // Corrected syntax for condition check
+          const displayName = email.substring(0, email.lastIndexOf("@")); // Correct usage of email to get displayName
+          updateProfile(authUser.user, { displayName: displayName })
+            .then(() => {
+              console.log("Display name updated successfully");
+              // You can redirect or do additional tasks here
+            }).catch((error) => {
+              console.error("Error updating display name", error);
+              // Handle errors for updateProfile here
+            });
+        }
         console.log("Success. The user is signed in to Firebase");
-        router.push("/profile/edit"); // Or any other path you want the user to go to after sign-in
+        router.push("/profile/view");
       })
       .catch(error => {
-        // An error occurred. Set error message to be displayed to user
+        // An error occurred
         setError(error.message);
       });
   };
@@ -59,7 +71,7 @@ const SignIn = () => { // Component name updated for clarity
             <FormGroup row>
   <Col sm={{ size: 8, offset: 4 }}> {/* Adjust the size and offset as needed */}
     <Button className="mr-2">Sign In</Button> {/* Add a margin-right to separate the buttons */}
-    <Button color="secondary" onClick={() => router.push('./signUpWithUsername')}>Sign Up (New User)</Button> {/* Add navigation to the Sign Up page */}
+    <Button color="secondary" onClick={() => router.push('./signUpWithEmail')}>Sign Up (New User)</Button> {/* Add navigation to the Sign Up page */}
   </Col>
 </FormGroup>
           </Form>
@@ -67,6 +79,6 @@ const SignIn = () => { // Component name updated for clarity
       </Row>
     </Container>
   );
-}
+};
 
 export default SignIn; // Updated for clarity

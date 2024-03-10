@@ -12,6 +12,7 @@ function UserInfo() {
 
   // Conditionally render user information if a user is signed in
   if (currentUser) {
+    console.log(currentUser)
     return (
       <div>
         User: {currentUser.displayName}

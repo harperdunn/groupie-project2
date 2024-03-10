@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth} from "../../firebase"
 import {useAuth} from "../../firebase"
 import {Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert} from 'reactstrap';
@@ -8,29 +8,40 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [passwordOne, setPasswordOne] = useState("");
   const [passwordTwo, setPasswordTwo] = useState("");
   const router = useRouter();
   const [error, setError] = useState(null);
 
+
   const onSubmit = event => {
-    setError(null)
-    //check if passwords match. If they do, create user in Firebase
+    event.preventDefault(); // This should be at the beginning to prevent the default form submit behavior
+    setError(null);
+    // Check if passwords match. If they do, create user in Firebase
     // and redirect to your logged in page.
-    if(passwordOne === passwordTwo)
+    if (passwordOne === passwordTwo) {
       createUserWithEmailAndPassword(auth, email, passwordOne)
-      .then(authUser => {
-        console.log("Success. The user is created in Firebase")
-        router.push("/profile/edit");
-      })
-      .catch(error => {
-        // An error occurred. Set error message to be displayed to user
-        setError(error.message)
-      });
-    else
-      setError("Password do not match")
-    event.preventDefault();
+        .then(authUser => {
+          const displayName = email.substring(0, email.lastIndexOf("@")); // Stores the part of the email before the '@'
+          updateProfile(authUser.user, {
+            displayName: displayName,
+          }).then(() => {
+            console.log("Success. The user is created in Firebase");
+            router.push("/profile/edit");
+          }).catch(error => {
+            // An error occurred while updating the profile. Set error message to be displayed to user
+            setError(error.message);
+          });
+        }).catch(error => {
+          // An error occurred during user creation. Set error message to be displayed to user
+          setError(error.message);
+        });
+    } else {
+      setError("Passwords do not match");
+    }
   };
+  
 
   return (
     <Container className="text-center custom-container">
