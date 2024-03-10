@@ -13,7 +13,10 @@ const CreatePost = () => {
   const [newSong, setNewSong] = useState('');
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
+  const [genres, setGenres] = useState([]);
   const router = useRouter();
+
+  const genreOptions = ['Rock', 'Pop', 'Jazz', 'Hip-Hop', 'Classical', 'Electronic', 'Folk', 'Reggae', 'Other'];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,10 +36,11 @@ const CreatePost = () => {
         setList,
         rating,
         review,
+        genres,
         userId: currentUser.uid, // Use the UID from currentUser provided by useAuth
       });
 
-      router.push('/post/view-post');
+      router.push('/post/create-post');
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -52,6 +56,13 @@ const CreatePost = () => {
   const handleDeleteSong = (index) => {
     setSetList(currentList => currentList.filter((_, i) => i !== index));
   };
+
+  const handleGenreChange = (e) => {
+    const selectedGenres = Array.from(e.target.selectedOptions, option => option.value);
+    setGenres(selectedGenres);
+  };
+
+  
 
   if (loading) return <Layout>Loading...</Layout>;
 
@@ -124,6 +135,24 @@ const CreatePost = () => {
             onChange={(e) => setReview(e.target.value)}
             required
           />
+        </div>
+        <div>
+          <label htmlFor="genres">Genres:</label>
+          <select
+            id="genres"
+            multiple
+            value={genres}
+            onChange={handleGenreChange}
+            size="5"
+            style={{ width: '100%', padding: '8px', marginTop: '8px' }}
+          >
+            {genreOptions.map((genre, index) => (
+              <option key={index} value={genre}>
+                {genre}
+              </option>
+            ))}
+          </select>
+          <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
         </div>
         <button type="submit">Create Post</button>
       </form>
