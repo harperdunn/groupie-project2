@@ -62,7 +62,7 @@ const CreatePost = () => {
         userId: currentUser.uid, // Use the UID from currentUser provided by useAuth
       });
     
-      router.push('/post/create-post');
+      router.push('/profile/view');
     } catch (error) {
       console.error("Error adding document: ", error);
     }
