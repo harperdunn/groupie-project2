@@ -1,2 +1,81 @@
 /* post.css */
 
+.post-container {
+    margin: 0 auto;
+    padding: 20px;
+    color: #333;
+}
+
+.input {
+    margin: 10px 10px 30px 10px;
+    width: 310px;
+}
+
+.input-date {
+    margin: 10px 10px 30px 10px;
+    width: 110px;
+}
+
+.input-setlist {
+    margin: 10px 10px 0px 0px;
+    width: 300px;
+}
+
+.input-rating {
+    margin: 10px 10px 30px 10px;
+    width: 30px;
+}
+
+.input-review {
+    margin: 10px 10px 30px 0px;
+    width: 380px;
+}
+
+.input-genre {
+    margin: 10px 10px 30px 0px;
+    width: 390px;
+}
+
+.input-photo {
+    margin: 10px 10px 30px 0px;
+    width: 390px;
+}
+
+.post-section {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.post-section h1, h2 {
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+}
+
+.add-song-btn {
+    background-color: rgb(28, 7, 76);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 10px;
+}
+
+.add-song-btn:hover {
+    background-color: rgb(18, 4, 50);
+}
+
+.create-btn {
+    background-color: rgb(28, 7, 76);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 10px;
+}

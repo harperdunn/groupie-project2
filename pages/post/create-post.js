@@ -88,11 +88,15 @@ const CreatePost = () => {
 
   return (
     <Layout>
+    <div className='post-container'>
       <form onSubmit={handleSubmit}>
+        <div className='post-section'>
         <h1>Create A New Post</h1>
+        </div>
         <div>
           <label htmlFor="artist">Artist:</label>
           <input
+            className='input'
             id="artist"
             type="text"
             value={artist}
@@ -103,6 +107,7 @@ const CreatePost = () => {
         <div>
           <label htmlFor="venue">Venue:</label>
           <input
+            className='input'
             id="venue"
             type="text"
             value={venue}
@@ -113,6 +118,7 @@ const CreatePost = () => {
         <div>
           <label htmlFor="date">Date:</label>
           <input
+            className='input-date'
             id="date"
             type="date"
             value={date}
@@ -121,23 +127,27 @@ const CreatePost = () => {
           />
         </div>
         <div>
-          <label htmlFor="newSong">Add Song to Set List:</label>
+            <div>
+                <label htmlFor="newSong">Set List:</label>
+            </div>
           <input
+            className='input-setlist'
             id="newSong"
             type="text"
             value={newSong}
             onChange={(e) => setNewSong(e.target.value)}
           />
-          <button type="button" onClick={handleAddSong}>Add Song</button>
+          <button className="add-song-btn" type="button" onClick={handleAddSong}>Add Song</button>
           <ul>
             {setList.map((song, index) => (
-              <li key={index}>{song} <button type="button" onClick={() => handleDeleteSong(index)}>Delete</button></li>
+              <li key={index}>{song} <button className="post-btn" type="button" onClick={() => handleDeleteSong(index)}>Delete</button></li>
             ))}
           </ul>
         </div>
         <div>
           <label htmlFor="rating">Rating (1-5):</label>
           <input
+            className='input-rating'
             id="rating"
             type="number"
             min="1"
@@ -148,8 +158,11 @@ const CreatePost = () => {
           />
         </div>
         <div>
-          <label htmlFor="review">Review:</label>
+          <div>
+            <label htmlFor="review">Review:</label>
+          </div>
           <textarea
+            className='input-review'
             id="review"
             value={review}
             onChange={(e) => setReview(e.target.value)}
@@ -157,8 +170,9 @@ const CreatePost = () => {
           />
         </div>
         <div>
-          <label htmlFor="genres">Genres:</label>
+          <label htmlFor="genres">Genre:</label>
           <CreatableSelect
+            className='input-genre'
             id="genres"
             isMulti
             onChange={handleGenreChange}
@@ -168,15 +182,19 @@ const CreatePost = () => {
           />
         </div>
         <div>
-          <label htmlFor="file">Upload Photo:</label>
+          <div>
+            <label htmlFor="file">Upload Photo:</label>
+          </div>
           <input
+            className='input-photo'
             id="file"
             type="file"
             onChange={handleFileChange}
           />
         </div>
-        <button type="submit">Create Post</button>
+        <div className='post-section'><button className="create-btn" type="submit">Create Post</button></div>
       </form>
+    </div>
     </Layout>
   );
 };
