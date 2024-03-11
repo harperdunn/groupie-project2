@@ -1,0 +1,132 @@
+/* Profile container styles */
+.profile-container {
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Styling for bio and artist list sections */
+.profile-section {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.profile-section h2, .profile-section h3 {
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Bio text styling */
+.bio-text {
+    color: #666;
+    font-size: 16px;
+}
+
+.edit-section {
+    margin-bottom: 50px;
+}
+
+.edit-section h2, .edit-section h3 {
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Artist list styles */
+.artist-list li {
+    display: inline-flex;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    border: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #333;
+    background-color: #f0f0f0;
+}
+
+.artists-edit {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: inline-flex;
+}
+
+.artists {
+    align-content: center;
+}
+
+/* Profile picture styles */
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+/* Edit profile button styles */
+.edit-profile-btn {
+    background-color: rgb(28, 7, 76);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.edit-profile-btn:hover {
+    background-color: rgb(18, 4, 50);
+}
+
+/* Posts Section Styling */
+.posts-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px; 
+}
+
+.post-thumbnail {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    width: calc(33.333% - 20px); 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+    cursor: pointer;
+}
+
+.post-thumbnail:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Post Thumbnail Text Styling */
+.post-thumbnail h4 {
+    margin-top: 0;
+    color: #333;
+}
+
+.post-thumbnail p {
+    margin-bottom: 5px;
+    color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .posts-container {
+        justify-content: center;
+    }
+
+    .post-thumbnail {
+        width: calc(50% - 20px); 
+    }
+}
+
+@media (max-width: 480px) {
+    .post-thumbnail {
+        width: 90%;
+    }
+}

@@ -19,7 +19,7 @@ function UserInfo() {
       </div> 
     );
         }
-   else {
+  else {
     // Optionally return null or some placeholder if no user is signed in
     return <div>No user info available.</div>;
   }

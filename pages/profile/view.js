@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth, db } from "../../firebase";
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { useRouter } from "next/router";
 import UserInfo from '../../components/Profile/UserInfo';
 import Layout from '../../components/Layout';
@@ -12,6 +12,7 @@ export default function ViewProfile() {
     const [bio, setBio] = useState('');
     const [artists, setArtists] = useState([]);
     const [imageUrl, setImageUrl] = useState('');
+    const [posts, setPosts] = useState([]);
     const router = useRouter();
 
     useEffect(() => {
@@ -22,7 +23,7 @@ export default function ViewProfile() {
             return;
         }
 
-        const fetchUserProfile = async () => {
+        const fetchUserProfileAndPosts = async () => {
             const userRef = doc(db, "users", currentUser.uid);
             const docSnap = await getDoc(userRef);
 
@@ -34,36 +35,53 @@ export default function ViewProfile() {
             } else {
                 console.log("Document does not exist");
             }
+
+            // Fetch user's posts
+            const postsQuery = query(collection(db, "posts"), where("userId", "==", currentUser.uid));
+            const querySnapshot = await getDocs(postsQuery);
+            const userPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setPosts(userPosts);
+
             setLoading(false);
         };
 
-        fetchUserProfile();
+        fetchUserProfileAndPosts();
     }, [currentUser, authLoading, router]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <Layout>
-            <UserInfo />
-            <div>
-                <h2>Bio</h2>
-                <p>{bio}</p>
+            <div className="profile-container">
+                <div className="profile-header">
+                    <img src={imageUrl} alt="Profile" className="profile-picture" />
+                    <UserInfo />
+                </div>
+                <div className="profile-section">
+                    <h2>Bio</h2>
+                    <p className="bio-text">{bio}</p>
+                </div>
+                <div className="profile-section">
+                    <h2>Top Five Artists</h2>
+                    <ul className="artist-list">
+                        {artists.map((artist, index) => (
+                            <li key={index}>{artist || `Artist #${index + 1} not specified`}</li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="profile-section">
+                    <h2>Your Posts</h2>
+                    <div className="posts-container">
+                        {posts.map(({ id, artist, date, venue, rating }) => (
+                            <div key={id} className="post-thumbnail" onClick={() => { /* Placeholder for navigation */ }}>
+                                <h4>{artist}</h4>
+                                <p>Date: {date}</p>
+                                <p>Venue: {venue}</p>
+                                <p>Rating: {rating}/5</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <button className="edit-profile-btn" onClick={() => router.push('/profile/edit')}>Edit Profile</button>
             </div>
-            <div>
-                <h3>Top Five Artists</h3>
-                <ul>
-                    {artists.map((artist, index) => (
-                        <li key={index}>{artist || `Artist #${index + 1} not specified`}</li>
-                    ))}
-                </ul>
-            </div>
-            <div>
-                <h3>Profile Picture</h3>
-                <img src={imageUrl} alt="Profile" style={{width: '100px', height: '100px', borderRadius: '50%'}} />
-            </div>
-            <button onClick={() => router.push('/profile/edit')}>Edit Profile</button>
         </Layout>
     );
 }

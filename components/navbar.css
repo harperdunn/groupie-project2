@@ -11,15 +11,19 @@
     align-items: center;
     justify-content: space-around;
     padding: 5px;
+    position: fixed;
+    margin-top: -10px;
+    margin-left: -10px;
   }
 
 /* formatting for main pages; sits next to nav bar */
 .main-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin-left: 40px; /* adjust margin to accommodate navbar*/
-    margin-top: 20px;
+    align-items: center;
+    margin-top: 40px;
+    margin-left: 130px;
+    flex-grow: 1;
 }
 
 /* put navbar and page content into a container so that they are aligned side by side */
