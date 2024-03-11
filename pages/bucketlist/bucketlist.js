@@ -4,6 +4,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage, useAuth } from '../../firebase';
 import Layout from '../../components/Layout';
+import './bucketlist.css';
 
 const CreateBucketList = () => {
   const { currentUser, loading: authLoading } = useAuth();
@@ -82,19 +83,8 @@ const CreateBucketList = () => {
 
   return (
     <Layout>
-      <div>
-        <label htmlFor="newArtist">Add Artist to Bucket List:</label>
-        <input
-          id="newArtist"
-          type="text"
-          value={newArtist}
-          onChange={(e) => setNewArtist(e.target.value)}
-        />
-        <input
-          type="file"
-          onChange={handleFileChange}
-        />
-        <button type="button" onClick={handleAddArtist}>Add to Bucket List</button>
+      <div className='bucketlist-container'>
+        <h1>Your Bucket List</h1>
         <ul>
           {bucketList.map((item, index) => (
             <li key={index}>
@@ -104,10 +94,30 @@ const CreateBucketList = () => {
                 onChange={() => handleToggleWatched(index)}
               />
               {item.name} {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 50, height: 50 }}/>}
-              <button type="button" onClick={() => handleDeleteArtist(index)}>Delete</button>
+              <button classname="delete-btn" type="button" onClick={() => handleDeleteArtist(index)}>Delete</button>
             </li>
           ))}
         </ul>
+        <div>
+            <h2>Add an artist to your bucket list:</h2>
+        </div>
+        <input
+          className='input-bucketlist'
+          id="newArtist"
+          type="text"
+          placeholder="Artist's name..."
+          value={newArtist}
+          onChange={(e) => setNewArtist(e.target.value)}
+        />
+        <div>
+            <h2>Add a photo of the artist or their album art:</h2>
+            <input
+            className='input-bucketlist'
+            type="file"
+            onChange={handleFileChange}
+            />
+        </div>
+        <button className="add-btn" type="button" onClick={handleAddArtist}>Add</button>
       </div>
     </Layout>
   );
