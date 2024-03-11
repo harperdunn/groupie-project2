@@ -17,6 +17,7 @@ const router=useRouter();
 const[user, loading]=useAuthState(auth); //gets the user state, loading to know to wait for it to load or not
 
 const signInWithGoogle= async () =>{ //calls the popup function with the client and provider given
+  try{
   const result = await signInWithPopup(auth, provider)
   console.log(result.user);
   if (loading){
@@ -27,6 +28,10 @@ const signInWithGoogle= async () =>{ //calls the popup function with the client 
   if (user) {
     router.push("/profile/view");
   }
+} catch (error) {
+  // Handling errors (backend)
+  console.error("Error signing in with Google: ", error);
+}
 }
 
 return (
