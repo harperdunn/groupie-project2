@@ -27,19 +27,13 @@
 /* Artist list styles */
 .artist-list li {
     display: inline-block;
-    margin-right: 20px; /* Adjust margin between artists */
+    margin-right: 15px;
     border: none;
     padding: 10px;
-    color: #333;
-}
-
-.artist-list li {
-    background-color: #f0f0f0;
     border: 1px solid #ddd;
     border-radius: 5px;
-    padding: 10px;
-    margin: 5px 0;
     color: #333;
+    background-color: #f0f0f0;
 }
 
 /* Profile picture styles */
