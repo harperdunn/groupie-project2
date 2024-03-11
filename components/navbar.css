@@ -17,9 +17,9 @@
 .main-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin-left: 40px; /* adjust margin to accommodate navbar*/
-    margin-top: 20px;
+    align-items: center;
+    margin-top: 40px;
+    flex-grow: 1;
 }
 
 /* put navbar and page content into a container so that they are aligned side by side */
