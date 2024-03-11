@@ -60,6 +60,7 @@ const CreatePost = () => {
         genres: genresToSave,
         imageUrl,
         userId: currentUser.uid, // Use the UID from currentUser provided by useAuth
+        displayName: currentUser.displayName,
       });
     
       router.push('/profile/view');
