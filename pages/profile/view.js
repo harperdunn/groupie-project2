@@ -55,11 +55,10 @@ export default function ViewProfile() {
     return (
         <Layout>
             <div className="profile-container">
-                <div className="profile-section">
-                    <h3>Profile Picture</h3>
+                <div className="profile-header">
                     <img src={imageUrl} alt="Profile" className="profile-picture" />
+                    <UserInfo />
                 </div>
-                <UserInfo />
                 <div className="profile-section">
                     <h2>Bio</h2>
                     <p className="bio-text">{bio}</p>
@@ -73,7 +72,7 @@ export default function ViewProfile() {
                     </ul>
                 </div>
                 <div className="profile-section">
-                    <h3>User's Posts</h3>
+                    <h3>Your Posts</h3>
                     <div className="posts-container">
                         {posts.map(({ id, artist, date, venue, rating }) => (
                             <div key={id} className="post-thumbnail" onClick={() => { /* Placeholder for navigation */ }}>

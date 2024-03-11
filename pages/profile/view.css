@@ -1,6 +1,5 @@
 /* Profile container styles */
 .profile-container {
-    max-width: 600px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -9,12 +8,14 @@
 /* Styling for bio and artist list sections */
 .profile-section {
     margin-bottom: 20px;
+    text-align: left;
 }
 
 /* Common section title styles */
 .profile-section h2, .profile-section h3 {
     color: #333;
     font-weight: 600;
+    text-align: left;
 }
 
 /* Bio text styling */
@@ -24,9 +25,12 @@
 }
 
 /* Artist list styles */
-.artist-list {
-    list-style: none;
-    padding: 0;
+.artist-list li {
+    display: inline-block;
+    margin-right: 20px; /* Adjust margin between artists */
+    border: none;
+    padding: 10px;
+    color: #333;
 }
 
 .artist-list li {
@@ -48,7 +52,7 @@
 
 /* Edit profile button styles */
 .edit-profile-btn {
-    background-color: #007bff;
+    background-color: rgb(28, 7, 76);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -58,7 +62,7 @@
 }
 
 .edit-profile-btn:hover {
-    background-color: #0056b3;
+    background-color: rgb(18, 4, 50);
 }
 
 /* Posts Section Styling */
