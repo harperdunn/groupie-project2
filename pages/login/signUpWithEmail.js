@@ -5,6 +5,7 @@ import {auth} from "../../firebase"
 import {useAuth} from "../../firebase"
 import {Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -44,6 +45,8 @@ const SignUp = () => {
   
 
   return (
+    <div>
+    <div className="text-wrapper">Become a Groupie!</div>
     <Container className="text-center custom-container">
       <Row>
         <Col>
@@ -89,13 +92,18 @@ const SignUp = () => {
             </FormGroup>
             <FormGroup row>
              <Col>
-               <Button>Sign Up</Button>
+               <button className='signin-button'>Sign Up</button>
              </Col>
            </FormGroup>
           </Form>
         </Col>
       </Row>
     </Container>
+    <div>
+      Already have an account?
+      <button className="signup-button" onClick={() => router.push('/login')}>Log In!</button>
+    </div>
+    </div>
   )
 }
 
