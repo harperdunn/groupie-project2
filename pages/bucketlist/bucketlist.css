@@ -16,6 +16,11 @@
     align-items: center;
     background-color: rgb(217, 213, 224);
     width: 500px;
+    margin-bottom: 50px;
+}
+
+.bucketlist ul {
+    margin-left: 60px;
 }
 
 .input-bucketlist {
