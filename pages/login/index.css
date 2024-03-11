@@ -12,6 +12,7 @@ body {
 .text-wrapper {
     margin-bottom: 20px;
     font-size: 75px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .signin-container {
@@ -21,8 +22,17 @@ body {
 .signin-button {
     color: rgb(4, 4, 87);
     margin: 10px;
-    width: 100px;
+    width: 160px;
     height: 30px;
-    font-size: 18px;
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.signup-button {
+    color: rgb(4, 4, 87);
+    margin: 5px;
+    width: 68px;
+    height: 26px;
+    font-size: 14px;
     font-family: 'Times New Roman', Times, serif;
 }

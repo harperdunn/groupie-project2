@@ -34,13 +34,16 @@ return (
     <div className="text-wrapper">Welcome to</div>
     <div className="text-wrapper">GROUPIE</div>
     <div className="signin-container">
-      <div>Please sign in to continue...</div>
       <button className='signin-button' onClick={signInWithGoogle}>
         <div>Sign In With Google</div>
       </button>
-      <button className='signin-button2' onClick={() => router.push("/login/signInWithEmail")}>
+      <button className='signin-button' onClick={() => router.push("/login/signInWithEmail")}>
         <div>Sign In With Email</div>
       </button>
+      <div>
+        Don't have an account?
+      <button className="signup-button" onClick={() => router.push('/login/signUpWithEmail')}>Sign Up!</button> {/* Add navigation to the Sign Up page */}
+      </div>
     </div>
   </div>
 );

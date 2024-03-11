@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword, updateProfile } from "firebase/auth"; // Up
 import { auth, useAuth } from "../../firebase";
 import { Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './index.css';
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -39,6 +40,8 @@ const SignIn = () => {
   };
 
   return (
+    <div>
+    <div className="text-wrapper">Hey, Groupie!</div>
     <Container className="text-center custom-container">
       <Row>
         <Col>
@@ -70,14 +73,18 @@ const SignIn = () => {
             </FormGroup>
             <FormGroup row>
   <Col sm={{ size: 8, offset: 4 }}> {/* Adjust the size and offset as needed */}
-    <Button className="mr-2">Sign In</Button> {/* Add a margin-right to separate the buttons */}
-    <Button color="secondary" onClick={() => router.push('./signUpWithEmail')}>Sign Up (New User)</Button> {/* Add navigation to the Sign Up page */}
+    <button className="signin-button">Sign In</button> {/* Add a margin-right to separate the buttons */}
   </Col>
 </FormGroup>
           </Form>
         </Col>
       </Row>
     </Container>
+    <div>
+      Don't have an account?
+      <button className="signup-button" onClick={() => router.push('/login/signUpWithEmail')}>Sign Up!</button> {/* Add navigation to the Sign Up page */}
+    </div>
+    </div>
   );
 };
 
