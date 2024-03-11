@@ -5,8 +5,8 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage, useAuth } from '../../firebase'; 
 import Layout from '../../components/Layout';
 import CreatableSelect from 'react-select/creatable';
-
 import genres from '../../components/genres';
+import './post.css';
 
 const CreatePost = () => {
   const { currentUser, loading } = useAuth(); // Use the useAuth hook
@@ -89,7 +89,7 @@ const CreatePost = () => {
   return (
     <Layout>
       <form onSubmit={handleSubmit}>
-        <h1>Create Post</h1>
+        <h1>Create A New Post</h1>
         <div>
           <label htmlFor="artist">Artist:</label>
           <input
