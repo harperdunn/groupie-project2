@@ -138,10 +138,10 @@ const CreatePost = () => {
             value={newSong}
             onChange={(e) => setNewSong(e.target.value)}
           />
-          <button className="add-song-btn" type="button" onClick={handleAddSong}>Add Song</button>
-          <ul>
+          <button className="setlist-btns" type="button" onClick={handleAddSong}>Add Song</button>
+          <ul className='setlist'>
             {setList.map((song, index) => (
-              <li key={index}>{song} <button className="post-btn" type="button" onClick={() => handleDeleteSong(index)}>Delete</button></li>
+              <li key={index}>{song} <button className="delete-btn" type="button" onClick={() => handleDeleteSong(index)}>Delete</button></li>
             ))}
           </ul>
         </div>
