@@ -48,10 +48,6 @@ export default function ViewProfile() {
         fetchUserProfileAndPosts();
     }, [currentUser, authLoading, router]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <Layout>
             <div className="profile-container">
