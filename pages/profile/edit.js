@@ -4,7 +4,7 @@ import { setDoc, doc, getDoc, } from 'firebase/firestore';
 import { useRouter } from "next/router";
 import UserInfo from '../../components/Profile/UserInfo';
 import Layout from '../../components/Layout'; 
-import './edit.css';
+import './view.css';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 
@@ -102,30 +102,35 @@ export default function EditProfile() {
     return (
         <>
         <Layout>
-            <UserInfo />
+            <div className='edit-section'><UserInfo/></div>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Bio</label>
+                <div className='edit-section'>
+                    <h2>Profile Picture:</h2>
+                    {imageUrl && <img className="profile-picture" src={imageUrl} alt="Profile" style={{width: '100px', height: '100px'}} />}
+                    <div>
+                        <input type="file" onChange={handleImageChange} />
+                    </div>
+                </div>
+                <div className='edit-section'>
+                    <div>
+                        <h2>Bio:</h2>
+                    </div>
                     <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
                 </div>
-                <div>
-                    Top Five Artists:  
+                <div className='edit-section'>
+                    <h2>Top Five Artists:</h2>
                     {artists.map((artist, index) => (
-                        <input
-                            key={index}
-                            value={artist}
-                            onChange={(e) => handleArtistChange(index, e.target.value)}
-                            placeholder={`Artist #${index + 1}`}
-                        />
+                        <div className='artists-edit'>
+                            <input
+                                key={index}
+                                value={artist}
+                                onChange={(e) => handleArtistChange(index, e.target.value)}
+                                placeholder={`Artist #${index + 1}`}
+                            />
+                        </div>
                     ))}
                 </div>
-                <div>
-                <label>Profile Picture</label>
-                        <input type="file" onChange={handleImageChange} />
-                        {imageUrl && <img src={imageUrl} alt="Profile" style={{width: '100px', height: '100px'}} />}
-                 
-                 </div>
-                <button type="submit" >Update Profile</button>
+                <button className="edit-profile-btn" type="submit">Update Profile</button>
             </form>
             </Layout>
         </>

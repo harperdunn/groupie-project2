@@ -11,7 +11,6 @@
     text-align: left;
 }
 
-/* Common section title styles */
 .profile-section h2, .profile-section h3 {
     color: #333;
     font-weight: 600;
@@ -24,16 +23,37 @@
     font-size: 16px;
 }
 
+.edit-section {
+    margin-bottom: 50px;
+}
+
+.edit-section h2, .edit-section h3 {
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+}
+
 /* Artist list styles */
 .artist-list li {
-    display: inline-block;
+    display: inline-flex;
     margin-right: 15px;
+    margin-top: 15px;
     border: none;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     color: #333;
     background-color: #f0f0f0;
+}
+
+.artists-edit {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: inline-flex;
+}
+
+.artists {
+    align-content: center;
 }
 
 /* Profile picture styles */
@@ -50,9 +70,10 @@
     color: #fff;
     border: none;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 8px 10px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .edit-profile-btn:hover {
