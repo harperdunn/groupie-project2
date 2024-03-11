@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { collection, addDoc } from 'firebase/firestore';
-import { db, useAuth } from '../../firebase'; 
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, storage, useAuth } from '../../firebase'; 
 import Layout from '../../components/Layout';
+import CreatableSelect from 'react-select/creatable';
+
+import genres from '../../components/genres';
 
 const CreatePost = () => {
   const { currentUser, loading } = useAuth(); // Use the useAuth hook
@@ -13,10 +17,20 @@ const CreatePost = () => {
   const [newSong, setNewSong] = useState('');
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
-  const [genres, setGenres] = useState([]);
+  const [genresSelected, setGenresSelected] = useState([]);
+  const [file, setFile] = useState(null);
   const router = useRouter();
 
-  const genreOptions = ['Rock', 'Pop', 'Jazz', 'Hip-Hop', 'Classical', 'Electronic', 'Folk', 'Reggae', 'Other'];
+  const handleGenreChange = (newValue, actionMeta) => {
+    setGenresSelected(newValue || []);
+  };
+
+  const uploadImage = async (file) => {
+    if (!file) return null;
+    const imageRef = ref(storage, `postImages/${currentUser.uid}/${file.name}`);
+    await uploadBytes(imageRef, file);
+    return getDownloadURL(imageRef);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +42,13 @@ const CreatePost = () => {
       return;
     }
 
+    let imageUrl = '';
+    if (file) {
+      imageUrl = await uploadImage(file);
+    }
+
+    const genresToSave = genresSelected.map(genre => genre.label);
+
     try {
       await addDoc(collection(db, "posts"), {
         artist,
@@ -36,14 +57,19 @@ const CreatePost = () => {
         setList,
         rating,
         review,
-        genres,
+        genres: genresToSave,
+        imageUrl,
         userId: currentUser.uid, // Use the UID from currentUser provided by useAuth
       });
-
+    
       router.push('/post/create-post');
     } catch (error) {
       console.error("Error adding document: ", error);
     }
+  };
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
   };
 
   const handleAddSong = () => {
@@ -57,13 +83,7 @@ const CreatePost = () => {
     setSetList(currentList => currentList.filter((_, i) => i !== index));
   };
 
-  const handleGenreChange = (e) => {
-    const selectedGenres = Array.from(e.target.selectedOptions, option => option.value);
-    setGenres(selectedGenres);
-  };
-
   
-
   if (loading) return <Layout>Loading...</Layout>;
 
   return (
@@ -138,21 +158,22 @@ const CreatePost = () => {
         </div>
         <div>
           <label htmlFor="genres">Genres:</label>
-          <select
+          <CreatableSelect
             id="genres"
-            multiple
-            value={genres}
+            isMulti
             onChange={handleGenreChange}
-            size="5"
-            style={{ width: '100%', padding: '8px', marginTop: '8px' }}
-          >
-            {genreOptions.map((genre, index) => (
-              <option key={index} value={genre}>
-                {genre}
-              </option>
-            ))}
-          </select>
-          <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+            options={genres}
+            value={genresSelected}
+            placeholder="Select or create genres..."
+          />
+        </div>
+        <div>
+          <label htmlFor="file">Upload Photo:</label>
+          <input
+            id="file"
+            type="file"
+            onChange={handleFileChange}
+          />
         </div>
         <button type="submit">Create Post</button>
       </form>
