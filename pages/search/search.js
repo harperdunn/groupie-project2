@@ -38,6 +38,7 @@ const search = () => {
     }
   }
 
+
  // Render the checkboxes: artist, venue, genre, userid
   function renderCheckboxFilters(filterList) {
         return (
@@ -73,6 +74,7 @@ const search = () => {
           </ul>
           <p>Rating: {Array(result.rating).fill('★').join('')} ({result.rating}/5)</p>
           <p>Review: {result.review}</p>
+          <p>Author: {(result.displayName)}</p>
         </div>
       ))
     );
@@ -98,7 +100,7 @@ const search = () => {
           onKeyDown={handleEnterPress}
         />
 
-        {renderCheckboxFilters(['artist', 'venue', 'genre', 'userid'])}        
+        {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}        
         <button onClick={() => handleFilterSearch(searchTerm)}>Search</button>
 
         
