@@ -11,6 +11,7 @@ export default function ViewProfile() {
     const [loading, setLoading] = useState(true);
     const [bio, setBio] = useState('');
     const [artists, setArtists] = useState([]);
+    const [imageUrl, setImageUrl] = useState('');
     const router = useRouter();
 
     useEffect(() => {
@@ -29,6 +30,7 @@ export default function ViewProfile() {
                 const userData = docSnap.data();
                 setBio(userData.bio || '');
                 setArtists(userData.artists || []);
+                setImageUrl(userData.profileUrl||'');
             } else {
                 console.log("Document does not exist");
             }
@@ -56,6 +58,10 @@ export default function ViewProfile() {
                         <li key={index}>{artist || `Artist #${index + 1} not specified`}</li>
                     ))}
                 </ul>
+            </div>
+            <div>
+                <h3>Profile Picture</h3>
+                <img src={imageUrl} alt="Profile" style={{width: '100px', height: '100px', borderRadius: '50%'}} />
             </div>
             <button onClick={() => router.push('/profile/edit')}>Edit Profile</button>
         </Layout>
