@@ -5,6 +5,17 @@
     padding: 20px;
     color: #333;
     text-align: left;
+    align-items: center;
+}
+
+.bucketlist {
+    padding: 20px;
+    padding-top: 5px;
+    color: #333;
+    text-align: left;
+    align-items: center;
+    background-color: rgb(217, 213, 224);
+    width: 500px;
 }
 
 .input-bucketlist {
@@ -26,23 +37,7 @@
     font-size: 22px;
 }
 
-.setlist-btns {
-    background-color: rgb(28, 7, 76);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 4px 10px;
-    cursor: pointer;
-    font-size: 12px;
-    font-family: 'Times New Roman', Times, serif;
-    margin-bottom: 10px;
-}
-
-.setlist-btns:hover {
-    background-color: rgb(18, 4, 50);
-}
-
-.delete-btn {
+.delete {
     background-color: rgb(28, 7, 76);
     color: #fff;
     border: none;
@@ -55,7 +50,7 @@
     margin-left: 20px;
 }
 
-.delete-btn:hover {
+.delete:hover {
     background-color: rgb(18, 4, 50);
 }
 

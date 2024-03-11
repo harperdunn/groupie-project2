@@ -84,7 +84,8 @@ const CreateBucketList = () => {
   return (
     <Layout>
       <div className='bucketlist-container'>
-        <h1>Your Bucket List</h1>
+        <div className='bucketlist'>
+        <h1>Your Bucket List:</h1>
         <ul>
           {bucketList.map((item, index) => (
             <li key={index}>
@@ -94,10 +95,11 @@ const CreateBucketList = () => {
                 onChange={() => handleToggleWatched(index)}
               />
               {item.name} {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 50, height: 50 }}/>}
-              <button classname="delete-btn" type="button" onClick={() => handleDeleteArtist(index)}>Delete</button>
+              <button classname="delete" type="button" onClick={() => handleDeleteArtist(index)}>Delete</button>
             </li>
           ))}
         </ul>
+        </div>
         <div>
             <h2>Add an artist to your bucket list:</h2>
         </div>
