@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import Layout from '../../components/Layout';
+import './search.css';
 
 const search = () => {
   const [posts, setPosts] = useState([]);
@@ -90,8 +91,6 @@ const search = () => {
     <Layout>
       <div>
         <h1>Search Page</h1>
-
-        
         <input
           type="text"
           value={searchTerm}
