@@ -65,12 +65,12 @@ const CreateBucketList = () => {
     setFile(event.target.files[0]);
   };
 
-  const handleToggleWatched = async (index) => {
+  const toggleWatched = (index) => {
     const updatedList = bucketList.map((item, i) => 
       i === index ? { ...item, watched: !item.watched } : item
     );
     setBucketList(updatedList);
-    await updateFirebaseBucketList(updatedList);
+    updateFirebaseBucketList(updatedList);
   };
 
   const handleDeleteArtist = async (index) => {
@@ -85,28 +85,25 @@ const CreateBucketList = () => {
     <Layout>
       <div className='bucketlist-container'>
         <div className='bucketlist'>
-        <h1>Your Bucket List:</h1>
-        <ul>
-          {bucketList.map((item, index) => (
-            <li key={index}>
-                <div className='list-item'>
-                    <input
-                    type="checkbox"
-                    checked={item.watched}
-                    onChange={() => handleToggleWatched(index)}
-                    />
-                    {item.name}
-                    <button className="delete-BL" onClick={() => handleDeleteArtist(index)}>Delete</button>
+          <h1>Your Bucket List:</h1>
+          <ul>
+            {bucketList.map((item, index) => (
+              <li key={index}>
+                <div className='list-item'
+                  onClick={() => toggleWatched(index)}
+                  style={{ textDecoration: item.watched ? 'line-through' : 'none' }}>
+                  {item.name}
+                  <button className="delete-BL" onClick={() => handleDeleteArtist(index)}>Delete</button>
                 </div>
                 <div className='img-BL'>
-                    {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 130, height: 100 }}/>}
+                  {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 130, height: 100 }}/>}
                 </div>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
-            <h2>Add an artist to your bucket list:</h2>
+          <h2>Add an artist to your bucket list:</h2>
         </div>
         <input
           className='input-bucketlist'
@@ -117,12 +114,12 @@ const CreateBucketList = () => {
           onChange={(e) => setNewArtist(e.target.value)}
         />
         <div>
-            <h2>Add a photo of the artist or their album art:</h2>
-            <input
+          <h2>Add a photo of the artist or their album art:</h2>
+          <input
             className='input-bucketlist'
             type="file"
             onChange={handleFileChange}
-            />
+          />
         </div>
         <button className="add-btn" type="button" onClick={handleAddArtist}>Add</button>
       </div>

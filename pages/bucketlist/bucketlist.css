@@ -54,6 +54,10 @@
     font-size: 22px;
 }
 
+.list-item:hover {
+    text-decoration: line-through;
+}
+
 .delete-BL {
     background-color: rgb(28, 7, 76);
     color: #fff;
