@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import Layout from '../../components/Layout';
+import './search.css';
 
 const search = () => {
   const [posts, setPosts] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState(null);
-const [filterCategories, setFilterCategories] = useState([]);
+  const [filterCategories, setFilterCategories] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -58,6 +59,7 @@ const [filterCategories, setFilterCategories] = useState([]);
         <div id={`${filterItem}-div`}>
           <label>
             <input
+              className='filter-item'
               id={`${filterItem}-checkbox`}
               type="checkbox"
               checked={selectedFilter === filterItem}
@@ -100,25 +102,26 @@ const [filterCategories, setFilterCategories] = useState([]);
 
   return (
     <Layout>
-      <div>
-        <h1>Search Page</h1>
-
-        
+      <div className='search-container'>
+        <h1>Looking for something?</h1>
+        <div>
         <input
+          className='input-search'
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Enter a search term..."
           onKeyDown={handleEnterPress}
         />
-
-        {renderCheckboxFilters(['artist', 'venue', 'genre', 'userid'])}        
-        <button onClick={() => handleFilterSearch(searchTerm)}>Search</button>
-        
-        {searchResult.length > 0 
-          ? showPostsSearchList(searchResult)
-          : null
-        }
+        <button className="search-btn" onClick={() => handleFilterSearch(searchTerm)}>Search</button>
+        </div>
+        <h2>
+            Filter your search by...
+        </h2>
+        <div className='filter-container'>
+                {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}   
+        </div>
+        {searchResult.length > 0 ? showPostsSearchList(searchResult): <p>No results.</p>}
       </div>
     </Layout>
   );
