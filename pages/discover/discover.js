@@ -1,91 +1,63 @@
 import { useEffect, useState } from 'react';
-import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
-import { db, useAuth } from '../../firebase';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase';
 import Layout from '../../components/Layout';
 
 const Discover = () => {
-  const { currentUser } = useAuth(); // Utilize the useAuth hook to get the current user
-  const [concerts, setConcerts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchConcerts = async () => {
-      const querySnapshot = await getDocs(collection(db, 'concerts'));
-      const concertsArray = [];
-      querySnapshot.forEach((doc) => {
-        concertsArray.push({ id: doc.id, ...doc.data() });
-      });
-      // Shuffle the array to display randomized concerts
-      const shuffledConcerts = concertsArray.sort(() => Math.random() - 0.5);
-      setConcerts(shuffledConcerts);
-      setLoading(false);
+    const fetchRandomPosts = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'posts'));
+        const allPosts = [];
+        querySnapshot.forEach((doc) => {
+          allPosts.push({ id: doc.id, ...doc.data() });
+        });
+        // Shuffle the posts array to get random posts
+        const shuffledPosts = allPosts.sort(() => Math.random() - 0.5);
+        // Get the first 10 posts
+        const randomPosts = shuffledPosts.slice(0, 10);
+        setPosts(randomPosts);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching random posts:', error);
+      }
     };
 
-    fetchConcerts();
+    fetchRandomPosts();
   }, []);
-
-  const handleAddToBucketList = async (concertId) => {
-    if (!currentUser) {
-      console.error("No user logged in");
-      return;
-    }
-
-    // Fetch the current user's bucket list
-    const userDocRef = doc(db, 'bucketlists', currentUser.uid);
-    const userDocSnapshot = await getDocs(userDocRef);
-    let bucketList = [];
-
-    if (userDocSnapshot.exists()) {
-      const userData = userDocSnapshot.data();
-      bucketList = userData.bucketList || [];
-    }
-
-    // Check if the concert is already in the bucket list
-    if (bucketList.find((concert) => concert.id === concertId)) {
-      alert('This concert is already in your bucket list!');
-      return;
-    }
-
-    // Find the concert data
-    const selectedConcert = concerts.find((concert) => concert.id === concertId);
-
-    // Add the concert to the bucket list
-    bucketList.push(selectedConcert);
-
-    // Update the user's bucket list in Firestore
-    await setDoc(userDocRef, { bucketList }, { merge: true });
-
-    alert('Concert added to your bucket list!');
-  };
-
-  const renderConcerts = () => {
-    if (loading) {
-      return <p>Loading concerts...</p>;
-    }
-
-    if (concerts.length === 0) {
-      return <p>No concerts found.</p>;
-    }
-
-    return (
-      <ul>
-        {concerts.map((concert) => (
-          <li key={concert.id}>
-            <h2>{concert.artist}</h2>
-            <p>Venue: {concert.venue}</p>
-            <p>Date: {concert.date}</p>
-            <button onClick={() => handleAddToBucketList(concert.id)}>Add to Bucket List</button>
-          </li>
-        ))}
-      </ul>
-    );
-  };
 
   return (
     <Layout>
       <div>
-        <h1>Discover Concerts</h1>
-        {renderConcerts()}
+        <h1>Discover</h1>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div>
+            {posts.map((post) => (
+              <div key={post.id}>
+                <h2>Artist: {post.artist}</h2>
+                <p>Venue: {post.venue}</p>
+                <p>Date: {post.date}</p>
+                <h3>Set List:</h3>
+                <ul>
+                  {post.setList &&
+                    post.setList.map((song, index) => (
+                      <li key={index}>{song}</li>
+                    ))}
+                </ul>
+                <p>
+                  Rating: {Array(post.rating).fill('★').join('')} ({post.rating}
+                  /5)
+                </p>
+                <p>Review: {post.review}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </Layout>
   );
