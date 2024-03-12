@@ -11,6 +11,11 @@
 .filter-container {
     display: inline-flex;
     margin-bottom: 20px;
+    margin-left: -35px;
+}
+
+.filter-item {
+    margin-left: 30px;
 }
 
 .input-search {

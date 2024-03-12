@@ -47,6 +47,7 @@ function renderCheckboxFilters(filterList) {
             <div id={`${filterItem}-div`}>
                 <label>
                     <input
+                        className='filter-item'
                         id={`${filterItem}-checkbox`}
                         type="checkbox"
                         checked={selectedFilter === filterItem}
@@ -106,7 +107,7 @@ return (
                 Filter your search by...
             </h2>
             <div className='filter-container'>
-                {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}
+                {renderCheckboxFilters(['Artist', 'Venue', 'Genre', 'Display Name'])}
             </div>
             {searchResult.length > 0 ? showPostsSearchList(searchResult): null}
         </div>
