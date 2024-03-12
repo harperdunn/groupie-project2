@@ -19,7 +19,7 @@ const Discover = () => {
           });
           // Shuffle the posts array to get random posts
           const shuffledPosts = allPosts.sort(() => Math.random() - 0.5);
-          // Get the first 10 posts
+          // Get the first 9 posts
           const randomPosts = shuffledPosts.slice(0, 9);
           setPosts(randomPosts);
           setLoading(false);
