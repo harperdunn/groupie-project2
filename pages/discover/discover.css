@@ -1,0 +1,34 @@
+/* discover.css */
+
+.post-container {
+    margin: 0 auto;
+    padding: 20px;
+    color: #333;
+}
+
+.post-section {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.post-section h1, h2 {
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+}
+
+.setlist-btns {
+    background-color: rgb(28, 7, 76);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 10px;
+}
+
+.setlist-btns:hover {
+    background-color: rgb(18, 4, 50);
+}
