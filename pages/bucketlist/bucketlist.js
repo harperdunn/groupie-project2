@@ -89,13 +89,18 @@ const CreateBucketList = () => {
         <ul>
           {bucketList.map((item, index) => (
             <li key={index}>
-              <input
-                type="checkbox"
-                checked={item.watched}
-                onChange={() => handleToggleWatched(index)}
-              />
-              {item.name} {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 50, height: 50 }}/>}
-              <button classname="delete" type="button" onClick={() => handleDeleteArtist(index)}>Delete</button>
+                <div className='list-item'>
+                    <input
+                    type="checkbox"
+                    checked={item.watched}
+                    onChange={() => handleToggleWatched(index)}
+                    />
+                    {item.name}
+                    <button className="delete-BL" onClick={() => handleDeleteArtist(index)}>Delete</button>
+                </div>
+                <div className='img-BL'>
+                    {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 130, height: 100 }}/>}
+                </div>
             </li>
           ))}
         </ul>

@@ -43,20 +43,31 @@
     font-size: 22px;
 }
 
-.delete {
+.bucketlist input[type="checkbox"]:checked {
+    background-color: rgb(28, 7, 76); 
+}
+
+.list-item {
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+    font-size: 22px;
+}
+
+.delete-BL {
     background-color: rgb(28, 7, 76);
     color: #fff;
     border: none;
     border-radius: 5px;
     padding: 4px 10px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
     font-family: 'Times New Roman', Times, serif;
     margin-bottom: 10px;
     margin-left: 20px;
 }
 
-.delete:hover {
+.delete-BL:hover {
     background-color: rgb(18, 4, 50);
 }
 
@@ -74,4 +85,8 @@
 
 .add-btn:hover {
     background-color: rgb(18, 4, 50);
+}
+
+.img-BL {
+    margin: 10px;
 }
