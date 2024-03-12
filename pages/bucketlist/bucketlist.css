@@ -26,6 +26,7 @@
 .input-bucketlist {
     margin-bottom: 20px;
     width: 250px;
+    padding: 5px;
 }
 
 .bucketlist-container h1 {
