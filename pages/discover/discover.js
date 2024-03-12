@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { useRouter } from "next/router";
 import Layout from '../../components/Layout';
 import './discover.css';
 
@@ -30,6 +31,11 @@ const Discover = () => {
       fetchRandomPosts();
     }, []);
   
+    const router = useRouter();
+    const navigateToPost = (postId) => {
+    router.push(`/post/${postId}`);
+    };
+
     return (
       <Layout>
         <div className='discover-section'>
