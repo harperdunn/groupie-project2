@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import Layout from '../../components/Layout';
+import './viewPost.css';
 
 const Post = ({ post }) => {
   if (!post) return <Layout>Loading...</Layout>;
@@ -21,7 +22,7 @@ const Post = ({ post }) => {
           ))}
         </ul>
       </div>
-      {post.imageUrl && <img src={post.imageUrl} alt="Post image" />}
+      {post.imageUrl && <img src={post.imageUrl} alt="Post image" style={{ width: 200, height: 250 }} />}
       {/* Display genres if they exist */}
       {post.genres && (
         <div>Genres: {post.genres.join(", ")}</div>
