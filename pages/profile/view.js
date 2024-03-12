@@ -48,6 +48,10 @@ export default function ViewProfile() {
         fetchUserProfileAndPosts();
     }, [currentUser, authLoading, router]);
 
+    const navigateToPost = (postId) => {
+        router.push(`/post/${postId}`);
+    };
+
     return (
         <Layout>
             <div className="profile-container">
@@ -71,7 +75,7 @@ export default function ViewProfile() {
                     <h2>Your Posts</h2>
                     <div className="posts-container">
                         {posts.map(({ id, artist, date, venue, rating }) => (
-                            <div key={id} className="post-thumbnail" onClick={() => { /* Placeholder for navigation */ }}>
+                            <div key={id} className="post-thumbnail" onClick={() => navigateToPost(id)}>
                                 <h4>{artist}</h4>
                                 <p>Date: {date}</p>
                                 <p>Venue: {venue}</p>
