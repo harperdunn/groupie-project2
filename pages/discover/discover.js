@@ -32,7 +32,7 @@ const Discover = () => {
   
     return (
       <Layout>
-        <div>
+        <div className='discover-section'>
           <h1>Discover</h1>
           {loading ? (
             <p>Loading...</p>
