@@ -40,46 +40,46 @@ const search = () => {
   }
 
 
- // Render the checkboxes: artist, venue, genre, userid
-  function renderCheckboxFilters(filterList) {
-        return (
-          filterList.map((filterItem) => (
-            <div id={`${filterItem}-div`}>
-              <label>
-                <input
-                  id={`${filterItem}-checkbox`}
-                  type="checkbox"
-                  checked={selectedFilter === filterItem}
-                  onChange={() => setSelectedFilter(filterItem)} 
-                />
-                Search by {filterItem}
-              </label>
-            </div>
-          ))
-        );
-      }
+// Render the checkboxes: artist, venue, genre, userid
+function renderCheckboxFilters(filterList) {
+    return (
+        filterList.map((filterItem) => (
+            <div id={`${filterItem}-div`}>
+                <label>
+                    <input
+                        id={`${filterItem}-checkbox`}
+                        type="checkbox"
+                        checked={selectedFilter === filterItem}
+                        onChange={() => setSelectedFilter(filterItem)} 
+                    />
+                    {filterItem}
+                </label>
+            </div>
+        ))
+    );
+}
 
-  // Show the resulting list
-  function showPostsSearchList(searchResultList) {
-    return (
-      searchResultList.map((result) => (
-        <div key={result.id}>
-          <h2>Artist: {result.artist}</h2>
-          <p>Venue: {result.venue}</p>
-          <p>Date: {result.date}</p>
-          <h3>Set List:</h3>
-          <ul>
-            {result.setList && result.setList.map((song, index) => (
-              <li key={index}>{song}</li>
-            ))}
-          </ul>
-          <p>Rating: {Array(result.rating).fill('★').join('')} ({result.rating}/5)</p>
-          <p>Review: {result.review}</p>
-          <p>Author: {(result.displayName)}</p>
-        </div>
-      ))
-    );
-  }
+// Show the resulting list
+    function showPostsSearchList(searchResultList) {
+    return (
+        searchResultList.map((result) => (
+        <div key={result.id}>
+            <h2>Artist: {result.artist}</h2>
+            <p>Venue: {result.venue}</p>
+            <p>Date: {result.date}</p>
+            <h3>Set List:</h3>
+            <ul>
+            {result.setList && result.setList.map((song, index) => (
+                <li key={index}>{song}</li>
+                ))}
+            </ul>
+            <p>Rating: {Array(result.rating).fill('★').join('')} ({result.rating}/5)</p>
+            <p>Review: {result.review}</p>
+            <p>Author: {(result.displayName)}</p>   
+        </div>
+    ))
+    );
+}
 
   const handleEnterPress = (e) => {
     if (e.key === 'Enter') {
@@ -87,29 +87,31 @@ const search = () => {
     }
   };
 
-  return (
-    <Layout>
-      <div>
-        <h1>Search Page</h1>
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search term"
-          onKeyDown={handleEnterPress}
-        />
-
-        {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}        
-        <button onClick={() => handleFilterSearch(searchTerm)}>Search</button>
-
-        
-        {searchResult.length > 0 
-          ? showPostsSearchList(searchResult)
-          : null
-        }
-      </div>
-    </Layout>
-  );
+return (
+    <Layout>
+        <div className='search-container'>
+            <h1>Looking for something?</h1>
+            <div>
+            <input
+                className='input-search'
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Enter a search term..."
+                onKeyDown={handleEnterPress}
+            />
+            <button className="search-btn" onClick={() => handleFilterSearch(searchTerm)}>Search</button>
+            </div>
+            <h2>
+                Filter your search by...
+            </h2>
+            <div className='filter-container'>
+                {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}
+            </div>
+            {searchResult.length > 0 ? showPostsSearchList(searchResult): null}
+        </div>
+    </Layout>
+);
 }
 
 export default search;

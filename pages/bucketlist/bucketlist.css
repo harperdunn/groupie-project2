@@ -70,3 +70,7 @@
     font-family: 'Times New Roman', Times, serif;
     margin-top: 10px;
 }
+
+.add-btn:hover {
+    background-color: rgb(18, 4, 50);
+}
