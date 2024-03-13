@@ -8,8 +8,7 @@ body {
     padding: 20px;
 }
 
-
-.layout-container {
+.individual-post-container {
     max-width: 800px;
     margin: auto;
     background-color: #fff;
@@ -38,24 +37,24 @@ body {
 }
 
 
-h1 {
+.individual-post-container h1 {
     color: #2A2A2A;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 
-p {
+.individual-post-container p {
     color: #666;
     line-height: 1.6;
 }
 
-ul {
+.individual-post-container ul {
     list-style-type: none;
     padding: 0;
 }
 
-ul li {
+.individual-post-container ul li {
     background-color: #eee;
     margin-bottom: 5px;
     padding: 10px;
@@ -63,7 +62,7 @@ ul li {
 }
 
 
-button {
+.individual-post-button {
     background-color: #0056b3;
     color: #ffffff;
     border: none;
@@ -74,22 +73,19 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.individual-post-button:hover {
     background-color: #003d82;
 }
 
 
-img {
+.individual-post-img {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
 }
 
-
-
-
 @media (max-width: 768px) {
-    .layout-container {
+    .individual-post-container {
         padding: 10px;
     }
 }
