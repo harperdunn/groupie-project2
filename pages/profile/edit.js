@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useAuth, db, storage } from "../../firebase";
 import { setDoc, doc, getDoc } from 'firebase/firestore';
 import { useRouter } from "next/router";
-import UserInfo from '../../components/Profile/UserInfo';
 import Layout from '../../components/Layout';
 import './edit.css';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function EditProfile() {
     const { currentUser, loading: authLoading } = useAuth();
@@ -67,8 +67,22 @@ export default function EditProfile() {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
-        const imageName = file.name;
-        const storageRef = ref(storage, `profilePictures/${currentUser.uid}/${imageName}`);
+
+        const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        const maxFileSize = 5 * 1024 * 1024; 
+
+        if (!validTypes.includes(file.type)) {
+            alert('Invalid file type. Please select an image (JPEG, PNG, GIF).');
+            return;
+        }
+
+        if (file.size > maxFileSize) {
+            alert('File is too large. Please upload files less than 5MB.');
+            return;
+        }
+
+        const uniqueFilename = `${currentUser.uid}/${uuidv4()}-${file.name}`;
+        const storageRef = ref(storage, `profilePictures/${uniqueFilename}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
     
         uploadTask.on(
