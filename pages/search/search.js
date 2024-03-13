@@ -25,7 +25,7 @@ const Search = () => {
     };
 
     fetchPosts();
-    setFilterCategories(['artist', 'venue', 'genre', 'displayName']);
+    setFilterCategories(['artist', 'venue', 'genres', 'displayName']);
   }, []);
 
   const router = useRouter();
@@ -41,12 +41,29 @@ const Search = () => {
     for (const post of posts) {
       if (selectedFilter === null) {
         for (const filterCategory of filterCategories) {
-          if (post[filterCategory] && post[filterCategory].toLowerCase().includes(searchInput.toLowerCase())) {
+          if (Array.isArray(post[filterCategory])){
+            for(const genre of post[filterCategory]) {
+              if(genre.toLowerCase().includes(searchInput.toLowerCase())) {
+                setSearchResult((prevResults) => [...prevResults, post]);
+                break;
+              }
+            }
+          }
+          else if (post[filterCategory] && post[filterCategory].toLowerCase().includes(searchInput.toLowerCase())) {
             setSearchResult((prevResults) => [...prevResults, post]);
             break;
           }
         }
-      } else if (post[selectedFilter] && post[selectedFilter].toLowerCase().includes(searchInput.toLowerCase())) {
+      } 
+      else if (Array.isArray(post[selectedFilter])) {
+        for (const genre of post[selectedFilter]) {
+          if (genre.toLowerCase().includes(searchInput.toLowerCase())) {
+            setSearchResult((prevResults) => [...prevResults, post]);
+            break;
+          }
+        }
+      }
+      else if (post[selectedFilter] && post[selectedFilter].toLowerCase().includes(searchInput.toLowerCase())) {
         setSearchResult((prevResults) => [...prevResults, post]);
       }
     }
@@ -118,7 +135,7 @@ const Search = () => {
         </div>
         <h2>Filter your search by...</h2>
         <div className='filter-container'>
-          {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}
+          {renderCheckboxFilters(['artist', 'venue', 'genres', 'displayName'])}
         </div>
       </div>
       <div className='search-posts-container'>
