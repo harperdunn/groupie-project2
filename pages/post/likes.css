@@ -11,6 +11,13 @@
     text-align: left;
 }
 
+.liked-posts-section h1 {
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+    font-size: 45px;
+}
+
 .liked-posts-section h2, .liked-posts-section h3 {
     color: #333;
     font-weight: 600;
@@ -18,21 +25,24 @@
 }
 
 
-.liked-posts-container .posts-container {
+.posts-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 20px; 
+    gap: 10px; 
+    padding: 40px 20px 40px 20px;
+    background-color: rgb(208, 201, 220);
 }
 
 .liked-posts-container .post-thumbnail {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 15px;
-    width: calc(50% - 20px);
+    width: calc(33.333% - 20px);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease; 
     cursor: pointer;
+    background-color: rgb(251, 250, 250);
 }
 
 .liked-posts-container .post-thumbnail:hover {
@@ -52,17 +62,17 @@
 
 
 @media (max-width: 768px) {
-    .liked-posts-container .posts-container {
+    .posts-container {
         justify-content: center;
     }
 
-    .liked-posts-container .post-thumbnail {
-        width: calc(100% - 20px);
+    .post-thumbnail {
+        width: calc(25%); /* 3 items per row */
     }
 }
 
 @media (max-width: 480px) {
-    .liked-posts-container .post-thumbnail {
-        width: calc(100% - 10px);
+    .post-thumbnail {
+        width: 90%; /* Full width on smaller screens */
     }
 }
