@@ -73,14 +73,27 @@ const Post = ({ post }) => {
 
   return (
     <Layout>
+      <div className='individual-post-background'>
       <div className="individual-post-container">
-        <button className="individual-post-button" onClick={() => router.back()}>Back</button>
+        <h1>{post.artist}</h1>
+        <div className='post-header-container'>
           <div></div>{post.imageUrl && <img className='individual-post-img' src={post.imageUrl} alt="Post image" />} 
-          <h1>{post.artist}</h1>
-          <p>{post.venue}</p>
-          <p>{post.date}</p>
+          <div>
+          <div>
+            <button className="individual-post-button" onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
+            {currentUser && post.userId === currentUser.uid && (
+              <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}>Delete Post</button>
+            )}
+            <p>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</p>
+          </div>
+          <p>Venue: {post.venue}</p>
+          <p>Date: {post.date}</p>
           <p>Rating: {post.rating}</p>
+          </div>
+        </div>
+          <div className='review-container'>
           <p>Review: {post.review}</p>
+          </div>
           <div>
             Set List:
             <ul>
@@ -97,14 +110,9 @@ const Post = ({ post }) => {
               ))}
             </div>
           )}
-          <div>
-            <button className="individual-post-button" onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
-            {currentUser && post.userId === currentUser.uid && (
-              <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}>Delete Post</button>
-            )}
-            <p>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</p>
-          </div>
         </div>
+        </div>
+        <button className="individual-post-button" onClick={() => router.back()}>Back</button> 
       </Layout>
   );
 };
