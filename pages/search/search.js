@@ -27,11 +27,6 @@ const search = () => {
 
     setFilterCategories(['artist', 'venue', 'genre', 'displayName']);
   }, []);
-/*
-  useEffect(() => {
-    setFilterCategories(['artist', 'venue', 'genre', 'displayName']);
-  }, []);
-*/
 
   /**
    * Based on the search input iterate through all posts and find the matching attribute value to the searched value.
@@ -71,7 +66,16 @@ const search = () => {
               id={`${filterItem}-checkbox`}
               type="checkbox"
               checked={selectedFilter === filterItem}
-              onChange={() => setSelectedFilter(filterItem)} 
+              onChange={() => {
+                // If selecting the currently selected filterItem then deselect it
+                if (selectedFilter === filterItem) {
+                    setSelectedFilter(null);
+                } else {
+                    setSelectedFilter(filterItem);
+                }
+             }
+             } 
+
             />
             {filterItem}
           </label>
