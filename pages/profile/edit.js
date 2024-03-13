@@ -4,17 +4,19 @@ import { setDoc, doc, getDoc } from 'firebase/firestore';
 import { useRouter } from "next/router";
 import Layout from '../../components/Layout';
 import './edit.css';
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import { v4 as uuidv4 } from 'uuid';
 
 export default function EditProfile() {
     const { currentUser, loading: authLoading } = useAuth();
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const [bio, setBio] = useState('');
     const [artists, setArtists] = useState(['', '', '', '', '']);
-    const [imageUrl, setImageUrl] = useState('');
+    const [imageFile, setImageFile] = useState(null); 
+    const [previewUrl, setPreviewUrl] = useState(''); 
+    const [existingImageUrl, setExistingImageUrl] = useState('');
     const router = useRouter();
-   
+
     useEffect(() => {
         if (!currentUser) {
             if (!authLoading) {
@@ -31,7 +33,8 @@ export default function EditProfile() {
                 const userData = docSnap.data();
                 setBio(userData.bio || '');
                 setArtists(userData.artists || ['', '', '', '', '']);
-                setImageUrl(userData.profileUrl || currentUser.PhotoUrl || '');
+                setPreviewUrl(userData.profileUrl || currentUser.PhotoUrl || '');
+                setExistingImageUrl(userData.profileUrl || '');
             } else {
                 console.log("Document does not exist");
             }
@@ -43,14 +46,53 @@ export default function EditProfile() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!currentUser) return; 
+        if (!currentUser) return;
+
+        const uploadImage = async () => {
+            if (imageFile) {
+                const uniqueFilename = `${currentUser.uid}/${uuidv4()}-${imageFile.name}`;
+                const storageRef = ref(storage, `profilePictures/${uniqueFilename}`);
+                const uploadTask = uploadBytesResumable(storageRef, imageFile);
+                
+                try {
+                    await new Promise((resolve, reject) => {
+                        uploadTask.on(
+                            "state_changed",
+                            () => {},
+                            reject,
+                            async () => {
+                                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                                resolve(downloadURL);
+                                setPreviewUrl(downloadURL); 
+                            }
+                        );
+                    });
+                } catch (error) {
+                    console.error("Upload error:", error);
+                    return null;
+                }
+            }
+            return previewUrl; 
+        };
+
+        const imageUrl = await uploadImage();
+        if (!imageUrl) return; 
+
         try {
+            // Update user profile
             const userRef = doc(db, "users", currentUser.uid);
             await setDoc(userRef, {
                 bio,
                 artists,
                 profileUrl: imageUrl,
-            }, {merge: true });
+            }, { merge: true });
+            
+            if (existingImageUrl && existingImageUrl !== imageUrl) {
+                
+                const oldImageRef = ref(storage, existingImageUrl);
+                await deleteObject(oldImageRef);
+            }
+            
             console.log('Profile updated');
             router.push('/profile/view');
         } catch (error) {
@@ -58,18 +100,12 @@ export default function EditProfile() {
         }
     };
 
-    const handleArtistChange = (index, value) => {
-        const newArtists = [...artists];
-        newArtists[index] = value;
-        setArtists(newArtists);
-    };
-
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
         const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        const maxFileSize = 5 * 1024 * 1024; 
+        const maxFileSize = 5 * 1024 * 1024; // 5MB
 
         if (!validTypes.includes(file.type)) {
             alert('Invalid file type. Please select an image (JPEG, PNG, GIF).');
@@ -81,22 +117,12 @@ export default function EditProfile() {
             return;
         }
 
-        const uniqueFilename = `${currentUser.uid}/${uuidv4()}-${file.name}`;
-        const storageRef = ref(storage, `profilePictures/${uniqueFilename}`);
-        const uploadTask = uploadBytesResumable(storageRef, file);
-    
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {},
-            (error) => {
-                console.error("Upload error:", error);
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    setImageUrl(downloadURL);
-                });
-            }
-        );
+        setImageFile(file); 
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreviewUrl(reader.result); 
+        };
+        reader.readAsDataURL(file);
     };
 
     return (
@@ -107,7 +133,7 @@ export default function EditProfile() {
                     <form onSubmit={handleSubmit}>
                         <div className='edit-section'>
                             <h2>Profile Picture:</h2>
-                            {imageUrl && <img className="profile-picture-edit" src={imageUrl} alt="Profile" style={{width: '100px', height: '100px'}} />}
+                            {previewUrl && <img className="profile-picture-edit" src={previewUrl} alt="Profile" style={{width: '100px', height: '100px'}} />}
                             <div>
                                 <input type="file" onChange={handleImageChange} />
                             </div>
