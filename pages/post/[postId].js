@@ -97,7 +97,7 @@ const Post = ({ post }) => {
           <div>
             <button className="individual-post-button" onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
             {currentUser && post.userId === currentUser.uid && (
-              <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}>Delete Post</button>
+              <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}>Delete</button>
             )}
             <p>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</p>
           </div>
@@ -107,10 +107,10 @@ const Post = ({ post }) => {
           </div>
         </div>
           <div className='review-container'>
-          <p>Review: {post.review}</p>
+            <p>{post.review}</p>
           </div>
           <div>
-            Set List:
+            <h2>Set List:</h2>
             <ul>
               {post.setList.map((song, index) => (
                 <li key={index}>{song}</li>
