@@ -81,7 +81,7 @@ const search = () => {
   function showPostsSearchList(searchResultList) {
     return (
       searchResultList.map((result) => (
-        <div className='search-posts-container'>
+        <div>
         <div key={result.id} className='search-post-thumbnail' onClick={() => navigateToPost(id)}>
           <h2>{result.artist}</h2>
           <p>Date: {result.date}</p>
@@ -120,7 +120,9 @@ const search = () => {
           {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}
         </div>
         </div>
-        {searchPerformed && searchResult.length === 0 ? <p>No results!</p> : showPostsSearchList(searchResult)}
+        <div className='search-posts-container'>
+            {searchPerformed && searchResult.length === 0 ? <p>No results!</p> : showPostsSearchList(searchResult)}
+        </div>
     </Layout>
   );
 }
