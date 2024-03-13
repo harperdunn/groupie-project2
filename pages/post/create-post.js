@@ -61,6 +61,7 @@ const CreatePost = () => {
         imageUrl,
         userId: currentUser.uid, // Use the UID from currentUser provided by useAuth
         displayName: currentUser.displayName,
+        likes: [],
       });
     
       router.push('/profile/view');
