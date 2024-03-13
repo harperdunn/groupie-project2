@@ -7,6 +7,7 @@ import Layout from '../../components/Layout';
 import CreatableSelect from 'react-select/creatable';
 import genres from '../../components/genres';
 import './post.css';
+import { v4 as uuidv4 } from 'uuid';
 
 const CreatePost = () => {
   const { currentUser, loading } = useAuth(); // Use the useAuth hook
@@ -27,7 +28,10 @@ const CreatePost = () => {
 
   const uploadImage = async (file) => {
     if (!file) return null;
-    const imageRef = ref(storage, `postImages/${currentUser.uid}/${file.name}`);
+
+    const uniqueFilename = `${currentUser.uid}/${uuidv4()}-${file.name}`;
+
+    const imageRef = ref(storage, `postImages/${uniqueFilename}`);
     await uploadBytes(imageRef, file);
     return getDownloadURL(imageRef);
   };
@@ -71,9 +75,29 @@ const CreatePost = () => {
   };
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const file = event.target.files[0];
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const maxFileSize = 5 * 1024 * 1024; // 5 MB
+  
+    if (!file) {
+      alert('No file selected.');
+      return;
+    }
+  
+    if (!validTypes.includes(file.type)) {
+      alert('Invalid file type. Please select an image (JPEG, PNG, GIF).');
+      return;
+    }
+  
+    if (file.size > maxFileSize) {
+      alert('File is too large. Please upload files less than 5MB.');
+      return;
+    }
+  
+    setFile(file);
   };
-
+  
+  
   const handleAddSong = () => {
     if (newSong.trim() !== '') {
       setSetList(currentList => [...currentList, newSong]);
