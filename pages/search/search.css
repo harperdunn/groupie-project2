@@ -56,3 +56,61 @@
 .search-btn:hover {
     background-color: rgb(18, 4, 50);
 }
+
+.search-posts-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px; 
+    text-align: left;
+}
+
+.search-post-thumbnail {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px 40px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+    cursor: pointer;
+    margin: 10px
+}
+
+.search-post-thumbnail h2 {
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+    font-size: 20px;
+}
+
+.search-post-thumbnail:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Post Thumbnail Text Styling */
+.search-post-thumbnail h4 {
+    margin-top: 0;
+    color: #333;
+}
+
+.search-post-thumbnail p {
+    margin-bottom: 5px;
+    color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .search-posts-container {
+        justify-content: center;
+    }
+
+    .search-post-thumbnail {
+        width: calc(25%); /* 3 items per row */
+    }
+}
+
+@media (max-width: 480px) {
+    .search-post-thumbnail {
+        width: 90%; /* Full width on smaller screens */
+    }
+}
