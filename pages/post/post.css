@@ -118,5 +118,10 @@
     font-size: 12px;
     font-family: 'Times New Roman', Times, serif;
     margin-top: 10px;
-    margin-right: 20px;
+    margin-right: 20px
+}
+
+.clear-btn {
+    margin-top: 10px;
+    margin-right: 155px;
 }
