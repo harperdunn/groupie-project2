@@ -40,7 +40,7 @@ const Discover = () => {
       <Layout>
         <div className='discover-section'>
           <h1>Discover</h1>
-          <h2>Want to try something new? Check out some randomized reviews</h2>
+          <h2>Want to try something new? Check out some randomized reviews!</h2>
           {loading ? (
             <p>Loading...</p>
           ) : (
