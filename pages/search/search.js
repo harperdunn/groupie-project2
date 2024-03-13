@@ -10,6 +10,7 @@ const search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState(null);
   const [filterCategories, setFilterCategories] = useState([]);
+  const[searchPerformed, setSearchPerformed] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -37,19 +38,22 @@ const search = () => {
   const handleFilterSearch = searchInput => {
         // Reset search result just in case a subsequent search is performed
         setSearchResult([]);
-        for (const post of posts) {
-            if (selectedFilter === null){
-                for (const filterCategory of filterCategories) {
-                    if (post[filterCategory] == searchInput) {
-                        setSearchResult((prevResults) => [...prevResults, post]);
-                        break;
+        if(searchInput.trim() !== ""){
+            for (const post of posts) {
+                if (selectedFilter === null){
+                    for (const filterCategory of filterCategories) {
+                        if (post[filterCategory] && post[filterCategory] == searchInput) {
+                            setSearchResult((prevResults) => [...prevResults, post]);
+                            break;
+                        }
                     }
                 }
-            }
-            if (post[selectedFilter] === searchInput) {
-                setSearchResult((prevResults) => [...prevResults, post]);
+                else if (post[selectedFilter] && post[selectedFilter] === searchInput) {
+                    setSearchResult((prevResults) => [...prevResults, post]);
+                }
             }
         }
+        setSearchPerformed(true);
     }      
 
   // Render the checkboxes: artist, venue, genre, userid
@@ -121,7 +125,7 @@ const search = () => {
         <div className='filter-container'>
                 {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}   
         </div>
-        {searchResult.length > 0 ? showPostsSearchList(searchResult): <p>No results.</p>}
+        {searchPerformed == true && searchResult.length === 0 ? <p>No results!</p>: showPostsSearchList(searchResult)}        
       </div>
     </Layout>
   );
