@@ -1,19 +1,11 @@
-body {
-    color: #333;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-}
-
-
 .individual-post-container {
     max-width: 800px;
-    margin: auto;
-    background-color: #fff;
+    margin: 20px;
+    background-color: rgb(212, 204, 220);
     padding: 20px;
     box-sizing: border-box;
+    color: #333;
 }
-
 
 .genre-buttons {
     margin-top: 10px;
@@ -59,7 +51,6 @@ body {
     border-radius: 5px;
 }
 
-
 .individual-post-button {
     background-color: #0056b3;
     color: #ffffff;
@@ -75,11 +66,12 @@ body {
     background-color: #003d82;
 }
 
-
 .individual-post-img {
-    max-width: 100%;
-    height: auto;
+    width: 250px;
+    height: 340px;
     border-radius: 5px;
+    object-fit: cover; /* Ensure the image fills the circle without distortion */
+    object-position: center; /* Center the image within the circle */
 }
 
 @media (max-width: 768px) {

@@ -75,7 +75,7 @@ const Post = ({ post }) => {
     <Layout>
       <div className="individual-post-container">
         <button className="individual-post-button" onClick={() => router.back()}>Back</button>
-          <div></div>{post.imageUrl && <img src={post.imageUrl} alt="Post image" style={{ width: 200, height: 250 }} />} 
+          <div></div>{post.imageUrl && <img className='individual-post-img' src={post.imageUrl} alt="Post image" />} 
           <h1>{post.artist}</h1>
           <p>{post.venue}</p>
           <p>{post.date}</p>
