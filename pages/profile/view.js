@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth, db } from "../../firebase";
-import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs, deleteDoc} from 'firebase/firestore';
 import { useRouter } from "next/router";
 import UserInfo from '../../components/Profile/UserInfo';
 import Layout from '../../components/Layout';
@@ -52,6 +52,15 @@ export default function ViewProfile() {
         router.push(`/post/${postId}`);
     };
 
+    const handleDeletePost = async (event, postId) => {
+        event.stopPropagation();
+        if (confirm('Are you sure you want to delete this post?')) {
+            await deleteDoc(doc(db, "posts", postId));
+            setPosts(posts.filter(post => post.id !== postId));
+        }
+    };
+    
+
     return (
         <Layout>
             <div className="profile-container">
@@ -80,6 +89,7 @@ export default function ViewProfile() {
                                 <p>Date: {date}</p>
                                 <p>Venue: {venue}</p>
                                 <p>Rating: {rating}/5</p>
+                                <button onClick={(event) => handleDeletePost(event, id)} style={{marginLeft: '10px'}}>Delete</button>
                             </div>
                         ))}
                     </div>
