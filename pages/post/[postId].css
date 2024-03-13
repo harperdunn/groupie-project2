@@ -1,10 +1,24 @@
-.individual-post-container {
-    max-width: 800px;
-    margin: 20px;
+.individual-post-background {
     background-color: rgb(212, 204, 220);
+    border-radius: 10px;
+    max-width: 800px;
+}
+
+.individual-post-container {
+    margin: 0px 30px 30px 30px;
     padding: 20px;
-    box-sizing: border-box;
     color: #333;
+}
+
+.post-header-container {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+    margin-left: -20px;
+}
+
+.review-container {
+    width: 400px;
 }
 
 .genre-buttons {
@@ -35,7 +49,7 @@
 
 
 .individual-post-container p {
-    color: #666;
+    color: #333;
     line-height: 1.6;
 }
 
@@ -52,26 +66,28 @@
 }
 
 .individual-post-button {
-    background-color: #0056b3;
+    background-color: rgb(28, 7, 76);
     color: #ffffff;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 15px;
     margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
 }
 
 .individual-post-button:hover {
-    background-color: #003d82;
+    background-color: rgb(18, 4, 50);
 }
 
 .individual-post-img {
     width: 250px;
     height: 340px;
     border-radius: 5px;
-    object-fit: cover; /* Ensure the image fills the circle without distortion */
-    object-position: center; /* Center the image within the circle */
+    object-fit: cover; 
+    object-position: center;
 }
 
 @media (max-width: 768px) {
