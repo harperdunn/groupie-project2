@@ -93,3 +93,18 @@
         width: 90%;
     }
 }
+
+.edit-profile-btn {
+    background-color: rgb(28, 7, 76);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.edit-profile-btn:hover {
+    background-color: rgb(18, 4, 50);
+}

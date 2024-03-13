@@ -43,7 +43,7 @@
     margin-right: 10px; /* Add margin-right for spacing between inputs */
 }
 
-.edit-profile-btn {
+.update-profile-btn {
     background-color: rgb(28, 7, 76);
     color: #fff;
     border: none;
@@ -54,7 +54,7 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
-.edit-profile-btn:hover {
+.update-profile-btn:hover {
     background-color: rgb(18, 4, 50);
 }
 

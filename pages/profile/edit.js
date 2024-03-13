@@ -118,7 +118,7 @@ export default function EditProfile() {
                             ))}
                             </div>
                         </div>
-                        <button className="edit-profile-btn" type="submit">Update</button>
+                        <button className="update-profile-btn" type="submit">Update</button>
                     </form>
                 </div>
             </Layout>
