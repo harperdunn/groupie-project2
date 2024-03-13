@@ -8,6 +8,7 @@ import './discover.css';
 const Discover = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [refreshKey, setRefreshKey] = useState(0);
   
     useEffect(() => {
       const fetchRandomPosts = async () => {
@@ -29,11 +30,15 @@ const Discover = () => {
       };
   
       fetchRandomPosts();
-    }, []);
+    }, [refreshKey]);
   
     const router = useRouter();
     const navigateToPost = (postId) => {
     router.push(`/post/${postId}`);
+    };
+
+    const handleRefresh = () => {
+      setRefreshKey(oldKey => oldKey + 1);
     };
 
     return (
@@ -54,6 +59,9 @@ const Discover = () => {
                     <p>Rating: {rating}/5</p>
                   </div>
                 ))}
+              </div>
+              <div>
+              <button onClick={(event) => handleRefresh()} style={{marginLeft: '10px'}}>Refresh</button>
               </div>
             </div>
           )}
