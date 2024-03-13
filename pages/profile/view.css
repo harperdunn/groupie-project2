@@ -9,7 +9,14 @@
     text-align: left;
 }
 
-.profile-section h2 {
+.profile-container h1 {
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+    font-size: 40px;
+}
+
+.profile-container h2 {
     color: #333;
     font-weight: 600;
     text-align: left;
@@ -26,7 +33,6 @@
     border-radius: 50%; /* Crop the image into a circle */
     object-fit: cover; /* Ensure the image fills the circle without distortion */
     object-position: center; /* Center the image within the circle */
-    margin-bottom: 20px;
 }
 
 .artist-list li {

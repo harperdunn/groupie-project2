@@ -75,7 +75,7 @@ export default function ViewProfile() {
             <div className="profile-container">
                 <div className="profile-header">
                     <img src={imageUrl} alt="Profile" className="profile-picture" />
-                    <UserInfo />
+                    <h1><UserInfo /></h1>
                 </div>
                 <div className="profile-section">
                     <h2>Bio</h2>
@@ -98,7 +98,6 @@ export default function ViewProfile() {
                                 <p>Date: {date}</p>
                                 <p>Venue: {venue}</p>
                                 <p>Rating: {rating}/5</p>
-                                <button onClick={(event) => handleDeletePost(event, id)} style={{marginLeft: '10px'}}>Delete</button>
                             </div>
                         ))}
                     </div>

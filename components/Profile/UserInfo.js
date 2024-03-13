@@ -15,7 +15,7 @@ function UserInfo() {
     console.log(currentUser)
     return (
       <div>
-        User: {currentUser.displayName}
+        {currentUser.displayName}
       </div> 
     );
         }
