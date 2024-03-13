@@ -1,21 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
-
 body {
-    font-family: 'Nunito', sans-serif;
     color: #333;
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
 }
 
-.individual-post-container {
+
+.layout-container {
     max-width: 800px;
     margin: auto;
     background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-sizing: border-box;
 }
+
 
 .genre-buttons {
     margin-top: 10px;

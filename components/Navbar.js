@@ -19,7 +19,7 @@ const Navbar = () => {
         <nav className='navbar'>
                 <Link className='navbar-link' href="/profile/view">Profile</Link>
                 <Link className='navbar-link' href="/bucketlist/bucketlist">Bucket List</Link>
-                <Link className='navbar-link' href="/post/create-post">Create Post</Link>
+                <Link className='navbar-link' href="/post/create">Create Post</Link>
                 <Link className='navbar-link' href="/post/likes">Liked Posts</Link>
                 <Link className='navbar-link' href="/search/search">Search</Link>
                 <Link className='navbar-link' href="/discover/discover">Discover</Link>
