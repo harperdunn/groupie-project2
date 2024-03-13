@@ -1,0 +1,23 @@
+.edit-section {
+    margin-bottom: 50px;
+}
+
+.edit-section h2 {
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+}
+
+.profile-picture-edit {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 20px;
+}
+
+.artist-edit {
+    margin-bottom: 10px;
+    display: inline-flex;
+}
