@@ -91,9 +91,10 @@ const Post = ({ post }) => {
       <div className='individual-post-background'>
       <div className="individual-post-container">
         <h1>{post.artist}</h1>
+        <p>By {post.displayName}</p>
         <div className='post-header-container'>
           <div></div>{post.imageUrl && <img className='individual-post-img' src={post.imageUrl} alt="Post image" />} 
-          <div>
+          <div className='post-info-container'>
           <div>
             <button className="individual-post-button" onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
             {currentUser && post.userId === currentUser.uid && (
