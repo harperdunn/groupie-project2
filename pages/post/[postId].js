@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, deleteDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { useAuth } from '../../firebase';
 import { db } from '../../firebase';
 import Layout from '../../components/Layout';
-import './viewPost.css';
 
 const Post = ({ post }) => {
   const { currentUser } = useAuth();
@@ -40,6 +39,15 @@ const Post = ({ post }) => {
     }
   };
 
+  const handleDelete = async () => {
+    if (post.userId === currentUser?.uid) {
+      await deleteDoc(doc(db, "posts", postId));
+      router.push('/profile/view');
+    } else {
+      console.error("You're not authorized to delete this post.");
+    }
+  };
+
   if (!post) return <Layout>Loading...</Layout>;
 
   return (
@@ -65,6 +73,9 @@ const Post = ({ post }) => {
       )}
       <div>
         <button onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
+        {currentUser && post.userId === currentUser.uid && (
+          <button onClick={handleDelete} style={{marginLeft: '10px'}}>Delete Post</button>
+        )}
         <p>{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</p>
       </div>
     </Layout>
