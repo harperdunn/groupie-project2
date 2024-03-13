@@ -5,10 +5,13 @@ import Layout from '../../components/Layout';
 import './viewPost.css';
 
 const Post = ({ post }) => {
+const router = useRouter();
+
   if (!post) return <Layout>Loading...</Layout>;
 
   return (
     <Layout>
+      <button onClick={() => router.back()}>Back</button> 
       <h1>{post.artist}</h1>
       <p>Venue: {post.venue}</p>
       <p>Date: {post.date}</p>
