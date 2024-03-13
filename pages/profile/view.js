@@ -50,24 +50,6 @@ export default function ViewProfile() {
     const navigateToPost = (postId) => {
         router.push(`/post/${postId}`);
     };
-
-    const handleDeletePost = async () => {
-        if (post.userId === currentUser?.uid) {
-          const isConfirmed = window.confirm("Are you sure you want to delete this post?");
-          if (isConfirmed) {
-            await deleteDoc(doc(db, "posts", postId));
-      
-            const userRef = doc(db, "users", currentUser.uid);
-            await updateDoc(userRef, {
-              likedPosts: arrayRemove(postId)
-            });
-    
-            router.push('/profile/view');
-          }
-        } else {
-          console.error("You're not authorized to delete this post.");
-        }
-      };
     
 
     return (

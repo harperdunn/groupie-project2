@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Layout from '../../components/Layout';
 import './search.css';
 
-const search = () => {
+const Search = () => {
   const [posts, setPosts] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,9 +29,9 @@ const search = () => {
   }, []);
 
   const router = useRouter();
-    const navigateToPost = (postId) => {
+  const navigateToPost = (postId) => {
     router.push(`/post/${postId}`);
-    };
+  };
 
   const handleFilterSearch = searchInput => {
     setSearchResult([]);
@@ -56,7 +56,7 @@ const search = () => {
   function renderCheckboxFilters(filterList) {
     return (
       filterList.map((filterItem) => (
-        <div id={`${filterItem}-div`}>
+        <div id={`${filterItem}-div`} key={filterItem}>
           <label>
             <input
               className='filter-item'
@@ -83,15 +83,13 @@ const search = () => {
 
     return (
       sortedResults.map((result) => (
-        <div>
-        <div key={result.id} className='search-post-thumbnail' onClick={() => navigateToPost(id)}>
+        <div key={result.id} className='search-post-thumbnail' onClick={() => navigateToPost(result.id)}>
           <h2>{result.artist}</h2>
           <p>Date: {result.date}</p>
           <p>Venue: {result.venue}</p>
           <p>Rating: {Array(result.rating).fill('★').join('')} ({result.rating}/5)</p>
-          <p>Author: {(result.displayName)}</p>
-          <p>{result.likes.length} {result.likes.length === 1 ? 'Like': 'Likes'}</p>
-        </div>
+          <p>Author: {result.displayName}</p>
+          <p>{result.likes.length} {result.likes.length === 1 ? 'Like' : 'Likes'}</p>
         </div>
       ))
     );
@@ -122,12 +120,12 @@ const search = () => {
         <div className='filter-container'>
           {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}
         </div>
-        </div>
-        <div className='search-posts-container'>
-            {searchPerformed && searchResult.length === 0 ? <p>No results!</p> : showPostsSearchList(searchResult)}
-        </div>
+      </div>
+      <div className='search-posts-container'>
+        {searchPerformed && searchResult.length === 0 ? <p>No results!</p> : showPostsSearchList(searchResult)}
+      </div>
     </Layout>
   );
 }
 
-export default search;
+export default Search;
