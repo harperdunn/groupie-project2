@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -12,6 +12,7 @@ const CreateBucketList = () => {
   const [newArtist, setNewArtist] = useState('');
   const [file, setFile] = useState(null);
   const router = useRouter();
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (!currentUser) {
@@ -58,6 +59,9 @@ const CreateBucketList = () => {
       await updateFirebaseBucketList(updatedList);
       setNewArtist('');
       setFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     }
   };
 
@@ -123,6 +127,7 @@ const CreateBucketList = () => {
             className='input-bucketlist'
             type="file"
             onChange={handleFileChange}
+            ref={fileInputRef}
           />
         </div>
         <button className="add-btn" type="button" onClick={handleAddArtist}>Add</button>

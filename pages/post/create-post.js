@@ -85,6 +85,17 @@ const CreatePost = () => {
     setSetList(currentList => currentList.filter((_, i) => i !== index));
   };
 
+  const handleClear = () => {
+    setArtist('');
+    setVenue('');
+    setDate('');
+    setSetList([]);
+    setNewSong('');
+    setRating(0);
+    setReview('');
+    setGenresSelected([]);
+    setFile(null);
+  };
   
   if (loading) return <Layout>Loading...</Layout>;
 
@@ -195,7 +206,7 @@ const CreatePost = () => {
           />
         </div>
         <div className='post-section'>
-          <button className="create-btn" type="button" onClick={() => router.back()}>Cancel</button>
+          <button className="cancel-btn" type="button" onClick={() => router.back()}>Cancel</button>
           <button className="create-btn" type="submit">Create Post</button></div>
       </form>
     </div>
