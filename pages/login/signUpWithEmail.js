@@ -5,7 +5,7 @@ import {auth} from "../../firebase"
 import {useAuth} from "../../firebase"
 import {Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+import './signUp.css';
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -45,8 +45,9 @@ const SignUp = () => {
   
 
   return (
-    <div>
-    <div className="text-wrapper">Become a Groupie!</div>
+    <div className='signUp-page-container'>
+      <div className='signUp-content-container'>
+    <h1>Become a Groupie!</h1>
     <Container className="text-center custom-container">
       <Row>
         <Col>
@@ -55,7 +56,7 @@ const SignUp = () => {
             onSubmit={onSubmit}>
           { error && <Alert color="danger">{error}</Alert>}
             <FormGroup row>
-              <Label for="signUpEmail" sm={4}>Email</Label>
+              <Label for="signUpEmail" sm={4}>Email:</Label>
               <Col sm={8}>
                 <Input
                   type="email"
@@ -67,7 +68,7 @@ const SignUp = () => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="signUpPassword" sm={4}>Password</Label>
+              <Label for="signUpPassword" sm={4}>Password:</Label>
               <Col sm={8}>
                 <Input
                   type="password"
@@ -79,7 +80,7 @@ const SignUp = () => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="signUpPassword2" sm={4}>Confirm Password</Label>
+              <Label for="signUpPassword2" sm={4}>Confirm Password:</Label>
               <Col sm={8}>
                 <Input
                   type="password"
@@ -92,7 +93,7 @@ const SignUp = () => {
             </FormGroup>
             <FormGroup row>
              <Col>
-               <button className='signin-button'>Sign Up</button>
+               <button className='signUp-button'>Sign Up</button>
              </Col>
            </FormGroup>
           </Form>
@@ -101,7 +102,8 @@ const SignUp = () => {
     </Container>
     <div>
       Already have an account?
-      <button className="signup-button" onClick={() => router.push('/login')}>Log In!</button>
+      <button className="login-button" onClick={() => router.push('/login')}>Log In!</button>
+    </div>
     </div>
     </div>
   )

@@ -35,14 +35,14 @@ const signInWithGoogle= async () =>{ //calls the popup function with the client 
 }
 
 return (
-  <div>
-    <div className="text-wrapper">Welcome to</div>
-    <div className="text-wrapper">GROUPIE</div>
+  <div className="welcome-container">
+      <h1>Welcome to</h1>
+      <h2>GROUPIE</h2>
     <div className="signin-container">
-      <button className='signin-button' onClick={signInWithGoogle}>
+      <button className='signin-buttons' onClick={signInWithGoogle}>
         <div>Sign In With Google</div>
       </button>
-      <button className='signin-button' onClick={() => router.push("/login/signInWithEmail")}>
+      <button className='signin-buttons' onClick={() => router.push("/login/signInWithEmail")}>
         <div>Sign In With Email</div>
       </button>
       <div>
