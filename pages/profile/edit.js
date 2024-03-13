@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useAuth, db, storage } from "../../firebase";
-import { setDoc, doc, getDoc, } from 'firebase/firestore';
+import { setDoc, doc, getDoc } from 'firebase/firestore';
 import { useRouter } from "next/router";
 import UserInfo from '../../components/Profile/UserInfo';
-import Layout from '../../components/Layout'; 
+import Layout from '../../components/Layout';
 import './edit.css';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
@@ -87,38 +87,40 @@ export default function EditProfile() {
 
     return (
         <>
-        <Layout>
-            <div className='edit-container'>
-                <h1>Edit Your Profile</h1>
-            <form onSubmit={handleSubmit}>
-                <div className='edit-section'>
-                    <h2>Profile Picture:</h2>
-                    {imageUrl && <img className="profile-picture-edit" src={imageUrl} alt="Profile" style={{width: '100px', height: '100px'}} />}
-                    <div>
-                        <input type="file" onChange={handleImageChange} />
-                    </div>
-                </div>
-                <div className='edit-section'>
-                    <div>
-                        <h2>Bio:</h2>
-                    </div>
-                    <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
-                </div>
-                <div className='edit-section'>
-                    <h2>Top Five Artists:</h2>
-                    {artists.map((artist, index) => (
-                        <div className='artist-edit' key={index}>
-                            <input
-                                value={artist}
-                                onChange={(e) => handleArtistChange(index, e.target.value)}
-                                placeholder={`Artist #${index + 1}`}
-                            />
+            <Layout>
+                <div className='edit-container'>
+                    <h1>Edit Your Profile</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className='edit-section'>
+                            <h2>Profile Picture:</h2>
+                            {imageUrl && <img className="profile-picture-edit" src={imageUrl} alt="Profile" style={{width: '100px', height: '100px'}} />}
+                            <div>
+                                <input type="file" onChange={handleImageChange} />
+                            </div>
                         </div>
-                    ))}
+                        <div className='edit-section'>
+                            <div>
+                                <h2>Bio:</h2>
+                            </div>
+                            <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
+                        </div>
+                        <div className='edit-section'>
+                            <h2>Top Five Artists:</h2>
+                            <div className='artist-grid'>
+                            {artists.map((artist, index) => (
+                                <div className='artist-edit' key={index}>
+                                    <input
+                                        value={artist}
+                                        onChange={(e) => handleArtistChange(index, e.target.value)}
+                                        placeholder={`Artist #${index + 1}`}
+                                    />
+                                </div>
+                            ))}
+                            </div>
+                        </div>
+                        <button className="edit-profile-btn" type="submit">Update</button>
+                    </form>
                 </div>
-                    <button className="edit-profile-btn" type="submit">Update</button>
-            </form>
-            </div>
             </Layout>
         </>
     );

@@ -31,9 +31,16 @@
     margin-bottom: 20px;
 }
 
+.artist-grid {
+    display: flex;
+    max-width: 500px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .artist-edit {
     margin-bottom: 10px;
-    display: inline-flex;
+    margin-right: 10px; /* Add margin-right for spacing between inputs */
 }
 
 .edit-profile-btn {
