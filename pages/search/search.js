@@ -24,12 +24,14 @@ const search = () => {
     };
 
     fetchPosts();
-  }, []);
 
+    setFilterCategories(['artist', 'venue', 'genre', 'displayName']);
+  }, []);
+/*
   useEffect(() => {
     setFilterCategories(['artist', 'venue', 'genre', 'displayName']);
   }, []);
-
+*/
 
   /**
    * Based on the search input iterate through all posts and find the matching attribute value to the searched value.
@@ -38,21 +40,23 @@ const search = () => {
   const handleFilterSearch = searchInput => {
         // Reset search result just in case a subsequent search is performed
         setSearchResult([]);
-        if(searchInput.trim() !== ""){
-            for (const post of posts) {
-                if (selectedFilter === null){
-                    for (const filterCategory of filterCategories) {
-                        if (post[filterCategory] && post[filterCategory] == searchInput) {
-                            setSearchResult((prevResults) => [...prevResults, post]);
-                            break;
-                        }
+        if(searchInput === undefined || searchInput == null || (searchInput !== null && searchInput.trim() === "")){
+            return;
+        }
+        for (const post of posts) {
+            if (selectedFilter === null){
+                for (const filterCategory of filterCategories) {
+                    if (post[filterCategory] && post[filterCategory].toLowerCase() == searchInput.toLowerCase()) {
+                        setSearchResult((prevResults) => [...prevResults, post]);
+                        break;
                     }
                 }
-                else if (post[selectedFilter] && post[selectedFilter] === searchInput) {
-                    setSearchResult((prevResults) => [...prevResults, post]);
-                }
+            }
+             else if (post[selectedFilter] && post[selectedFilter].toLowerCase() === searchInput.toLowerCase()) {
+                setSearchResult((prevResults) => [...prevResults, post]);
             }
         }
+        
         setSearchPerformed(true);
     }      
 
@@ -123,7 +127,7 @@ const search = () => {
             Filter your search by...
         </h2>
         <div className='filter-container'>
-                {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}   
+             {renderCheckboxFilters(['artist', 'venue', 'genre', 'displayName'])}   
         </div>
         {searchPerformed == true && searchResult.length === 0 ? <p>No results!</p>: showPostsSearchList(searchResult)}        
       </div>
