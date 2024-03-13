@@ -88,6 +88,8 @@ export default function EditProfile() {
     return (
         <>
         <Layout>
+            <div className='edit-container'>
+                <h1>Edit Your Profile</h1>
             <form onSubmit={handleSubmit}>
                 <div className='edit-section'>
                     <h2>Profile Picture:</h2>
@@ -114,8 +116,9 @@ export default function EditProfile() {
                         </div>
                     ))}
                 </div>
-                <button className="edit-profile-btn" type="submit">Update Profile</button>
+                    <button className="edit-profile-btn" type="submit">Update</button>
             </form>
+            </div>
             </Layout>
         </>
     );
