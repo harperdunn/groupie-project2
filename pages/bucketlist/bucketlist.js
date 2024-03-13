@@ -103,8 +103,8 @@ const CreateBucketList = () => {
                   </div>
                   <button className="delete-BL" onClick={() => handleDeleteArtist(index)}>Delete</button>
                 </div>
-                <div className='img-BL'>
-                  {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: 130, height: 100 }}/>}
+                <div>
+                  {item.imageUrl && <img className='img-BL' src={item.imageUrl} alt={item.name} />}
                 </div>
               </li>
             ))}
