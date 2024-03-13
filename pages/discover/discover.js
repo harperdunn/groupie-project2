@@ -49,10 +49,10 @@ const Discover = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <div className="profile-section">
-              <div className="posts-container">
+            <div className="discover-section">
+              <div className="discover-posts-container">
                 {posts.map(({ id, artist, date, venue, rating }) => (
-                  <div key={id} className="post-thumbnail" onClick={() => navigateToPost(id)}>
+                  <div key={id} className="discover-post-thumbnail" onClick={() => navigateToPost(id)}>
                     <h4>{artist}</h4>
                     <p>Date: {date}</p>
                     <p>Venue: {venue}</p>
@@ -60,11 +60,11 @@ const Discover = () => {
                   </div>
                 ))}
               </div>
-              <div>
-              <button onClick={(event) => handleRefresh()} style={{marginLeft: '10px'}}>Refresh</button>
-              </div>
             </div>
           )}
+        </div>
+        <div>
+            <button className='refresh-button' onClick={(event) => handleRefresh()} style={{marginLeft: '10px'}}>Refresh</button>
         </div>
       </Layout>
     );

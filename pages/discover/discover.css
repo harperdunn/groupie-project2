@@ -8,7 +8,7 @@
 
 .discover-section {
     margin-bottom: 20px;
-    text-align: center;
+    text-align: left;
 }
 
 .discover-section h1 {
@@ -25,14 +25,14 @@
 }
 
 /* Discover Posts Styling */
-.posts-container {
+.discover-posts-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 10px; 
 }
 
-.post-thumbnail {
+.discover-post-thumbnail {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 15px;
@@ -42,35 +42,50 @@
     cursor: pointer;
 }
 
-.post-thumbnail:hover {
+.discover-post-thumbnail:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+.refresh-button {
+    background-color: rgb(28, 7, 76);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.refresh-button:hover {
+    background-color: rgb(18, 4, 50);
+}
+
 /* Post Thumbnail Text Styling */
-.post-thumbnail h4 {
+.discover-post-thumbnail h4 {
     margin-top: 0;
     color: #333;
 }
 
-.post-thumbnail p {
+.discover-post-thumbnail p {
     margin-bottom: 5px;
     color: #666;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .posts-container {
+    .discover-posts-container {
         justify-content: center;
     }
 
-    .post-thumbnail {
+    .discover-post-thumbnail {
         width: calc(25%); /* 3 items per row */
     }
 }
 
 @media (max-width: 480px) {
-    .post-thumbnail {
+    .discover-post-thumbnail {
         width: 90%; /* Full width on smaller screens */
     }
 }
