@@ -16,14 +16,14 @@ export default function ViewProfile() {
     const router = useRouter();
 
     useEffect(() => {
-        if (!currentUser) {
-            if (!authLoading) {
-                router.push('/');
-            }
-            return;
-        }
-
         const fetchUserProfileAndPosts = async () => {
+            if (!currentUser) {
+                if (!authLoading) {
+                    router.push('/');
+                }
+                return;
+            }
+
             const userRef = doc(db, "users", currentUser.uid);
             const docSnap = await getDoc(userRef);
 
@@ -31,12 +31,11 @@ export default function ViewProfile() {
                 const userData = docSnap.data();
                 setBio(userData.bio || '');
                 setArtists(userData.artists || []);
-                setImageUrl(userData.profileUrl||'');
+                setImageUrl(userData.profileUrl || '');
             } else {
                 console.log("Document does not exist");
             }
 
-            // Fetch user's posts
             const postsQuery = query(collection(db, "posts"), where("userId", "==", currentUser.uid));
             const querySnapshot = await getDocs(postsQuery);
             const userPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -70,10 +69,10 @@ export default function ViewProfile() {
                 </div>
                 <div className="profile-section">
                     <h2>Bio</h2>
-                    <p className="bio-text">{bio}</p>
+                    <p className="profile-bio">{bio}</p>
                 </div>
                 <div className="profile-section">
-                    <h2>Top Five Artists</h2>
+                    <h2>Top Artists</h2>
                     <ul className="artist-list">
                         {artists.map((artist, index) => (
                             <li key={index}>{artist || `Artist #${index + 1} not specified`}</li>
@@ -82,9 +81,9 @@ export default function ViewProfile() {
                 </div>
                 <div className="profile-section">
                     <h2>Your Posts</h2>
-                    <div className="posts-container">
+                    <div className="personal-posts-container">
                         {posts.map(({ id, artist, date, venue, rating }) => (
-                            <div key={id} className="post-thumbnail" onClick={() => navigateToPost(id)}>
+                            <div key={id} className="personal-post" onClick={() => navigateToPost(id)}>
                                 <h4>{artist}</h4>
                                 <p>Date: {date}</p>
                                 <p>Venue: {venue}</p>
