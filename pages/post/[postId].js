@@ -4,6 +4,7 @@ import { doc, getDoc, updateDoc, deleteDoc, arrayUnion, arrayRemove } from 'fire
 import { useAuth } from '../../firebase';
 import { db } from '../../firebase';
 import Layout from '../../components/Layout';
+import './[postId].css';
 
 const Post = ({ post }) => {
   const { currentUser } = useAuth();
@@ -50,50 +51,61 @@ const Post = ({ post }) => {
 
   const handleDelete = async () => {
     if (post.userId === currentUser?.uid) {
-      // Confirmation dialog
       const isConfirmed = window.confirm("Are you sure you want to delete this post?");
       if (isConfirmed) {
         await deleteDoc(doc(db, "posts", postId));
+  
+        const userRef = doc(db, "users", currentUser.uid);
+        await updateDoc(userRef, {
+          likedPosts: arrayRemove(postId)
+        });
+
         router.push('/profile/view');
-      } else {
       }
     } else {
       console.error("You're not authorized to delete this post.");
     }
   };
   
+  
 
   if (!post) return <Layout>Loading...</Layout>;
 
   return (
     <Layout>
-      <button onClick={() => router.back()}>Back</button>
-      <h1>{post.artist}</h1>
-      <p>Venue: {post.venue}</p>
-      <p>Date: {post.date}</p>
-      <p>Rating: {post.rating}</p>
-      <p>Review: {post.review}</p>
-      <div>
-        Set List:
-        <ul>
-          {post.setList.map((song, index) => (
-            <li key={index}>{song}</li>
-          ))}
-        </ul>
-      </div>
-      {post.imageUrl && <img src={post.imageUrl} alt="Post image" style={{ width: 200, height: 250 }} />}
-      {/* Display genres if they exist */}
-      {post.genres && (
-        <div>Genres: {post.genres.join(", ")}</div>
-      )}
-      <div>
-        <button onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
-        {currentUser && post.userId === currentUser.uid && (
-          <button onClick={handleDelete} style={{marginLeft: '10px'}}>Delete Post</button>
-        )}
-        <p>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</p>
-      </div>
-    </Layout>
+      <div className="layout-container">
+        <button onClick={() => router.back()}>Back</button>
+          <div></div>{post.imageUrl && <img src={post.imageUrl} alt="Post image" style={{ width: 200, height: 250 }} />} 
+          <h1>{post.artist}</h1>
+          <p>{post.venue}</p>
+          <p>{post.date}</p>
+          <p>Rating: {post.rating}</p>
+          <p>Review: {post.review}</p>
+          <div>
+            Set List:
+            <ul>
+              {post.setList.map((song, index) => (
+                <li key={index}>{song}</li>
+              ))}
+            </ul>
+          </div>
+          {/* Display genres if they exist */}
+          {post.genres && (
+            <div className="genre-buttons">
+              {post.genres.map((genre, index) => (
+                <span key={index} className="genre-button">{genre}</span>
+              ))}
+            </div>
+          )}
+          <div>
+            <button onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
+            {currentUser && post.userId === currentUser.uid && (
+              <button onClick={handleDelete} style={{marginLeft: '10px'}}>Delete Post</button>
+            )}
+            <p>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</p>
+          </div>
+        </div>
+      </Layout>
   );
 };
 
