@@ -79,8 +79,10 @@ const search = () => {
   }
 
   function showPostsSearchList(searchResultList) {
+    const sortedResults = searchResultList.slice().sort((a, b) => b.likes.length - a.likes.length);
+
     return (
-      searchResultList.map((result) => (
+      sortedResults.map((result) => (
         <div>
         <div key={result.id} className='search-post-thumbnail' onClick={() => navigateToPost(id)}>
           <h2>{result.artist}</h2>
@@ -88,6 +90,7 @@ const search = () => {
           <p>Venue: {result.venue}</p>
           <p>Rating: {Array(result.rating).fill('★').join('')} ({result.rating}/5)</p>
           <p>Author: {(result.displayName)}</p>
+          <p>{result.likes.length} {result.likes.length === 1 ? 'Like': 'Likes'}</p>
         </div>
         </div>
       ))
