@@ -89,10 +89,14 @@ const CreateBucketList = () => {
           <ul>
             {bucketList.map((item, index) => (
               <li key={index}>
-                <div className='list-item'
-                  onClick={() => toggleWatched(index)}
-                  style={{ textDecoration: item.watched ? 'line-through' : 'none' }}>
-                  {item.name}
+                <div className='list-item'>
+                  <div 
+                    className='artist-name'
+                    onClick={() => toggleWatched(index)}
+                    style={{ textDecoration: item.watched ? 'line-through' : 'none' }}
+                  >
+                    {item.name}
+                  </div>
                   <button className="delete-BL" onClick={() => handleDeleteArtist(index)}>Delete</button>
                 </div>
                 <div className='img-BL'>

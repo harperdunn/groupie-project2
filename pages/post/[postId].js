@@ -4,6 +4,7 @@ import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firest
 import { useAuth } from '../../firebase';
 import { db } from '../../firebase';
 import Layout from '../../components/Layout';
+import './viewPost.css';
 
 const Post = ({ post }) => {
   const { currentUser } = useAuth();
@@ -43,6 +44,7 @@ const Post = ({ post }) => {
 
   return (
     <Layout>
+      <button onClick={() => router.back()}>Back</button> 
       <h1>{post.artist}</h1>
       <p>Venue: {post.venue}</p>
       <p>Date: {post.date}</p>
@@ -56,7 +58,8 @@ const Post = ({ post }) => {
           ))}
         </ul>
       </div>
-      {post.imageUrl && <img src={post.imageUrl} alt="Post image" />}
+      {post.imageUrl && <img src={post.imageUrl} alt="Post image" style={{ width: 200, height: 250 }} />}
+      {/* Display genres if they exist */}
       {post.genres && (
         <div>Genres: {post.genres.join(", ")}</div>
       )}

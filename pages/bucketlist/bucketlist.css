@@ -1,5 +1,3 @@
-/* bucketlist.css */
-
 .bucketlist-container {
     margin: 0 auto;
     padding: 20px;
@@ -21,6 +19,7 @@
 
 .bucketlist ul {
     margin-left: 60px;
+    padding: 0;
 }
 
 .input-bucketlist {
@@ -43,18 +42,26 @@
     font-size: 22px;
 }
 
-.bucketlist input[type="checkbox"]:checked {
-    background-color: rgb(28, 7, 76); 
-}
-
 .list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #333;
     font-weight: 600;
     text-align: left;
     font-size: 22px;
+    cursor: pointer;
+    margin-bottom: 5px; 
+    width: 400px;
 }
 
-.list-item:hover {
+.artist-name {
+    color: #333;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.artist-name:hover {
     text-decoration: line-through;
 }
 
@@ -67,12 +74,12 @@
     cursor: pointer;
     font-size: 14px;
     font-family: 'Times New Roman', Times, serif;
-    margin-bottom: 10px;
-    margin-left: 20px;
+    text-decoration: none;
 }
 
 .delete-BL:hover {
     background-color: rgb(18, 4, 50);
+    text-decoration: none;
 }
 
 .add-btn {

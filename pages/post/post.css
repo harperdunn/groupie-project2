@@ -50,7 +50,14 @@
     text-align: center;
 }
 
-.post-section h1, h2 {
+.post-section h1 {
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+    font-size: 45px;
+}
+
+.post-section h2 {
     color: #333;
     font-weight: 600;
     text-align: center;
