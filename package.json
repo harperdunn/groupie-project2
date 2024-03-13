@@ -16,7 +16,8 @@
     "react-firebase-hooks": "^5.1.1",
     "react-select": "^5.8.0",
     "reactstrap": "^9.2.2",
-    "tailwind": "^4.0.0"
+    "tailwind": "^4.0.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
