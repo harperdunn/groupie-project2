@@ -8,6 +8,7 @@ import Layout from '../../components/Layout';
 const Post = ({ post }) => {
   const { currentUser } = useAuth();
   const [hasLiked, setHasLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(post.likes.length); // New state for managing like count
   const router = useRouter();
   const { postId } = router.query;
 
@@ -24,18 +25,26 @@ const Post = ({ post }) => {
     }
 
     const postRef = doc(db, "posts", postId);
+    const userRef = doc(db, "users", currentUser.uid);
 
-    // If the user has already liked the post, unlike it; otherwise, like it
     if (hasLiked) {
       await updateDoc(postRef, {
         likes: arrayRemove(currentUser.uid)
       });
+      await updateDoc(userRef, {
+        likedPosts: arrayRemove(postId)
+      });
       setHasLiked(false);
+      setLikeCount(prev => prev - 1); // Decrement like count
     } else {
       await updateDoc(postRef, {
         likes: arrayUnion(currentUser.uid)
       });
+      await updateDoc(userRef, {
+        likedPosts: arrayUnion(postId)
+      });
       setHasLiked(true);
+      setLikeCount(prev => prev + 1); // Increment like count
     }
   };
 
@@ -76,7 +85,7 @@ const Post = ({ post }) => {
         {currentUser && post.userId === currentUser.uid && (
           <button onClick={handleDelete} style={{marginLeft: '10px'}}>Delete Post</button>
         )}
-        <p>{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</p>
+        <p>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</p>
       </div>
     </Layout>
   );
