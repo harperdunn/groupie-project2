@@ -4,6 +4,7 @@ import { doc, getDoc, updateDoc, deleteDoc, arrayUnion, arrayRemove } from 'fire
 import { useAuth } from '../../firebase';
 import { db } from '../../firebase';
 import Layout from '../../components/Layout';
+import { getStorage, ref, deleteObject } from "firebase/storage";
 import './[postId].css';
 
 const Post = ({ post }) => {
@@ -55,11 +56,24 @@ const Post = ({ post }) => {
       if (isConfirmed) {
         await deleteDoc(doc(db, "posts", postId));
   
+        if (post.imageUrl) {
+          const storage = getStorage();
+          const imageRef = ref(storage, post.imageUrl);
+
+          deleteObject(imageRef)
+            .then(() => {
+              console.log("Image deleted successfully");
+            })
+            .catch((error) => {
+              console.error("Error removing image: ", error);
+            });
+        }
+  
         const userRef = doc(db, "users", currentUser.uid);
         await updateDoc(userRef, {
           likedPosts: arrayRemove(postId)
         });
-
+  
         router.push('/profile/view');
       }
     } else {
@@ -68,21 +82,36 @@ const Post = ({ post }) => {
   };
   
   
+  
 
   if (!post) return <Layout>Loading...</Layout>;
 
   return (
     <Layout>
+      <div className='individual-post-background'>
       <div className="individual-post-container">
-        <button className="individual-post-button" onClick={() => router.back()}>Back</button>
+        <h1>{post.artist}</h1>
+        <p>By {post.displayName}</p>
+        <div className='post-header-container'>
           <div></div>{post.imageUrl && <img className='individual-post-img' src={post.imageUrl} alt="Post image" />} 
-          <h1>{post.artist}</h1>
-          <p>{post.venue}</p>
-          <p>{post.date}</p>
-          <p>Rating: {post.rating}</p>
-          <p>Review: {post.review}</p>
+          <div className='post-info-container'>
           <div>
-            Set List:
+            <button className="individual-post-button" onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
+            {currentUser && post.userId === currentUser.uid && (
+              <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}>Delete</button>
+            )}
+            <p>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</p>
+          </div>
+          <p>Venue: {post.venue}</p>
+          <p>Date: {post.date}</p>
+          <p>Rating: {post.rating}</p>
+          </div>
+        </div>
+          <div className='review-container'>
+            <p>{post.review}</p>
+          </div>
+          <div>
+            <h2>Set List:</h2>
             <ul>
               {post.setList.map((song, index) => (
                 <li key={index}>{song}</li>
@@ -97,14 +126,9 @@ const Post = ({ post }) => {
               ))}
             </div>
           )}
-          <div>
-            <button className="individual-post-button" onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
-            {currentUser && post.userId === currentUser.uid && (
-              <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}>Delete Post</button>
-            )}
-            <p>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</p>
-          </div>
         </div>
+        </div>
+        <button className="individual-post-button" onClick={() => router.back()}>Back</button> 
       </Layout>
   );
 };

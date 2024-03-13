@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage, useAuth } from '../../firebase';
 import Layout from '../../components/Layout';
+import { v4 as uuidv4 } from 'uuid';
 import './bucketlist.css';
 
 const CreateBucketList = () => {
@@ -43,9 +44,36 @@ const CreateBucketList = () => {
   };
 
   const uploadImage = async (file, imageName) => {
-    const imageRef = ref(storage, `bucketListImages/${currentUser.uid}/${imageName}`);
+    if (!file) return null;
+
+    const uniqueFilename = `${currentUser.uid}/${uuidv4()}-${imageName}`;
+
+    const imageRef = ref(storage, `bucketListImages/${uniqueFilename}`);
     await uploadBytes(imageRef, file);
     return getDownloadURL(imageRef);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const maxFileSize = 5 * 1024 * 1024; // 5 MB
+
+    if (!file) {
+      alert('No file selected.');
+      return;
+    }
+
+    if (!validTypes.includes(file.type)) {
+      alert('Invalid file type. Please select an image (JPEG, PNG, GIF).');
+      return;
+    }
+
+    if (file.size > maxFileSize) {
+      alert('File is too large. Please upload files less than 5MB.');
+      return;
+    }
+
+    setFile(file);
   };
 
   const handleAddArtist = async () => {
@@ -65,10 +93,6 @@ const CreateBucketList = () => {
     }
   };
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
-
   const toggleWatched = (index) => {
     const updatedList = bucketList.map((item, i) => 
       i === index ? { ...item, watched: !item.watched } : item
@@ -78,10 +102,21 @@ const CreateBucketList = () => {
   };
 
   const handleDeleteArtist = async (index) => {
+    const artistToDelete = bucketList[index];
     const updatedList = bucketList.filter((_, i) => i !== index);
     setBucketList(updatedList);
     await updateFirebaseBucketList(updatedList);
+  
+    if (artistToDelete.imageUrl) {
+      const imageRef = ref(storage, artistToDelete.imageUrl);
+      deleteObject(imageRef).then(() => {
+        console.log("Image successfully deleted from storage.");
+      }).catch((error) => {
+        console.error("Error removing image from storage:", error);
+      });
+    }
   };
+  
 
   if (authLoading) return <Layout>Loading...</Layout>;
 
