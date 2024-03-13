@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth, db } from "../../firebase";
-import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs, documentId } from 'firebase/firestore'; 
 import { useRouter } from "next/router";
 import Layout from '../../components/Layout';
 import './likes.css';
@@ -24,16 +24,24 @@ const LikedPosts = () => {
 
       if (userSnap.exists() && userSnap.data().likedPosts) {
         const likedPostsIds = userSnap.data().likedPosts;
-        const posts = [];
-
-        for (let postId of likedPostsIds) {
-          const postRef = doc(db, "posts", postId);
-          const postSnap = await getDoc(postRef);
-
-          if (postSnap.exists()) {
-            posts.push({ id: postSnap.id, ...postSnap.data() });
-          }
+        if (likedPostsIds.length === 0) {
+          setLoading(false);
+          return;
         }
+
+        const chunkSize = 10;
+        const chunks = [];
+        for (let i = 0; i < likedPostsIds.length; i += chunkSize) {
+          chunks.push(likedPostsIds.slice(i, i + chunkSize));
+        }
+
+        const postsPromises = chunks.map(chunk => {
+          const postsQuery = query(collection(db, "posts"), where(documentId(), 'in', chunk));
+          return getDocs(postsQuery);
+        });
+
+        const postsSnapshots = await Promise.all(postsPromises);
+        const posts = postsSnapshots.flatMap(snapshot => snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 
         setLikedPosts(posts);
       }
