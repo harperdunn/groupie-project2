@@ -106,17 +106,6 @@
     font-size: 20px;
     font-family: 'Times New Roman', Times, serif;
     margin-top: 10px;
-}
-
-.cancel-btn {
-    background-color: rgb(28, 7, 76);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 4px 10px;
-    cursor: pointer;
-    font-size: 12px;
-    font-family: 'Times New Roman', Times, serif;
-    margin-top: 10px;
     margin-right: 20px;
+    margin-left: 10px;
 }
