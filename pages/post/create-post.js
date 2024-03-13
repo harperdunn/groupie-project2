@@ -206,8 +206,7 @@ const CreatePost = () => {
           />
         </div>
         <div className='post-section'>
-          <button className="clear-btn" type="button" onClick={handleClear}>Clear</button>
-          <button className="cancel-btn" type="button" onClick={() => router.back()}>Cancel</button>
+          <button className="create-btn" type="button" onClick={() => router.back()}>Cancel</button>
           <button className="create-btn" type="submit">Create Post</button></div>
       </form>
     </div>
