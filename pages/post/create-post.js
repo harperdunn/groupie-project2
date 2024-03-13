@@ -206,6 +206,7 @@ const CreatePost = () => {
           />
         </div>
         <div className='post-section'>
+          <button className="clear-btn" type="button" onClick={handleClear}>Clear</button>
           <button className="create-btn" type="button" onClick={() => router.push('/profile/view')}>Cancel</button>
           <button className="create-btn" type="submit">Create Post</button></div>
       </form>
