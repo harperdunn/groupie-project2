@@ -41,13 +41,13 @@ const search = () => {
         for (const post of posts) {
             if (selectedFilter === null){
                 for (const filterCategory of filterCategories) {
-                    if (post[filterCategory] && post[filterCategory].toLowerCase() == searchInput.toLowerCase()) {
+                    if (post[filterCategory] && post[filterCategory].toLowerCase().includes(searchInput.toLowerCase())) {
                         setSearchResult((prevResults) => [...prevResults, post]);
                         break;
                     }
                 }
             }
-             else if (post[selectedFilter] && post[selectedFilter].toLowerCase() === searchInput.toLowerCase()) {
+             else if (post[selectedFilter] && post[selectedFilter].toLowerCase().includes(searchInput.toLowerCase())) {
                 setSearchResult((prevResults) => [...prevResults, post]);
             }
         }
@@ -108,7 +108,7 @@ const search = () => {
 
   const handleEnterPress = (e) => {
     if (e.key === 'Enter') {
-      handleFilterSearch();
+      handleFilterSearch(searchTerm);
     }
   };
 
