@@ -53,12 +53,12 @@ const LikedPosts = () => {
 
   return (
     <Layout>
-      <div className="liked-posts-container">
-        <div className="liked-posts-section">
+      <div className="liked-container">
+        <div className="liked-section">
           <h1>Liked Posts</h1>
-          <div className="posts-container">
+          <div className="liked-posts-container">
             {likedPosts.map(({ id, artist, date, venue, rating }) => (
-              <div key={id} className="post-thumbnail" onClick={() => navigateToPost(id)}>
+              <div key={id} className="liked-post-thumbnail" onClick={() => navigateToPost(id)}>
                 <h4>{artist}</h4>
                 <p>Date: {date}</p>
                 <p>Venue: {venue}</p>
