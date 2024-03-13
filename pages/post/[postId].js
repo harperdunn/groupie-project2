@@ -4,6 +4,7 @@ import { doc, getDoc, updateDoc, deleteDoc, arrayUnion, arrayRemove } from 'fire
 import { useAuth } from '../../firebase';
 import { db } from '../../firebase';
 import Layout from '../../components/Layout';
+import { getStorage, ref, deleteObject } from "firebase/storage";
 import './[postId].css';
 
 const Post = ({ post }) => {
@@ -55,17 +56,31 @@ const Post = ({ post }) => {
       if (isConfirmed) {
         await deleteDoc(doc(db, "posts", postId));
   
+        if (post.imageUrl) {
+          const storage = getStorage();
+          const imageRef = ref(storage, post.imageUrl);
+
+          deleteObject(imageRef)
+            .then(() => {
+              console.log("Image deleted successfully");
+            })
+            .catch((error) => {
+              console.error("Error removing image: ", error);
+            });
+        }
+  
         const userRef = doc(db, "users", currentUser.uid);
         await updateDoc(userRef, {
           likedPosts: arrayRemove(postId)
         });
-
+  
         router.push('/profile/view');
       }
     } else {
       console.error("You're not authorized to delete this post.");
     }
   };
+  
   
   
 
