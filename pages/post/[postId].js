@@ -50,12 +50,18 @@ const Post = ({ post }) => {
 
   const handleDelete = async () => {
     if (post.userId === currentUser?.uid) {
-      await deleteDoc(doc(db, "posts", postId));
-      router.push('/profile/view');
+      // Confirmation dialog
+      const isConfirmed = window.confirm("Are you sure you want to delete this post?");
+      if (isConfirmed) {
+        await deleteDoc(doc(db, "posts", postId));
+        router.push('/profile/view');
+      } else {
+      }
     } else {
       console.error("You're not authorized to delete this post.");
     }
   };
+  
 
   if (!post) return <Layout>Loading...</Layout>;
 
