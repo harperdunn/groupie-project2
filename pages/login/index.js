@@ -36,6 +36,7 @@ const signInWithGoogle= async () =>{ //calls the popup function with the client 
 
 return (
   <div className="welcome-container">
+    <img className="groupie-banner" src='Banner.png'></img>
       <h1>Welcome to</h1>
       <img className="groupie-logo" src='Groupie Logo.png'></img>
     <div className="signin-container">
@@ -50,7 +51,8 @@ return (
       <button className="signup-button" onClick={() => router.push('/login/signUpWithEmail')}>Sign Up!</button> {/* Add navigation to the Sign Up page */}
       </div>
     </div>
-  </div>
+    <img className="groupie-banner2" src='Banner.png'></img>
+    </div>
 );
 }
 

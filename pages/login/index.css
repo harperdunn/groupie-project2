@@ -33,6 +33,25 @@
     object-fit: cover;
     object-position: center; 
 }
+.groupie-banner {
+    width: 100px;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center; 
+    position: absolute; /* Add this line */
+    left: 0; /* Add this line */
+    top: 0; /* Add this line */
+}
+
+.groupie-banner2 {
+    width: 100px;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center; 
+    position: absolute; /* Add this line */
+    right: 0; /* Add this line */
+    top: 0; /* Add this line */
+}
 
 .signin-container {
     margin-top: 50px;
