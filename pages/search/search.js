@@ -39,9 +39,9 @@ const Search = () => {
       return;
     }
     for (const post of posts) {
-      if (selectedFilter === null) {
+      if (selectedFilter === null) { //if no filter is selected, then iterate through each filter category to look for match or inclusion
         for (const filterCategory of filterCategories) {
-          if (Array.isArray(post[filterCategory])){
+          if (Array.isArray(post[filterCategory])){ //if "genres" category, iterate through the array of genres
             for(const genre of post[filterCategory]) {
               if(genre.toLowerCase().includes(searchInput.toLowerCase())) {
                 setSearchResult((prevResults) => [...prevResults, post]);
@@ -55,7 +55,7 @@ const Search = () => {
           }
         }
       } 
-      else if (Array.isArray(post[selectedFilter])) {
+      else if (Array.isArray(post[selectedFilter])) { //if "genres" category, iterate through the array of genres
         for (const genre of post[selectedFilter]) {
           if (genre.toLowerCase().includes(searchInput.toLowerCase())) {
             setSearchResult((prevResults) => [...prevResults, post]);
