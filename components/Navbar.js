@@ -17,12 +17,12 @@ const Navbar = () => {
 
     return (
         <nav className='navbar'>
-                <Link className='navbar-link' href="/profile/view">Profile</Link>
-                <Link className='navbar-link' href="/bucketlist/bucketlist">Bucket List</Link>
-                <Link className='navbar-link' href="/post/create">Create Post</Link>
-                <Link className='navbar-link' href="/post/likes">Liked Posts</Link>
-                <Link className='navbar-link' href="/search/search">Search</Link>
-                <Link className='navbar-link' href="/discover/discover">Discover</Link>
+                <Link className='navbar-link' href="/profile/view"><img className="navbar-icon" src="/Profile Icon.png" /></Link>
+                <Link className='navbar-link' href="/bucketlist/bucketlist"><img className="navbar-icon" src="/Bucket List Icon.png" /></Link>
+                <Link className='navbar-link' href="/post/create"><img className="navbar-icon" src="/Post Icon.png" /></Link>
+                <Link className='navbar-link' href="/post/likes"><img className="navbar-icon" src="/White Heart Icon.png" /></Link>
+                <Link className='navbar-link' href="/search/search"><img className="navbar-icon" src="/Search Icon.png" /></Link>
+                <Link className='navbar-link' href="/discover/discover"><img className="navbar-icon" src="/Globe Icon.png" /></Link>
                 <button onClick={handleSignOut} className="signout-button">Sign Out</button>
         </nav>
     );

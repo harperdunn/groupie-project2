@@ -33,6 +33,13 @@
     flex-direction: row; /* Change to row to align content side by side */
     align-items: flex-start;
 }
+
+.navbar-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    object-position: center; 
+}
   
   .navbar-link {
     color: white;
