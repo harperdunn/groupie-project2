@@ -96,15 +96,16 @@ const Post = ({ post }) => {
           <div></div>{post.imageUrl && <img className='individual-post-img' src={post.imageUrl} alt="Post image" />} 
           <div className='post-info-container'>
           <div>
-            <button className="individual-post-button" onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
+            <button className='individual-post-button' onClick={handleLike}><img className="individual-post-icons" src={hasLiked ? '/Full Heart Icon.png' : '/Empty Heart Icon.png'}/></button>
             {currentUser && post.userId === currentUser.uid && (
-              <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}>Delete</button>
+              <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}><img className="individual-post-icons" src='/Trash Can Icon.png'/></button>
             )}
-            <p>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</p>
+            
           </div>
           <p>Venue: {post.venue}</p>
           <p>Date: {post.date}</p>
           <p>Rating: {post.rating}</p>
+          <p>Likes: {likeCount}</p>
           </div>
         </div>
           <div className='review-container'>
@@ -128,7 +129,7 @@ const Post = ({ post }) => {
           )}
         </div>
         </div>
-        <button className="individual-post-button" onClick={() => router.back()}>Back</button> 
+        <button className="individual-back-button" onClick={() => router.back()}>Back</button> 
       </Layout>
   );
 };
