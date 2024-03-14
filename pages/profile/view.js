@@ -23,9 +23,22 @@ export default function ViewProfile() {
                 }
                 return;
             }
-
+            
             const userRef = doc(db, "users", currentUser.uid);
-            const docSnap = await getDoc(userRef);
+
+        try {
+            
+            await setDoc(userRef, {
+                bio,
+                artists,
+                profileUrl: imageUrl,
+            }, {merge: true });
+            console.log('Profile updated');
+        }
+        catch (error) {
+            console.error("Error updating profile:", error)
+        }
+        const docSnap = await getDoc(userRef);
 
             if (docSnap.exists()) {
                 const userData = docSnap.data();

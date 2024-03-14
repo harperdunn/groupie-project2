@@ -23,6 +23,7 @@ export default function EditProfile() {
             return;
         }
 
+        console.log(currentUser.uid);
         const fetchUserProfile = async () => {
             const userRef = doc(db, "users", currentUser.uid);
             const docSnap = await getDoc(userRef);
@@ -33,7 +34,11 @@ export default function EditProfile() {
                 setArtists(userData.artists || ['', '', '', '', '']);
                 setImageUrl(userData.profileUrl || currentUser.PhotoUrl || '');
             } else {
-                console.log("Document does not exist");
+            await setDoc(userRef, {
+                bio,
+                artists,
+                profileUrl: imageUrl,
+            }, {merge: true });
             }
             setLoading(false);
         };
