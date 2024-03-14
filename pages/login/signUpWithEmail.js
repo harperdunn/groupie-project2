@@ -46,6 +46,7 @@ const SignUp = () => {
 
   return (
     <div className='signUp-page-container'>
+      <img className="groupie-banner" src='/Banner.png'></img>
       <div className='signUp-content-container'>
     <h1>Become a Groupie!</h1>
     <Container className="text-center custom-container">
@@ -105,6 +106,7 @@ const SignUp = () => {
       <button className="login-button" onClick={() => router.push('/login')}>Log In!</button>
     </div>
     </div>
+    <img className="groupie-banner2" src='/Banner.png'></img>
     </div>
   )
 }
