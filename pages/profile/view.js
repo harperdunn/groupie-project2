@@ -87,12 +87,13 @@ export default function ViewProfile() {
                 <div className="profile-section">
                     <h2>Your Posts</h2>
                     <div className="personal-posts-container">
-                        {posts.map(({ id, artist, date, venue, rating }) => (
+                        {posts.map(({ id, artist, date, venue, rating, likes }) => (
                             <div key={id} className="personal-post" onClick={() => navigateToPost(id)}>
                                 <h4>{artist}</h4>
                                 <p>Date: {date}</p>
                                 <p>Venue: {venue}</p>
                                 <p>Rating: {rating}/5</p>
+                                <p>Likes: {likes.length}</p>
                             </div>
                         ))}
                     </div>

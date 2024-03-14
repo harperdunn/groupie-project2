@@ -51,12 +51,13 @@ const Discover = () => {
         ) : (
           <div className="discover-section">
             <div className="discover-posts-container">
-              {posts.map(({ id, artist, date, venue, rating, likes }) => (
+              {posts.map(({ id, artist, date, venue, rating, displayName, likes }) => (
                 <div key={id} className="discover-post-thumbnail" onClick={() => navigateToPost(id)}>
                   <h4>{artist}</h4>
                   <p>Date: {date}</p>
                   <p>Venue: {venue}</p>
                   <p>Rating: {rating}/5</p>
+                  <p>Author: {displayName}</p>
                   <p>Likes: {likes.length}</p> {/* Display the like count */}
                 </div>
               ))}
