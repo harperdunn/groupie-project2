@@ -2,6 +2,8 @@
 
 Introducing Groupie, a concert logging and social media app! Want a place to discuss the concerts you've been to? Ever wondered how well your favorite artist performs live? Looking for new concerts to go to? Groupie is the perfect companion for avid and casual concert-goers alike. Use it to log the concerts you want to go to in the future, keep track of the concerts you've gone to, share your opinions on live performances, look for others' reviews on certain concerts, and discover new music!
 
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/welcome-page.jpg)
+
 The "bucket list" feature of Groupie allows users to list artists that they would eventually like to see and track their progress through the list by crossing artists out as they see them.
 To add an artist to their bucket list, users are prompted to enter the name of an artist that they would like to add to their bucket list, as well as have the option to add an accompanying photo of the artist or their artwork. Once they have seen an artist in concert, users can cross them off of their bucket list by clicking on the artist's name.
 
