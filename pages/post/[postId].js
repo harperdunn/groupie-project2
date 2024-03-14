@@ -129,7 +129,7 @@ const Post = ({ post }) => {
           )}
         </div>
         </div>
-        <button className="individual-post-button" onClick={() => router.back()}>Back</button> 
+        <button className="individual-back-button" onClick={() => router.back()}>Back</button> 
       </Layout>
   );
 };

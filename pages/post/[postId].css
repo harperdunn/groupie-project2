@@ -95,6 +95,19 @@
     cursor: pointer;
 }
 
+
+.individual-back-button {
+    background-color: rgb(28, 7, 76);
+    color: #fff;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 22px;
+    border: none;
+    padding: 5px 10px;
+    margin: 20px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .individual-post-img {
     width: 250px;
     height: 340px;
