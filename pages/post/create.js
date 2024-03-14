@@ -6,7 +6,7 @@ import { db, storage, useAuth } from '../../firebase';
 import Layout from '../../components/Layout';
 import CreatableSelect from 'react-select/creatable';
 import genres from '../../components/genres';
-import './post.css';
+import './create.css';
 import { v4 as uuidv4 } from 'uuid';
 
 const CreatePost = () => {
