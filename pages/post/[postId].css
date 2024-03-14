@@ -1,5 +1,7 @@
+/* [postId].css */
+
 .individual-post-background {
-    background-color: rgb(212, 204, 220);
+    background-color: rgb(217, 213, 224);
     border-radius: 10px;
     max-width: 800px;
 }
