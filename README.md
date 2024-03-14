@@ -24,7 +24,7 @@ To keep track of what they find interesting, users also have the ability to like
 
 ## Components
 
-Backend:
+Backend: Firebase 
 
 Frontend::
 
@@ -40,14 +40,11 @@ git clone https://github.com/harperdunn/groupie-project2.git
 ```
 Once you have navigated to the project directory, run the command 
 ```bash
-npm install
+python3 ./script.py
 ```
-to install the required packages.
 
-Then run the development server using the command
-```bash
-npm run dev
-```
+it will prompt you for an API key, and, if it is correct, spin up the development server. 
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Contributors
