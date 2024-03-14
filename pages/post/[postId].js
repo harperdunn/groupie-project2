@@ -97,7 +97,6 @@ const Post = ({ post }) => {
           <div className='post-info-container'>
           <div>
             <button className='individual-post-button' onClick={handleLike}><img className="individual-post-icons" src={hasLiked ? '/Full Heart Icon.png' : '/Empty Heart Icon.png'}/></button>
-            {likeCount}
             {currentUser && post.userId === currentUser.uid && (
               <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}><img className="individual-post-icons" src='/Trash Can Icon.png'/></button>
             )}
@@ -106,6 +105,7 @@ const Post = ({ post }) => {
           <p>Venue: {post.venue}</p>
           <p>Date: {post.date}</p>
           <p>Rating: {post.rating}</p>
+          <p>Likes: {likeCount}</p>
           </div>
         </div>
           <div className='review-container'>
