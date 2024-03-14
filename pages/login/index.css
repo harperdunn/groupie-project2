@@ -38,9 +38,9 @@
     height: 100vh;
     object-fit: cover;
     object-position: center; 
-    position: absolute; /* Add this line */
-    left: 0; /* Add this line */
-    top: 0; /* Add this line */
+    position: absolute; 
+    left: 0;
+    top: 0; 
 }
 
 .groupie-banner2 {
@@ -48,9 +48,11 @@
     height: 100vh;
     object-fit: cover;
     object-position: center; 
-    position: absolute; /* Add this line */
-    right: 0; /* Add this line */
-    top: 0; /* Add this line */
+    position: absolute; 
+    right: 0;
+    top: 0;
+    transform: scaleX(-1);
+
 }
 
 .signin-container {
