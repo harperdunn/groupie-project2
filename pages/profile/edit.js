@@ -100,6 +100,11 @@ export default function EditProfile() {
         }
     };
 
+    const handleArtistChange = (index, value) => {
+        const newArtists = [...artists];
+        newArtists[index] = value;
+        setArtists(newArtists);
+    };
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
