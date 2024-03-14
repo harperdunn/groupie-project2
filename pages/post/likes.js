@@ -63,7 +63,7 @@ const LikedPosts = () => {
     <Layout>
       <div className="liked-container">
         <div className="liked-section">
-          <h1>Liked Posts</h1>
+          <h1>Your Liked Posts</h1>
           <div className="liked-posts-container">
             {likedPosts.map(({ id, artist, date, venue, rating }) => (
               <div key={id} className="liked-post-thumbnail" onClick={() => navigateToPost(id)}>

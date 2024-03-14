@@ -52,6 +52,7 @@
     cursor: pointer;
     font-size: 18px;
     font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 20px;
 }
 
 .update-profile-btn:hover {
