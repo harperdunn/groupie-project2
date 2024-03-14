@@ -15,8 +15,8 @@
     color: rgb(28, 7, 76);
     font-weight: 600;
     text-align: center;
-    font-size: 75px;
-    margin-bottom: 20px; 
+    font-size: 45px;
+    margin-bottom: 40px; 
 }
 
 .welcome-container h2 {
@@ -25,6 +25,13 @@
     text-align: center;
     font-size: 75px;
     margin-bottom: 20px; 
+}
+
+.groupie-logo {
+    width: 600px;
+    height: 270px;
+    object-fit: cover;
+    object-position: center; 
 }
 
 .signin-container {

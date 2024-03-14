@@ -37,7 +37,7 @@ const signInWithGoogle= async () =>{ //calls the popup function with the client 
 return (
   <div className="welcome-container">
       <h1>Welcome to</h1>
-      <h2>GROUPIE</h2>
+      <img className="groupie-logo" src='Groupie Logo.png'></img>
     <div className="signin-container">
       <button className='signin-buttons' onClick={signInWithGoogle}>
         <div>Sign In With Google</div>
