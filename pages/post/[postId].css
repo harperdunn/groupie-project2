@@ -31,6 +31,13 @@
     margin-top: 20px;
 }
 
+.individual-post-icons {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center; 
+}
+
 .genre-buttons {
     margin-top: 10px;
 }
@@ -81,20 +88,11 @@
 }
 
 .individual-post-button {
-    background-color: rgb(28, 7, 76);
-    color: #ffffff;
+    background-color: rgb(217, 213, 224);
     border: none;
-    padding: 10px 15px;
     margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 16px;
-}
-
-.individual-post-button:hover {
-    background-color: rgb(18, 4, 50);
 }
 
 .individual-post-img {
