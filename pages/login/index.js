@@ -13,6 +13,7 @@ const provider= new GoogleAuthProvider();
 const router=useRouter();
 const[user, loading]=useAuthState(auth); //gets the user state, loading to know to wait for it to load or not
 
+//react effect so that the user state is updated immediately
 useEffect(() => {
   if (!loading && user) {
     router.push('/profile/view');

@@ -17,7 +17,7 @@ def update_api_key(new_key):
         for line in lines:
             # Check if the line contains the updated_lines variable
             if line.startswith('const ourApiKey='):
-                updated_lines.append(f'const ourApiKey={new_key}\n')#updates the variable in env file
+                updated_lines.append(f'const ourApiKey=\'{new_key}\'\n')#updates the variable in env file
                 key_updated = True
             else:
                updated_lines.append(line) #add to the list of lines to write
