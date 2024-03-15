@@ -1,3 +1,4 @@
+// Imports
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { doc, getDoc, updateDoc, deleteDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
@@ -7,19 +8,30 @@ import Layout from '../../components/Layout';
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import './[postId].css';
 
+/**
+ * Renders the detailed view of a specific post identified by postId.
+ * Allows the current user to like/unlike the post and delete the post if they are the author.
+ * 
+ * @param {Object} post The post data to be displayed.
+ */
 const Post = ({ post }) => {
-  const { currentUser } = useAuth();
-  const [hasLiked, setHasLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(post.likes.length); // New state for managing like count
+  const { currentUser } = useAuth(); // Hook to access the current user's authentication status
+  const [hasLiked, setHasLiked] = useState(false); // State to track if the current user has liked the post
+  const [likeCount, setLikeCount] = useState(post.likes.length); // State to manage the number of likes
   const router = useRouter();
-  const { postId } = router.query;
+  const { postId } = router.query; // Extract postId from the URL
 
   useEffect(() => {
+    // Check if the current user has liked the post and update state accordingly
     if (post.likes.includes(currentUser?.uid)) {
       setHasLiked(true);
     }
   }, [post.likes, currentUser]);
 
+  /**
+   * Toggles the current user's like status for the post.
+   * Updates both the post's like array and the user's likedPosts array in Firestore.
+   */
   const handleLike = async () => {
     if (!currentUser) {
       console.error("No user logged in");
@@ -30,6 +42,7 @@ const Post = ({ post }) => {
     const userRef = doc(db, "users", currentUser.uid);
 
     if (hasLiked) {
+      // Remove like from the post and user's likedPosts
       await updateDoc(postRef, {
         likes: arrayRemove(currentUser.uid)
       });
@@ -39,6 +52,7 @@ const Post = ({ post }) => {
       setHasLiked(false);
       setLikeCount(prev => prev - 1); // Decrement like count
     } else {
+      // Add like to the post and user's likedPosts
       await updateDoc(postRef, {
         likes: arrayUnion(currentUser.uid)
       });
@@ -50,12 +64,18 @@ const Post = ({ post }) => {
     }
   };
 
+  /**
+   * Deletes the current post if the current user is the author.
+   * Removes the post from Firestore, deletes the associated image from Firebase Storage,
+   * and removes the post from the user's likedPosts array.
+   */
   const handleDelete = async () => {
     if (post.userId === currentUser?.uid) {
       const isConfirmed = window.confirm("Are you sure you want to delete this post?");
       if (isConfirmed) {
         await deleteDoc(doc(db, "posts", postId));
   
+        // Delete post image from Firebase Storage if it exists
         if (post.imageUrl) {
           const storage = getStorage();
           const imageRef = ref(storage, post.imageUrl);
@@ -69,23 +89,24 @@ const Post = ({ post }) => {
             });
         }
   
+        // Remove post ID from user's likedPosts
         const userRef = doc(db, "users", currentUser.uid);
         await updateDoc(userRef, {
           likedPosts: arrayRemove(postId)
         });
   
+        // Navigate back to the user's profile view
         router.push('/profile/view');
       }
     } else {
       console.error("You're not authorized to delete this post.");
     }
   };
-  
-  
-  
 
+  // Render loading state or no post found state
   if (!post) return <Layout>Loading...</Layout>;
 
+  // Render the post details
   return (
     <Layout>
       <div className='individual-post-background'>
@@ -134,11 +155,18 @@ const Post = ({ post }) => {
   );
 };
 
+/**
+ * getServerSideProps fetches the post data from Firestore for server-side rendering.
+ * 
+ * @param {Object} context Context object containing route parameters, including postId.
+ * @returns {Object} Props object containing the post data for rendering.
+ */
 export async function getServerSideProps(context) {
   const { postId } = context.params;
   const docRef = doc(db, "posts", postId);
   const docSnap = await getDoc(docRef);
 
+  // Check if the post exists and return its data, otherwise return null
   if (!docSnap.exists()) {
     return {
       props: {

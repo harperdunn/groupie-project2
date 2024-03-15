@@ -1,9 +1,6 @@
-import { NextPage } from "next";
-import {initFirebase} from "../../firebase";
+import {useRouter} from "next/router"
 import {getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {useRouter} from "next/router"
-import Link from 'next/link';
 import { useEffect } from 'react';
 import{auth} from "../../firebase"
 import './index.css';
@@ -16,6 +13,7 @@ const provider= new GoogleAuthProvider();
 const router=useRouter();
 const[user, loading]=useAuthState(auth); //gets the user state, loading to know to wait for it to load or not
 
+//uses Firebase's google auth popup to authenticate through Google
 const signInWithGoogle= async () =>{ //calls the popup function with the client and provider given
   try{
   const result = await signInWithPopup(auth, provider)
@@ -34,6 +32,7 @@ const signInWithGoogle= async () =>{ //calls the popup function with the client 
 }
 }
 
+//renders a page with our logo, options to either sign in or sign up!
 return (
   <div className="welcome-container">
     <img className="groupie-banner" src='Banner.png'></img>

@@ -6,6 +6,9 @@ import { Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert } fro
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './signIn.css';
 
+/**
+ * SignIn component for user authentication with email and password.
+ */
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,21 +16,23 @@ const SignIn = () => {
   const [error, setError] = useState(null);
   const { currentUser } = useAuth(); 
 
+  /**
+   * Handles the form submission for signing in.
+   * @param {React.FormEvent<HTMLFormElement>} event - The form event.
+   */
   const onSubmit = event => {
     event.preventDefault();
     setError(null);
     
     signInWithEmailAndPassword(auth, email, password)
-      .then((authUser) => { // Corrected syntax for .then() callback function
+      .then((authUser) => { 
         if (currentUser && currentUser.displayName == null) { // Corrected syntax for condition check
           const displayName = email.substring(0, email.lastIndexOf("@")); // Correct usage of email to get displayName
           updateProfile(authUser.user, { displayName: displayName })
             .then(() => {
               console.log("Display name updated successfully");
-              // You can redirect or do additional tasks here
             }).catch((error) => {
               console.error("Error updating display name", error);
-              // Handle errors for updateProfile here
             });
         }
         console.log("Success. The user is signed in to Firebase");
