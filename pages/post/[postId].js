@@ -100,7 +100,6 @@ const Post = ({ post }) => {
             {currentUser && post.userId === currentUser.uid && (
               <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}><img className="individual-post-icons" src='/Trash Can Icon.png'/></button>
             )}
-            
           </div>
           <p>Venue: {post.venue}</p>
           <p>Date: {post.date}</p>
@@ -111,6 +110,14 @@ const Post = ({ post }) => {
           <div className='review-container'>
             <p>{post.review}</p>
           </div>
+          {/* Display genres if they exist */}
+          {post.genres && (
+            <div className="genre-buttons">
+              {post.genres.map((genre, index) => (
+                <span key={index} className="genre-button">#{genre}</span>
+              ))}
+            </div>
+          )}
           <div>
             <h2>Set List:</h2>
             <ul>
@@ -119,14 +126,7 @@ const Post = ({ post }) => {
               ))}
             </ul>
           </div>
-          {/* Display genres if they exist */}
-          {post.genres && (
-            <div className="genre-buttons">
-              {post.genres.map((genre, index) => (
-                <span key={index} className="genre-button">{genre}</span>
-              ))}
-            </div>
-          )}
+          
         </div>
         </div>
         <button className="individual-back-button" onClick={() => router.back()}>Back</button> 
