@@ -43,13 +43,13 @@ export default function EditProfile() {
                 const userData = docSnap.data();
                 setBio(userData.bio || '');
                 setArtists(userData.artists || ['', '', '', '', '']);
-                setPreviewUrl(userData.profileUrl || currentUser.PhotoUrl || '');
+                setPreviewUrl(userData.profileUrl || currentUser.PhotoUrl || '/Temp Profile Icon.png');
                 setExistingImageUrl(userData.profileUrl || '');
             } else {
             await setDoc(userRef, {
                 bio,
                 artists,
-                profileUrl: imageUrl,
+                profileUrl: imageFile,
             }, {merge: true });
             }
             setLoading(false);
