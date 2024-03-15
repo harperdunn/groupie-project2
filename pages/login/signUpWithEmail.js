@@ -7,6 +7,10 @@ import {Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert} from 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './signUp.css';
 
+/**
+ * Component for handling user sign-up.
+ * Allows new users to create an account by providing email, username, and password.
+ */
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -16,11 +20,15 @@ const SignUp = () => {
   const [error, setError] = useState(null);
 
 
+  /**
+   * Handles the submission of the sign-up form.
+   * Creates a new user account with email and password authentication.
+   * @param {React.FormEvent<HTMLFormElement>} event - The form event triggered by submitting the sign-up form.
+   */
   const onSubmit = event => {
-    event.preventDefault(); // This should be at the beginning to prevent the default form submit behavior
+    event.preventDefault(); // Prevents the default form submit behavior
     setError(null);
-    // Check if passwords match. If they do, create user in Firebase
-    // and redirect to your logged in page.
+    // Check if passwords match. If they do, creates user in Firebase and redirects logged in page.
     if (passwordOne === passwordTwo) {
       createUserWithEmailAndPassword(auth, email, passwordOne)
         .then(authUser => {
@@ -31,11 +39,11 @@ const SignUp = () => {
             console.log("Success. The user is created in Firebase");
             router.push("/profile/edit");
           }).catch(error => {
-            // An error occurred while updating the profile. Set error message to be displayed to user
+            // An error occurred while updating the profile. 
             setError(error.message);
           });
         }).catch(error => {
-          // An error occurred during user creation. Set error message to be displayed to user
+          // An error occurred during user creation. 
           setError(error.message);
         });
     } else {
@@ -44,6 +52,7 @@ const SignUp = () => {
   };
   
 
+  //renders sign up with a form to create account with e-mail and password. Options to sign in instead, which routes to the sign in page.
   return (
     <div className='signUp-page-container'>
       <img className="groupie-banner" src='/Banner.png'></img>
