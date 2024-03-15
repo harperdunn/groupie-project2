@@ -66,7 +66,7 @@ export default function EditProfile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!currentUser) return;
-
+    
         const uploadImage = async () => {
             if (imageFile) {
                 const uniqueFilename = `${currentUser.uid}/${uuidv4()}-${imageFile.name}`;
@@ -93,12 +93,11 @@ export default function EditProfile() {
             }
             return previewUrl; 
         };
-
+    
         const imageUrl = await uploadImage();
         if (!imageUrl) return; 
         // Update user profile in Firestore
         try {
-    
             const userRef = doc(db, "users", currentUser.uid);
             await setDoc(userRef, {
                 bio,
@@ -106,19 +105,13 @@ export default function EditProfile() {
                 profileUrl: imageUrl,
             }, { merge: true });
             
-            // Delete the old image from storage if it exists and is different from the new one
-            if (existingImageUrl && existingImageUrl !== imageUrl) {
-                
-                const oldImageRef = ref(storage, existingImageUrl);
-                await deleteObject(oldImageRef);
-            }
-            
             console.log('Profile updated');
             router.push('/profile/view');
         } catch (error) {
             console.error("Error updating profile:", error);
         }
     };
+    
 
 
      /**
