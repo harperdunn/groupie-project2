@@ -1,6 +1,6 @@
 // Groupie's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const ourApiKey='';
+const ourApiKey='AIzaSyCSDO3xcLU-_cQ4jGPR3bh7pUrkmaJQWxA'
 const firebaseConfig = {
     apiKey: ourApiKey,
     authDomain: "groupie-fire.firebaseapp.com",
