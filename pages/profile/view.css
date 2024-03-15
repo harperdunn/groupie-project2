@@ -25,8 +25,15 @@
 }
 
 .profile-bio {
-    color: #666;
+    color: #333;
     font-size: 16px;
+}
+
+.bio-container {
+    min-height: 40px;
+    border-radius: 5px;
+    padding: 5px 20px;
+    background-color: rgb(217, 213, 224);
 }
 
 .profile-picture {

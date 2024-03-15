@@ -77,7 +77,19 @@ const LikedPosts = () => {
   };
 
   if (loading) return <Layout>Loading...</Layout>;
-  if (!likedPosts.length) return <Layout>No liked posts found.</Layout>;
+  if (!likedPosts.length) 
+  return (
+    <Layout>
+      <div className="liked-container">
+        <div className="liked-section">
+          <h1>Your Liked Posts</h1>
+          <div className="liked-posts-container">
+            <h2>No liked posts found.</h2>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
 
   // Render liked posts or a message if none are found
   return (

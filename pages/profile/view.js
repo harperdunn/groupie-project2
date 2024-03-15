@@ -73,11 +73,13 @@ export default function ViewProfile() {
                     <h1><UserInfo /></h1>
                 </div>
                 <div className="profile-section">
-                    <h2>Bio</h2>
-                    <p className="profile-bio">{bio}</p>
+                    <h2>Bio:</h2>
+                    <div className='bio-container'>
+                        <p className="profile-bio">{bio}</p>
+                    </div>
                 </div>
                 <div className="profile-section">
-                    <h2>Top Artists</h2>
+                    <h2>Top 5 Artists:</h2>
                     <ul className="artist-list">
                         {artists.map((artist, index) => (
                             <li key={index}>{artist || `Artist #${index + 1} not specified`}</li>
@@ -85,7 +87,7 @@ export default function ViewProfile() {
                     </ul>
                 </div>
                 <div className="profile-section">
-                    <h2>Your Posts</h2>
+                    <h2>Your Posts:</h2>
                     <div className="personal-posts-container">
                         {posts.map(({ id, artist, date, venue, rating, likes }) => (
                             <div key={id} className="personal-post" onClick={() => navigateToPost(id)}>

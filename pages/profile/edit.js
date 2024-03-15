@@ -20,6 +20,7 @@ export default function EditProfile() {
     const [imageFile, setImageFile] = useState(null); 
     const [previewUrl, setPreviewUrl] = useState(''); 
     const [existingImageUrl, setExistingImageUrl] = useState('');
+    const [profileUrl] = ('/Temp Profile Icon.png');
     const router = useRouter();
 
 
@@ -44,7 +45,7 @@ export default function EditProfile() {
                 setBio(userData.bio || '');
                 setArtists(userData.artists || ['', '', '', '', '']);
                 setPreviewUrl(userData.profileUrl || currentUser.PhotoUrl || '/Temp Profile Icon.png');
-                setExistingImageUrl(userData.profileUrl || '');
+                setExistingImageUrl(userData.profileUrl);
             } else {
             await setDoc(userRef, {
                 bio,
