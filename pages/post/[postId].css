@@ -35,7 +35,7 @@
 }
 
 .review-container {
-    width: 400px;
+    width: 420px;
     background-color: #eee;
     padding: 1px 20px;
     border-radius: 5px;
@@ -75,6 +75,12 @@
     font-weight: bold;
     font-size: 20px;
     margin-top: 30px;
+}
+
+.individual-post-container h3 {
+    color: #2A2A2A;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .individual-post-container p {
