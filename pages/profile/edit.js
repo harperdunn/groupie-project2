@@ -156,7 +156,7 @@ export default function EditProfile() {
     };
 
 
-    //the actual page layout, displaying form to update the user's profile
+    /*The actual page layout, displaying form to update the user's profile.*/
     return (
         <>
             <Layout>
