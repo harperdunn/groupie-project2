@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from "next/router";
+import { v4 as uuidv4 } from 'uuid';
 import { useAuth, db, storage } from "../../firebase";
 import { setDoc, doc, getDoc } from 'firebase/firestore';
-import { useRouter } from "next/router";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import Layout from '../../components/Layout';
 import './edit.css';
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
-import { v4 as uuidv4 } from 'uuid';
 
+
+/**
+ * Component to edit the logged in user's profile.
+ * Allows updating the bio, favorite artists, and profile picture.
+ */
 export default function EditProfile() {
     const { currentUser, loading: authLoading } = useAuth();
     const [loading, setLoading] = useState(true);
@@ -17,6 +22,10 @@ export default function EditProfile() {
     const [existingImageUrl, setExistingImageUrl] = useState('');
     const router = useRouter();
 
+
+      /**
+     * Fetches the current user profile from Firestore on component mount and when currentUser or authLoading changes.
+     */
     useEffect(() => {
         if (!currentUser) {
             if (!authLoading) {
@@ -49,6 +58,11 @@ export default function EditProfile() {
         fetchUserProfile();
     }, [currentUser, authLoading, router]);
 
+
+    /**
+     * Handles the submission of the profile update form.
+     * @param {React.FormEvent} e - The form event.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!currentUser) return;
@@ -82,9 +96,9 @@ export default function EditProfile() {
 
         const imageUrl = await uploadImage();
         if (!imageUrl) return; 
-
+        // Update user profile in Firestore
         try {
-            // Update user profile
+    
             const userRef = doc(db, "users", currentUser.uid);
             await setDoc(userRef, {
                 bio,
@@ -92,6 +106,7 @@ export default function EditProfile() {
                 profileUrl: imageUrl,
             }, { merge: true });
             
+            // Delete the old image from storage if it exists and is different from the new one
             if (existingImageUrl && existingImageUrl !== imageUrl) {
                 
                 const oldImageRef = ref(storage, existingImageUrl);
@@ -105,11 +120,23 @@ export default function EditProfile() {
         }
     };
 
+
+     /**
+     * Handles changes to the artists array.
+     * @param {number} index - The index of the artist to update.
+     * @param {string} value - The new value of the artist.
+     */
     const handleArtistChange = (index, value) => {
         const newArtists = [...artists];
         newArtists[index] = value;
         setArtists(newArtists);
     };
+
+
+     /**
+     * Handles the selection of a new image file.
+     * @param {React.ChangeEvent<HTMLInputElement>} e - The input change event.
+     */
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -135,6 +162,8 @@ export default function EditProfile() {
         reader.readAsDataURL(file);
     };
 
+
+    //the actual page layout, displaying form to update the user's profile
     return (
         <>
             <Layout>

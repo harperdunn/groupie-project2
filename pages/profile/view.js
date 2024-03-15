@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from "next/router";
 import { useAuth, db } from "../../firebase";
 import { doc, getDoc, collection, query, where, getDocs, deleteDoc} from 'firebase/firestore';
-import { useRouter } from "next/router";
-import UserInfo from '../../components/Profile/UserInfo';
 import Layout from '../../components/Layout';
+import UserInfo from '../../components/Profile/UserInfo';
 import './view.css';
 
+/**
+ * Component to view the user profile along with their posts.
+ */
 export default function ViewProfile() {
     const { currentUser, loading: authLoading } = useAuth();
     const [loading, setLoading] = useState(true);
@@ -15,7 +18,11 @@ export default function ViewProfile() {
     const [posts, setPosts] = useState([]);
     const router = useRouter();
 
+    /**
+     * Fetches the current user's profile and posts from Firestore on component mount.
+     */
     useEffect(() => {
+        
         const fetchUserProfileAndPosts = async () => {
             if (!currentUser) {
                 if (!authLoading) {
@@ -23,7 +30,7 @@ export default function ViewProfile() {
                 }
                 return;
             }
-            
+            // Fetching user profile
             const userRef = doc(db, "users", currentUser.uid);
 
         try {
@@ -38,8 +45,9 @@ export default function ViewProfile() {
         catch (error) {
             console.error("Error updating profile:", error)
         }
+        
         const docSnap = await getDoc(userRef);
-
+            //fetching user posts
             if (docSnap.exists()) {
                 const userData = docSnap.data();
                 setBio(userData.bio || '');
@@ -60,11 +68,15 @@ export default function ViewProfile() {
         fetchUserProfileAndPosts();
     }, [currentUser, authLoading, router]);
 
+    /**
+     * Navigates to the detail page of a post.
+     * @param {string} postId - The ID of the post to navigate to.
+     */
     const navigateToPost = (postId) => {
         router.push(`/post/${postId}`);
     };
     
-
+    //This page renders the user's own profile page with all of its elements and an option to edit their profile.
     return (
         <Layout>
             <div className="profile-container">

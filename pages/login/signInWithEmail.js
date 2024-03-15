@@ -11,7 +11,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [error, setError] = useState(null);
-  const { currentUser } = useAuth(); // This should be outside your `onSubmit` function
+  const { currentUser } = useAuth(); 
 
   const onSubmit = event => {
     event.preventDefault();
@@ -74,8 +74,8 @@ const SignIn = () => {
                   </Col>
                 </FormGroup>
                 <FormGroup row>
-                  <Col sm={{ size: 8, offset: 2 }}> {/* Adjust the size and offset as needed */}
-                    <button className="signin-button">Sign In</button> {/* Add a margin-right to separate the buttons */}
+                  <Col sm={{ size: 8, offset: 2 }}> 
+                    <button className="signin-button">Sign In</button> 
                   </Col>
                 </FormGroup>
               </Form>

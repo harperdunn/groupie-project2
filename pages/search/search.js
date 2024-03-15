@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import Layout from '../../components/Layout';
 import './search.css';
 
+/**
+ * The Search component allows users to search for posts based on various filter criteria.
+ */
 const Search = () => {
   const [posts, setPosts] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
@@ -12,7 +15,10 @@ const Search = () => {
   const [selectedFilter, setSelectedFilter] = useState(null);
   const [filterCategories, setFilterCategories] = useState([]);
   const [searchPerformed, setSearchPerformed] = useState(false);
-
+  
+  /**
+   * Fetches all posts from the database on component mount.
+   */
   useEffect(() => {
     const fetchPosts = async () => {
       const querySnapshot = await getDocs(collection(db, "posts"));
@@ -29,10 +35,19 @@ const Search = () => {
   }, []);
 
   const router = useRouter();
+
+  /**
+   * Navigates to a specific post's page.
+   * @param {string} postId - The ID of the post to navigate to.
+   */
   const navigateToPost = (postId) => {
     router.push(`/post/${postId}`);
   };
 
+  /**
+   * Handles the search logic, filtering posts based on the selected filter and search term.
+   * @param {string} searchInput - The current value of the search input field.
+   */
   const handleFilterSearch = searchInput => {
     setSearchResult([]);
     if (searchInput === undefined || searchInput == null || (searchInput !== null && searchInput.trim() === "")) {
@@ -70,6 +85,11 @@ const Search = () => {
     setSearchPerformed(true);
   };
 
+   /**
+   * Renders checkbox filters for the search functionality.
+   * @param {string[]} filterList - A list of filter categories.
+   * @returns A list of checkbox inputs for filtering search results.
+   */
   function renderCheckboxFilters(filterList) {
     return (
       filterList.map((filterItem) => (
@@ -95,6 +115,11 @@ const Search = () => {
     );
   }
 
+  /**
+   * Renders the list of search results.
+   * @param {Object[]} searchResultList - The list of filtered posts to be displayed.
+   * @returns A list of div elements representing each post.
+   */
   function showPostsSearchList(searchResultList) {
     const sortedResults = searchResultList.slice().sort((a, b) => b.likes.length - a.likes.length);
 
@@ -112,12 +137,17 @@ const Search = () => {
     );
   }
 
+  /**
+   * Triggers the search when the Enter key is pressed.
+   * @param {React.KeyboardEvent} e - The keyboard event.
+   */
   const handleEnterPress = (e) => {
     if (e.key === 'Enter') {
       handleFilterSearch(searchTerm);
     }
   };
 
+  //layout: search bar at the top, with checkboxes to filter by categories
   return (
     <Layout>
       <div className='search-container'>
