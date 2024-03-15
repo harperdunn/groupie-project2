@@ -1,3 +1,4 @@
+// Imports
 import { useState, useEffect } from 'react';
 import { useAuth, db } from "../../firebase";
 import { doc, getDoc, collection, query, where, getDocs, documentId } from 'firebase/firestore'; 
@@ -5,13 +6,23 @@ import { useRouter } from "next/router";
 import Layout from '../../components/Layout';
 import './likes.css';
 
+/**
+ * LikedPosts component displays posts liked by the current user.
+ * It retrieves the user's liked posts from Firestore and displays them.
+ * Users can click on a post to navigate to its detailed view.
+ */
 const LikedPosts = () => {
-  const { currentUser } = useAuth();
-  const [loading, setLoading] = useState(true);
-  const [likedPosts, setLikedPosts] = useState([]);
-  const router = useRouter();
+  const { currentUser } = useAuth(); // Authentication hook to access the current user
+  const [loading, setLoading] = useState(true); // State to manage loading status
+  const [likedPosts, setLikedPosts] = useState([]); // State to hold liked posts
+  const router = useRouter(); // Next.js Router for navigation
 
   useEffect(() => {
+    /**
+     * fetchLikedPosts asynchronously fetches posts liked by the current user from Firestore.
+     * It checks if the user exists and has liked posts, then queries Firestore for those posts.
+     * The function handles pagination in chunks for efficiency.
+     */
     const fetchLikedPosts = async () => {
       if (!currentUser) {
         console.error("No user logged in");
@@ -19,9 +30,11 @@ const LikedPosts = () => {
         return;
       }
 
+      // Fetch user document to get liked posts IDs
       const userRef = doc(db, "users", currentUser.uid);
       const userSnap = await getDoc(userRef);
 
+      // Check if user document exists and has likedPosts
       if (userSnap.exists() && userSnap.data().likedPosts) {
         const likedPostsIds = userSnap.data().likedPosts;
         if (likedPostsIds.length === 0) {
@@ -29,29 +42,36 @@ const LikedPosts = () => {
           return;
         }
 
+        // Divide liked posts IDs into chunks for batch querying
         const chunkSize = 10;
         const chunks = [];
         for (let i = 0; i < likedPostsIds.length; i += chunkSize) {
           chunks.push(likedPostsIds.slice(i, i + chunkSize));
         }
 
+        // Create and execute queries for each chunk
         const postsPromises = chunks.map(chunk => {
           const postsQuery = query(collection(db, "posts"), where(documentId(), 'in', chunk));
           return getDocs(postsQuery);
         });
 
+        // Await all post queries and flatten results
         const postsSnapshots = await Promise.all(postsPromises);
         const posts = postsSnapshots.flatMap(snapshot => snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 
-        setLikedPosts(posts);
+        setLikedPosts(posts); // Update state with fetched posts
       }
 
-      setLoading(false);
+      setLoading(false); // Set loading to false after operation completes
     };
 
     fetchLikedPosts();
-  }, [currentUser]);
+  }, [currentUser]); // Dependency array, re-run effect if currentUser changes
 
+  /**
+   * navigateToPost navigates to the detailed view of a post.
+   * @param {string} postId The ID of the post to navigate to.
+   */
   const navigateToPost = (postId) => {
     router.push(`/post/${postId}`);
   };
@@ -59,6 +79,7 @@ const LikedPosts = () => {
   if (loading) return <Layout>Loading...</Layout>;
   if (!likedPosts.length) return <Layout>No liked posts found.</Layout>;
 
+  // Render liked posts or a message if none are found
   return (
     <Layout>
       <div className="liked-container">
