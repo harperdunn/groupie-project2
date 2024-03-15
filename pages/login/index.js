@@ -13,6 +13,12 @@ const provider= new GoogleAuthProvider();
 const router=useRouter();
 const[user, loading]=useAuthState(auth); //gets the user state, loading to know to wait for it to load or not
 
+useEffect(() => {
+  if (!loading && user) {
+    router.push('/profile/view');
+  }
+}, [user, loading, router]);
+
 //uses Firebase's google auth popup to authenticate through Google
 const signInWithGoogle= async () =>{ //calls the popup function with the client and provider given
   try{
