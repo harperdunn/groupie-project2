@@ -17,7 +17,7 @@ const Search = () => {
   const [searchPerformed, setSearchPerformed] = useState(false);
   
   /**
-   * Fetches all posts from the database on component mount.
+   * Fetches all posts from the database on component mount and sets the filter categories.
    */
   useEffect(() => {
     const fetchPosts = async () => {
@@ -116,7 +116,7 @@ const Search = () => {
   }
 
   /**
-   * Renders the list of search results.
+   * Renders the list of search results and sorts them based on like count.
    * @param {Object[]} searchResultList - The list of filtered posts to be displayed.
    * @returns A list of div elements representing each post.
    */
