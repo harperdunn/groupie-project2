@@ -7,19 +7,35 @@ Introducing Groupie, a concert logging and social media app! Want a place to dis
 The "bucket list" feature of Groupie allows users to list artists that they would eventually like to see and track their progress through the list by crossing artists out as they see them.
 To add an artist to their bucket list, users are prompted to enter the name of an artist that they would like to add to their bucket list, as well as have the option to add an accompanying photo of the artist or their artwork. Once they have seen an artist in concert, users can cross them off of their bucket list by clicking on the artist's name.
 
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Bucket%20List%20Page.jpg)
+
 A vital component of Groupie is the ability to create posts! Users can create posts as a personal log of their thoughts on concerts that they've been to or as a way of sharing their opinions and ratings of concerts with others.
 To create a post, users can input the artist, venue, date of the concert, songs in the set list, a rating of the concert between 1-5, a review of the concert, the genre(s) of the concert, and upload a photo.
 
-Once their posts are created, users can find them in their profile page to keep a log of all of the concerts that they have attended! Users can also add additional information such as a bio or their favorite artists to their profile as well.
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Create%20Post%20Page.jpg)
+
+Once their posts are created, users can find them in their profile page to keep a log of all of the concerts that they have attended! 
+
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Profile%20Page.jpg)
+
+Users can also add additional information such as a bio or their favorite artists to their profile as well.
+
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Edit%20Profile%20Page.jpg)
 
 Users can also find others' posts in Groupie via the search and discover functionalities.
 With the search functionality, users can search for posts with the option of filtering results by artist, venue, genre, or post author. Results are displayed based on likes in descending order so users can see what's trending!
 
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Search%20Page.jpg)
+
 If users want to find something completely new, they can utilize the discover functionality, which displays nine random posts for users to check out and explore!
+
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Discover%20Page.jpg)
 
 To keep track of what they find interesting, users also have the ability to like posts upon viewing them, which accumulate in the user's own "Liked Posts" page.
 
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Individual%20Post%20View.jpg)
 
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Liked%20Posts%20Page.jpg)
 
 
 ## Components
