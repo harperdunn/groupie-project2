@@ -59,10 +59,10 @@ const Discover = () => {
               {posts.map(({ id, artist, date, venue, rating, displayName, likes }) => (
                 <div key={id} className="discover-post-thumbnail" onClick={() => navigateToPost(id)}>
                   <h4>{artist}</h4>
-                  <p>Date: {date}</p>
-                  <p>Venue: {venue}</p>
-                  <p>Rating: {rating}/5</p>
                   <p>Author: {displayName}</p>
+                  <p>Rating: {Array.from({ length: rating }, (_, index) => <span key={index}>★</span>)}</p>
+                  <p>Venue: {venue}</p>
+                  <p>Date: {date}</p>
                   <p>Likes: {likes.length}</p> {/* Display the like count */}
                 </div>
               ))}

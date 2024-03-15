@@ -102,9 +102,9 @@ export default function ViewProfile() {
                         {posts.map(({ id, artist, date, venue, rating, likes }) => (
                             <div key={id} className="personal-post" onClick={() => navigateToPost(id)}>
                                 <h4>{artist}</h4>
-                                <p>Date: {date}</p>
+                                <p>Rating: {Array.from({ length: rating }, (_, index) => <span key={index}>★</span>)}</p>
                                 <p>Venue: {venue}</p>
-                                <p>Rating: {rating}/5</p>
+                                <p>Date: {date}</p>
                                 <p>Likes: {likes.length}</p>
                             </div>
                         ))}

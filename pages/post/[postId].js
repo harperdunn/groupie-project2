@@ -124,9 +124,9 @@ const Post = ({ post }) => {
         <div className='post-header-container'>
           <div></div>{post.imageUrl && <img className='individual-post-img' src={post.imageUrl} alt="Post image" />} 
           <div className='post-info-container'>
+            <h3>Rating: {Array.from({ length: post.rating }, (_, index) => <span key={index}>★</span>)}</h3>
             <h3>Venue: {post.venue}</h3>
             <h3>Date: {post.date}</h3>
-            <h3>Rating: {post.rating}</h3>
             <h3>Likes: {likeCount}</h3>
           </div>
         </div>

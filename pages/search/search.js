@@ -127,10 +127,10 @@ const Search = () => {
       sortedResults.map((result) => (
         <div key={result.id} className='search-post-thumbnail' onClick={() => navigateToPost(result.id)}>
           <h2>{result.artist}</h2>
-          <p>Date: {result.date}</p>
-          <p>Venue: {result.venue}</p>
-          <p>Rating: {Array(result.rating).fill('★').join('')} ({result.rating}/5)</p>
           <p>Author: {result.displayName}</p>
+          <p>Rating: {Array.from({ length: result.rating }, (_, index) => <span key={index}>★</span>)}</p>
+          <p>Venue: {result.venue}</p>
+          <p>Date: {result.date}</p>
           <p>{result.likes.length} {result.likes.length === 1 ? 'Like' : 'Likes'}</p>
         </div>
       ))
