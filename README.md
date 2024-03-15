@@ -37,14 +37,17 @@ To keep track of what they find interesting, users also have the ability to like
 
 ![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Liked%20Posts%20Page.jpg)
 
+## Notes
+Occasionally, the user may have to press the update button twice after editing their profile.
+It is recommended to reload the page after logging in.
 
 ## Components
 
 Backend: Firebase 
 
-Frontend::
+Frontend:: React.js, HTML/CSS
 
-Datastore:
+Datastore: Firebase Firestore
 
 
 
