@@ -5,11 +5,14 @@ import { useRouter } from "next/router";
 import Layout from '../../components/Layout';
 import './discover.css';
 
+// Creating the Discover component
 const Discover = () => {
+  // State variables using useState hook
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
 
+  // useEffect hook to fetch random posts
   useEffect(() => {
     const fetchRandomPosts = async () => {
       try {
@@ -32,11 +35,13 @@ const Discover = () => {
     fetchRandomPosts();
   }, [refreshKey]);
 
+  // useRouter hook to get Next.js router object
   const router = useRouter();
   const navigateToPost = (postId) => {
     router.push(`/post/${postId}`);
   };
 
+  // Function to handle refresh button click
   const handleRefresh = () => {
     setRefreshKey(oldKey => oldKey + 1);
   };
