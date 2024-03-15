@@ -10,14 +10,14 @@ To add an artist to their bucket list, users are prompted to enter the name of a
 A vital component of Groupie is the ability to create posts! Users can create posts as a personal log of their thoughts on concerts that they've been to or as a way of sharing their opinions and ratings of concerts with others.
 To create a post, users can input the artist, venue, date of the concert, songs in the set list, a rating of the concert between 1-5, a review of the concert, the genre(s) of the concert, and upload a photo.
 
-Once their posts are created, users can find them in their profile page to keep a log of all of the concerts that they have attended!
+Once their posts are created, users can find them in their profile page to keep a log of all of the concerts that they have attended! Users can also add additional information such as a bio or their favorite artists to their profile as well.
 
 Users can also find others' posts in Groupie via the search and discover functionalities.
 With the search functionality, users can search for posts with the option of filtering results by artist, venue, genre, or post author. Results are displayed based on likes in descending order so users can see what's trending!
 
 If users want to find something completely new, they can utilize the discover functionality, which displays nine random posts for users to check out and explore!
 
-To keep track of what they find interesting, users also have the ability to like posts, which accumulate in the user's own "Liked Posts" page.
+To keep track of what they find interesting, users also have the ability to like posts upon viewing them, which accumulate in the user's own "Liked Posts" page.
 
 
 
