@@ -16,11 +16,11 @@ To create a post, users can input the artist, venue, date of the concert, songs 
 
 Once their posts are created, users can find them in their profile page to keep a log of all of the concerts that they have attended! 
 
-![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Profile%20Page.jpg)
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Profile-Page.jpg)
 
 Users can also add additional information such as a bio or their favorite artists to their profile as well.
 
-![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/Edit%20Profile%20Page.jpg)
+![alt text](https://github.com/harperdunn/groupie-project2/blob/main/images/edit-profile.jpg)
 
 Users can also find others' posts in Groupie via the search and discover functionalities.
 With the search functionality, users can search for posts with the option of filtering results by artist, venue, genre, or post author. Results are displayed based on likes in descending order so users can see what's trending!
