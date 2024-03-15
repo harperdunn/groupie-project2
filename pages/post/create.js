@@ -1,16 +1,24 @@
+// Imports
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage, useAuth } from '../../firebase'; 
+import { db, storage, useAuth } from '../../firebase';
 import Layout from '../../components/Layout';
 import CreatableSelect from 'react-select/creatable';
 import genres from '../../components/genres';
 import './create.css';
 import { v4 as uuidv4 } from 'uuid';
 
+/**
+ * CreatePost component allows users to create a new post by entering details such as artist, venue, date, set list, rating, review, genres, and an image.
+ * It uses firebase for storage and authentication, and react-select for genre selection.
+ */
 const CreatePost = () => {
-  const { currentUser, loading } = useAuth(); // Use the useAuth hook
+  // Authentication and loading state
+  const { currentUser, loading } = useAuth();
+
+  // State hooks for post creation form
   const [artist, setArtist] = useState('');
   const [venue, setVenue] = useState('');
   const [date, setDate] = useState('');
@@ -22,25 +30,37 @@ const CreatePost = () => {
   const [file, setFile] = useState(null);
   const router = useRouter();
 
+  /**
+   * Handles the change event on the genre selection.
+   * @param newValue The new value of the genre selection.
+   * @param actionMeta Additional information about the action.
+   */
   const handleGenreChange = (newValue, actionMeta) => {
     setGenresSelected(newValue || []);
   };
 
+  /**
+   * Asynchronously uploads the selected image file to Firebase storage.
+   * @param file The file to upload.
+   * @returns A promise that resolves with the download URL of the uploaded image.
+   */
   const uploadImage = async (file) => {
     if (!file) return null;
 
     const uniqueFilename = `${currentUser.uid}/${uuidv4()}-${file.name}`;
-
     const imageRef = ref(storage, `postImages/${uniqueFilename}`);
     await uploadBytes(imageRef, file);
     return getDownloadURL(imageRef);
   };
 
+  /**
+   * Handles the submit event of the post creation form. It uploads the image (if any), and saves the post details to Firestore.
+   * @param e The event object.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-    if (loading) return; 
+    if (loading) return;
     if (!currentUser) {
       console.error("No user logged in");
       return;
@@ -63,41 +83,47 @@ const CreatePost = () => {
         review,
         genres: genresToSave,
         imageUrl,
-        userId: currentUser.uid, // Use the UID from currentUser provided by useAuth
+        userId: currentUser.uid,
         displayName: currentUser.displayName,
         likes: [],
       });
-    
+
       router.push('/profile/view');
     } catch (error) {
       console.error("Error adding document: ", error);
     }
   };
 
+  /**
+   * Handles file selection change, validating the file type and size.
+   * @param event The change event from the file input.
+   */
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
     const maxFileSize = 5 * 1024 * 1024; // 5 MB
-  
+
     if (!file) {
       alert('No file selected.');
       return;
     }
-  
+
     if (!validTypes.includes(file.type)) {
       alert('Invalid file type. Please select an image (JPEG, PNG, GIF).');
       return;
     }
-  
+
     if (file.size > maxFileSize) {
       alert('File is too large. Please upload files less than 5MB.');
       return;
     }
-  
+
     setFile(file);
   };
-  
-  
+
+  /**
+   * Adds a new song to the set list.
+   */
   const handleAddSong = () => {
     if (newSong.trim() !== '') {
       setSetList(currentList => [...currentList, newSong]);
@@ -105,10 +131,17 @@ const CreatePost = () => {
     }
   };
 
+  /**
+   * Deletes a song from the set list by index.
+   * @param index The index of the song to delete.
+   */
   const handleDeleteSong = (index) => {
     setSetList(currentList => currentList.filter((_, i) => i !== index));
   };
 
+  /**
+   * Resets all form fields to their initial state.
+   */
   const handleClear = () => {
     setArtist('');
     setVenue('');
@@ -120,9 +153,10 @@ const CreatePost = () => {
     setGenresSelected([]);
     setFile(null);
   };
-  
+
   if (loading) return <Layout>Loading...</Layout>;
 
+  // JSX for the component's UI
   return (
     <Layout>
     <div className='post-container'>
