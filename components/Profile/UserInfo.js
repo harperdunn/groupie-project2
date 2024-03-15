@@ -19,10 +19,12 @@ function UserInfo() {
       </div> 
     );
         }
+        
   else {
     // Optionally return null or some placeholder if no user is signed in
-    return <div>No user info available.</div>;
+    return <div>Signing out...</div>;
   }
+
 }
 
 export default UserInfo;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from "next/router";
 import { useAuth, db } from "../../firebase";
-import { doc, getDoc, collection, query, where, getDocs, deleteDoc} from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs} from 'firebase/firestore';
 import Layout from '../../components/Layout';
 import UserInfo from '../../components/Profile/UserInfo';
 import './view.css';
@@ -30,23 +30,11 @@ export default function ViewProfile() {
                 }
                 return;
             }
+            
             // Fetching user profile
             const userRef = doc(db, "users", currentUser.uid);
-
-        try {
-            
-            await setDoc(userRef, {
-                bio,
-                artists,
-                profileUrl: imageUrl,
-            }, {merge: true });
-            console.log('Profile updated');
-        }
-        catch (error) {
-            console.error("Error updating profile:", error)
-        }
         
-        const docSnap = await getDoc(userRef);
+            const docSnap = await getDoc(userRef);
             //fetching user posts
             if (docSnap.exists()) {
                 const userData = docSnap.data();
