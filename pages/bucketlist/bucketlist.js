@@ -7,7 +7,9 @@ import Layout from '../../components/Layout';
 import { v4 as uuidv4 } from 'uuid';
 import './bucketlist.css';
 
+// Creating the CreateBucketList component
 const CreateBucketList = () => {
+  // State variables using useState hook
   const { currentUser, loading: authLoading } = useAuth();
   const [bucketList, setBucketList] = useState([]);
   const [newArtist, setNewArtist] = useState('');
@@ -15,7 +17,9 @@ const CreateBucketList = () => {
   const router = useRouter();
   const fileInputRef = useRef(null);
 
+  // useEffect hook to fetch user's bucket list from Firestore
   useEffect(() => {
+    // If user is not authenticated, redirect to home page
     if (!currentUser) {
       if (!authLoading) {
         router.push('/');
@@ -23,6 +27,7 @@ const CreateBucketList = () => {
       return;
     }
 
+    // Function to fetch user's bucket list
     const fetchBucketList = async () => {
       const bucketListRef = doc(db, "bucketlists", currentUser.uid);
       const docSnap = await getDoc(bucketListRef);
@@ -38,11 +43,13 @@ const CreateBucketList = () => {
     fetchBucketList();
   }, [currentUser, authLoading, router]);
 
+  // Function to update user's bucket list in Firestore
   const updateFirebaseBucketList = async (updatedList) => {
     const bucketListRef = doc(db, "bucketlists", currentUser.uid);
     await setDoc(bucketListRef, { bucketList: updatedList }, { merge: true });
   };
 
+  // Function to upload image to Firebase storage
   const uploadImage = async (file, imageName) => {
     if (!file) return null;
 
@@ -53,6 +60,7 @@ const CreateBucketList = () => {
     return getDownloadURL(imageRef);
   };
 
+  // Function to handle file change
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -76,6 +84,7 @@ const CreateBucketList = () => {
     setFile(file);
   };
 
+  // Function to handle adding a new artist to the bucket list
   const handleAddArtist = async () => {
     if (newArtist.trim() !== '') {
       let imageUrl = '';
@@ -93,6 +102,7 @@ const CreateBucketList = () => {
     }
   };
 
+  // Function to toggle watched status of a bucket list item
   const toggleWatched = (index) => {
     const updatedList = bucketList.map((item, i) => 
       i === index ? { ...item, watched: !item.watched } : item
@@ -101,6 +111,7 @@ const CreateBucketList = () => {
     updateFirebaseBucketList(updatedList);
   };
 
+  // Function to handle deleting an artist from the bucket list
   const handleDeleteArtist = async (index) => {
     const artistToDelete = bucketList[index];
     const updatedList = bucketList.filter((_, i) => i !== index);
@@ -120,6 +131,7 @@ const CreateBucketList = () => {
 
   if (authLoading) return <Layout>Loading...</Layout>;
 
+  // JSX for rendering the CreateBucketList component
   return (
     <Layout>
       <div className='bucketlist-container'>
