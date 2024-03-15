@@ -124,11 +124,10 @@ const Post = ({ post }) => {
         <div className='post-header-container'>
           <div></div>{post.imageUrl && <img className='individual-post-img' src={post.imageUrl} alt="Post image" />} 
           <div className='post-info-container'>
-          
-          <p>Venue: {post.venue}</p>
-          <p>Date: {post.date}</p>
-          <p>Rating: {post.rating}</p>
-          <p>Likes: {likeCount}</p>
+            <p>Venue: {post.venue}</p>
+            <p>Date: {post.date}</p>
+            <p>Rating: {post.rating}</p>
+            <p>Likes: {likeCount}</p>
           </div>
         </div>
           <div className='review-container'>
