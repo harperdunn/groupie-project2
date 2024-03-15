@@ -111,17 +111,20 @@ const Post = ({ post }) => {
     <Layout>
       <div className='individual-post-background'>
       <div className="individual-post-container">
+        <div className='post-title-container'>
         <h1>{post.artist}</h1>
+            {currentUser && post.userId !== currentUser.uid && (
+              <button className='individual-post-button' onClick={handleLike}><img className="individual-post-icons" src={hasLiked ? '/Full Heart Icon.png' : '/Empty Heart Icon.png'}/></button>
+            )}
+            {currentUser && post.userId === currentUser.uid && (
+              <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}><img className="individual-post-icons" src='/Trash Can Icon.png'/></button>
+            )}
+        </div>
         <p>By {post.displayName}</p>
         <div className='post-header-container'>
           <div></div>{post.imageUrl && <img className='individual-post-img' src={post.imageUrl} alt="Post image" />} 
           <div className='post-info-container'>
-          <div>
-            <button className='individual-post-button' onClick={handleLike}><img className="individual-post-icons" src={hasLiked ? '/Full Heart Icon.png' : '/Empty Heart Icon.png'}/></button>
-            {currentUser && post.userId === currentUser.uid && (
-              <button className='individual-post-button' onClick={handleDelete} style={{marginLeft: '10px'}}><img className="individual-post-icons" src='/Trash Can Icon.png'/></button>
-            )}
-          </div>
+          
           <p>Venue: {post.venue}</p>
           <p>Date: {post.date}</p>
           <p>Rating: {post.rating}</p>
