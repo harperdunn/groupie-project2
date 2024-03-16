@@ -1,0 +1,33 @@
+/* info.css */
+
+
+.info-page-container {
+    margin: 0px 20px 10px 20px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.info-page-container h1 {
+    color: #333;
+    font-weight: 600;
+    font-size: 45px;
+}
+
+.info-page-container h2 {
+    color: #333;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.info-page-container p {
+    color: #666;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.explanation-container {
+    text-align: left;
+    background-color: rgb(217, 213, 224);
+    border-radius: 5px;
+    padding: 5px 40px;
+}

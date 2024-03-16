@@ -4,6 +4,10 @@
     margin: 0 auto;
     padding: 20px;
     color: #333;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.post-container label {
     font-size: 22px;
 }
 

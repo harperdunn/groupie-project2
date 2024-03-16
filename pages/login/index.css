@@ -2,7 +2,9 @@
 /* Welcome Page Display */
 
 .welcome-container {
-    margin: 80px auto;
+    margin: 60px auto;
+    display: flex;
+    flex-direction: column;
     padding: 20px;
     color: #333;
     text-align: center;
@@ -12,7 +14,7 @@
 }
 
 .welcome-container h1 {
-    color: rgb(28, 7, 76);
+    color: rgb(59, 42, 97);
     font-weight: 600;
     text-align: center;
     font-size: 45px;
@@ -20,11 +22,13 @@
 }
 
 .welcome-container h2 {
-    color: rgb(28, 7, 76);
+    color: rgb(59, 42, 97);
     font-weight: 600;
     text-align: center;
-    font-size: 75px;
-    margin-bottom: 20px; 
+    font-size: 25px;
+    margin-top: -10px;
+    margin-bottom: 0px; 
+    width: 450px;
 }
 
 .groupie-logo {
@@ -57,7 +61,7 @@
 
 .signin-container {
     margin-top: 50px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     font-size: 18px;
     font-family: 'Times New Roman', Times, serif;
 }

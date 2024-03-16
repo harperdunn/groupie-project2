@@ -6,6 +6,7 @@
     color: #333;
     text-align: center;
     align-items: center;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .filter-container {
@@ -62,7 +63,8 @@
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 10px; 
-    
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 20px;
   }
   
   .search-post-thumbnail {
@@ -106,7 +108,7 @@
     }
 
     .search-post-thumbnail {
-        width: calc(25%); /* 3 items per row */
+        width: calc(33%); /* 3 items per row */
     }
 }
 

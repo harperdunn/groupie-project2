@@ -75,7 +75,7 @@ export default function ViewProfile() {
                 <div className="profile-section">
                     <h2>Bio:</h2>
                     <div className='bio-container'>
-                        <p className="profile-bio">{bio}</p>
+                        <p className="profile-bio">{bio || 'No bio yet'}</p>
                     </div>
                 </div>
                 <div className="profile-section">
@@ -89,15 +89,17 @@ export default function ViewProfile() {
                 <div className="profile-section">
                     <h2>Your Posts:</h2>
                     <div className="personal-posts-container">
-                        {posts.map(({ id, artist, date, venue, rating, likes }) => (
-                            <div key={id} className="personal-post" onClick={() => navigateToPost(id)}>
-                                <h4>{artist}</h4>
-                                <p>Rating: {Array.from({ length: rating }, (_, index) => <span key={index}>★</span>)}</p>
-                                <p>Venue: {venue}</p>
-                                <p>Date: {date}</p>
-                                <p>Likes: {likes.length}</p>
-                            </div>
-                        ))}
+                        {posts.length === 0 ? (<p>No posts yet</p>) : 
+                            (posts.map(({ id, artist, date, venue, rating, likes }) => (
+                                <div key={id} className="personal-post" onClick={() => navigateToPost(id)}>
+                                    <h4>{artist}</h4>
+                                    <p>Rating: {Array.from({ length: rating }, (_, index) => <span key={index}>★</span>)}</p>
+                                    <p>Venue: {venue}</p>
+                                    <p>Date: {date}</p>
+                                    <p>Likes: {likes.length}</p>
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
                 <button className="edit-profile-btn" onClick={() => router.push('/profile/edit')}>Edit Profile</button>

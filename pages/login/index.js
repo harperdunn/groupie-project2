@@ -45,6 +45,7 @@ return (
     <img className="groupie-banner" src='Banner.png'></img>
       <h1>Welcome to</h1>
       <img className="groupie-logo" src='Groupie Logo.png'></img>
+      <h2>A concert logging app for the world's biggest music lovers</h2>
     <div className="signin-container">
       <button className='signin-buttons' onClick={signInWithGoogle}>
         <div>Sign In With Google</div>

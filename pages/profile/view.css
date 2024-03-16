@@ -57,9 +57,12 @@
 
 .personal-posts-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-around;
     gap: 20px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+
 }
 
 .personal-post {
@@ -81,11 +84,17 @@
 .personal-post h4 {
     margin-top: 0;
     color: #333;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
 }
 
 .personal-post p {
     margin-bottom: 5px;
     color: #666;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
 }
 
 @media (max-width: 768px) {
